@@ -1,0 +1,72 @@
+{
+	"ExplanationExperience" : "Bosch",
+	"hasDescription" : {	
+		"Description": "BoschDescripion",
+		"hasAIModel" : { 
+			"AIModel" : "BoschAnomalyDetectionModel",
+			"trained on" : {	
+				"Dataset" : "BoschDataset",
+				"hasDataType" : {
+					"DataType" : "image"
+				}
+			},
+			"solves" : {
+				"AITask" : "BoschSensorAnomalyDetection"
+			},
+			"utilises": {
+				"AIMethod" : "BoschAnomalyDeepNeuralNetwork"
+			}
+		},
+		"hasExplainer": {
+			"Explainer" : "BoschExplainer",
+			"utilises" : {
+				"ExplainabilityTechnique" : "BoschAnomalyVisualization",
+				"hasPortability" : {
+					"Portability" : "model-specific"
+				},
+				"hasConcurrentness" : {
+					"ExplainerConcurrentness" : "post-hoc"
+				},
+				"hasOutputType" : {
+					"informationContentEntity" : "image"
+				},
+				"hasPresentation" : {
+					"informationContentEntity" : "YoloImage"
+				},
+				"hasExplanationScope" : {
+					"Explanation Scope" : "local"
+				},
+				"targetType" : {
+					"Explanation Target" : "prediction"
+				}
+			}
+		},
+		"hasUser" : {
+			"User" : "BoschUser",
+			"asks" : {
+				"UserQuestion" : "What is the anomaly in the sensor",
+				"hasTarget" : {
+					"UserQuestionTarget" :""
+				}
+			},
+			"has intent" : {
+				"Intent" : "ProductManufacturing"
+			},
+			"has resources" : {
+				"Technical Facilities": "ScreenDisplay",
+				"can handle" : {
+					"ExplanationModality": ""
+				}
+			},
+			"hasGoal" : {
+				"process" : ""
+			},
+			"possess" : {
+				"Domain Knowledge" : "BoschUserDomainExpert",
+				"hasLevel" : {
+					"KnowldegeLevel" : ""
+				}
+			}
+		}
+	}
+}

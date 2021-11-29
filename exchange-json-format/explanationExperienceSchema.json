@@ -1,0 +1,193 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ExplanationExperience": {
+      "type": "string"
+    },
+    "hasDescription": {
+      "type": "object",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "hasAIModel": {
+          "type": "object",
+          "properties": {
+            "AIModel": {
+              "type": "string"
+            },
+            "trained on": {
+              "type": "object",
+              "properties": {
+                "Dataset": {
+                  "type": "string"
+                },
+                "hasDataType": {
+                  "type": "object",
+                  "properties": {
+                    "DataType": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "solves": {
+              "type": "object",
+              "properties": {
+                "AITask": {
+                  "type": "string"
+                }
+              }
+            },
+            "utilises": {
+              "type": "object",
+              "properties": {
+                "AIMethod": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "hasExplainer": {
+          "type": "object",
+          "properties": {
+            "Explainer": {
+              "type": "string"
+            },
+            "utilises": {
+              "type": "object",
+              "properties": {
+                "ExplainabilityTechnique": {
+                  "type": "string"
+                },
+                "hasPortability": {
+                  "type": "object",
+                  "properties": {
+                    "Portability": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasConcurrentness": {
+                  "type": "object",
+                  "properties": {
+                    "ExplainerConcurrentness": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasOutputType": {
+                  "type": "object",
+                  "properties": {
+                    "informationContentEntity": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasPresentation": {
+                  "type": "object",
+                  "properties": {
+                    "informationContentEntity": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "hasExplanationScope": {
+                  "type": "object",
+                  "properties": {
+                    "Explanation Scope": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "targetType": {
+                  "type": "object",
+                  "properties": {
+                    "Explanation Target": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hasUser": {
+          "type": "object",
+          "properties": {
+            "User": {
+              "type": "string"
+            },
+            "asks": {
+              "type": "object",
+              "properties": {
+                "UserQuestion": {
+                  "type": "string"
+                },
+                "hasTarget": {
+                  "type": "object",
+                  "properties": {
+                    "UserQuestionTarget": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "has intent": {
+              "type": "object",
+              "properties": {
+                "Intent": {
+                  "type": "string"
+                }
+              }
+            },
+            "has resources": {
+              "type": "object",
+              "properties": {
+                "Technical Facilities": {
+                  "type": "string"
+                },
+                "can handle": {
+                  "type": "object",
+                  "properties": {
+                    "ExplanationModality": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "hasGoal": {
+              "type": "object",
+              "properties": {
+                "process": {
+                  "type": "string"
+                }
+              }
+            },
+            "possess": {
+              "type": "object",
+              "properties": {
+                "Domain Knowledge": {
+                  "type": "string"
+                },
+                "hasLevel": {
+                  "type": "object",
+                  "properties": {
+                    "KnowldegeLevel": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
