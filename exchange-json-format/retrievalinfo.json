@@ -1,0 +1,28 @@
+{
+	"retrievalInfo" : [ 
+		{
+			"class" : "Data Type",
+			"applicableSimilarityStrategy" : "SameTypeMatch",
+			"subclasses" : [
+				{ 
+					"class" : "Categorical"
+				},
+				{ 
+					"class" : "Image",
+					"instances" : [ "ColorImage", "GreyScaleImage"]
+				},
+				{ 
+					"class" : "Numerical"
+				},
+				{ 
+					"class" : "Ordinal"
+				}
+				]
+		},
+		{
+			"class" : "Knowledge Level",
+			"applicableSimilarityStrategy" : "ExactMatch",
+			"instances" : ["high", "medium", "low"]
+		}
+	]
+}

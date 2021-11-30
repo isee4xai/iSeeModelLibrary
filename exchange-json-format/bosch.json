@@ -7,7 +7,7 @@
 			"trained on" : {	
 				"Dataset" : "BoschDataset",
 				"hasDataType" : {
-					"DataType" : "image"
+					"DataType" : "ColorImage"
 				}
 			},
 			"solves" : {
