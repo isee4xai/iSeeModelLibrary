@@ -1,0 +1,2242 @@
+{"retrievalInfo": [
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "instances": [
+      "prediction",
+      "model",
+      "data"
+    ],
+    "class": "ExplanationTarget"
+  },
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "class": "UserQuestion",
+    "subclasses": [
+      {"class": "WhyQuestion"},
+      {
+        "instances": ["What_is_the_anomaly_in_the_sensor"],
+        "class": "WhatQuestion"
+      },
+      {"class": "WhenQuestion"},
+      {"class": "HowQuestion"}
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "SameTypeMatch",
+    "class": "UserQuestionTarget",
+    "subclasses": [
+      {
+        "instances": [
+          "SystemRecExampleForContrastiveExpA",
+          "SystemRecExampleForContrastiveExpB"
+        ],
+        "class": "SystemRecommendation"
+      },
+      {
+        "class": "ArtificialIntelligenceMethod",
+        "subclasses": [
+          {"class": "OMIT_0001177"},
+          {
+            "class": "OMIT_0024712",
+            "subclasses": [{
+              "class": "OMIT_0028401",
+              "subclasses": [{"class": "OMIT_0028314"}]
+            }]
+          },
+          {"class": "OMIT_0013278"},
+          {
+            "instances": [
+              "YoloNeuralNetwork",
+              "BoschAnomalyDeepNeuralNetwork"
+            ],
+            "class": "OMIT_0017046"
+          },
+          {"class": "OMIT_0010354"},
+          {
+            "class": "OMIT_0001480",
+            "subclasses": [
+              {"class": "OMIT_0001486"},
+              {
+                "class": "OMIT_0001483",
+                "subclasses": [
+                  {"class": "OMIT_0027764"},
+                  {"class": "DecisionTree"}
+                ]
+              }
+            ]
+          },
+          {
+            "class": "KnowledgeBasedSystems",
+            "subclasses": [{"class": "OMIT_0006327"}]
+          },
+          {"class": "OMIT_0017538"}
+        ]
+      }
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "instances": [
+      "low",
+      "high",
+      "medium"
+    ],
+    "class": "KnowledgeLevel"
+  },
+  {
+    "applicableSimilarityStrategy": "SameTypeMatch",
+    "class": "ArtificialIntelligenceMethod",
+    "subclasses": [
+      {"class": "OMIT_0001177"},
+      {
+        "class": "OMIT_0024712",
+        "subclasses": [{
+          "class": "OMIT_0028401",
+          "subclasses": [{"class": "OMIT_0028314"}]
+        }]
+      },
+      {"class": "OMIT_0013278"},
+      {
+        "instances": [
+          "YoloNeuralNetwork",
+          "BoschAnomalyDeepNeuralNetwork"
+        ],
+        "class": "OMIT_0017046"
+      },
+      {"class": "OMIT_0010354"},
+      {
+        "class": "OMIT_0001480",
+        "subclasses": [
+          {"class": "OMIT_0001486"},
+          {
+            "class": "OMIT_0001483",
+            "subclasses": [
+              {"class": "OMIT_0027764"},
+              {"class": "DecisionTree"}
+            ]
+          }
+        ]
+      },
+      {
+        "class": "KnowledgeBasedSystems",
+        "subclasses": [{"class": "OMIT_0006327"}]
+      },
+      {"class": "OMIT_0017538"}
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "SameTypeMatch",
+    "instances": ["YoloImage"],
+    "class": "ExplanationModality"
+  },
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "class": "ExactMatch"
+  },
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "instances": [
+      "Debugging",
+      "Scruitablity",
+      "Persuasiveness",
+      "Education",
+      "Efficiency",
+      "Trust",
+      "Transparency",
+      "Satisfaction",
+      "Effectiveness"
+    ],
+    "class": "SIO_000358"
+  },
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "instances": [
+      "post-hoc",
+      "ante-hoc"
+    ],
+    "class": "ExplainerConcurrentness"
+  },
+  {
+    "applicableSimilarityStrategy": "SameTypeMatch",
+    "class": "TechnicalFacilities",
+    "subclasses": [
+      {
+        "instances": ["ScreenDisplay"],
+        "class": "VisualFacilities"
+      },
+      {
+        "instances": ["Speaker"],
+        "class": "AudioFacilities"
+      }
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "SameTypeMatch",
+    "instances": [
+      "categorical",
+      "image",
+      "ordinal",
+      "numerical"
+    ],
+    "class": "DataType",
+    "subclasses": [
+      {
+        "instances": ["ColorImage"],
+        "class": "Image"
+      },
+      {"class": "Numerical"},
+      {"class": "Categorical"},
+      {"class": "Ordinal"}
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "HierarchyDistance",
+    "class": "SIO_000015",
+    "subclasses": [
+      {
+        "class": "SIO_000506",
+        "subclasses": [
+          {"class": "SIO_000502"},
+          {"class": "SIO_000504"},
+          {"class": "SIO_000503"},
+          {"class": "SIO_000545"},
+          {
+            "class": "SIO_000505",
+            "subclasses": [
+              {"class": "SIO_000520"},
+              {
+                "class": "SIO_000517",
+                "subclasses": [{
+                  "class": "SIO_000518",
+                  "subclasses": [{"class": "SIO_000519"}]
+                }]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000507",
+            "subclasses": [
+              {
+                "class": "SIO_000532",
+                "subclasses": [
+                  {"class": "SIO_000508"},
+                  {"class": "SIO_000509"}
+                ]
+              },
+              {"class": "SIO_000441"},
+              {"class": "SIO_000437"},
+              {"class": "SIO_000440"},
+              {
+                "class": "SIO_000465",
+                "subclasses": [{
+                  "class": "SIO_000741",
+                  "subclasses": [
+                    {
+                      "class": "SIO_000743",
+                      "subclasses": [{"class": "SIO_000467"}]
+                    },
+                    {
+                      "class": "SIO_000742",
+                      "subclasses": [{"class": "SIO_000466"}]
+                    }
+                  ]
+                }]
+              },
+              {
+                "class": "SIO_001335",
+                "subclasses": [{"class": "SIO_000500"}]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000608",
+            "subclasses": [
+              {"class": "SIO_001333"},
+              {"class": "SIO_000740"},
+              {
+                "class": "SIO_000511",
+                "subclasses": [
+                  {"class": "SIO_001334"},
+                  {
+                    "class": "SIO_000516",
+                    "subclasses": [{
+                      "class": "SIO_000540",
+                      "subclasses": [
+                        {"class": "SIO_000541"},
+                        {"class": "SIO_000533"}
+                      ]
+                    }]
+                  },
+                  {
+                    "class": "SIO_000534",
+                    "subclasses": [
+                      {"class": "SIO_000525"},
+                      {"class": "SIO_000526"}
+                    ]
+                  },
+                  {"class": "SIO_000539"},
+                  {
+                    "class": "SIO_000512",
+                    "subclasses": [
+                      {"class": "SIO_000501"},
+                      {
+                        "class": "SIO_000521",
+                        "subclasses": [
+                          {
+                            "class": "SIO_000450",
+                            "subclasses": [
+                              {
+                                "class": "SIO_000455",
+                                "subclasses": [
+                                  {"class": "SIO_000456"},
+                                  {"class": "SIO_000457"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_000458",
+                                "subclasses": [
+                                  {
+                                    "class": "SIO_000461",
+                                    "subclasses": [
+                                      {"class": "SIO_000463"},
+                                      {"class": "SIO_000462"}
+                                    ]
+                                  },
+                                  {"class": "SIO_000902"},
+                                  {"class": "SIO_000903"},
+                                  {"class": "SIO_000459"},
+                                  {"class": "SIO_000460"},
+                                  {
+                                    "class": "SIO_000451",
+                                    "subclasses": [
+                                      {"class": "SIO_000453"},
+                                      {"class": "SIO_000452"},
+                                      {"class": "SIO_000454"}
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "class": "SIO_000522",
+                            "subclasses": [
+                              {"class": "SIO_000523"},
+                              {"class": "SIO_000524"}
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "class": "SIO_000513",
+                        "subclasses": [
+                          {"class": "SIO_000515"},
+                          {"class": "SIO_000514"}
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "class": "SIO_000535",
+                    "subclasses": [
+                      {"class": "SIO_000531"},
+                      {
+                        "class": "SIO_000527",
+                        "subclasses": [
+                          {"class": "SIO_000529"},
+                          {"class": "SIO_000530"},
+                          {"class": "SIO_000528"}
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {"class": "SIO_000546"}
+        ]
+      },
+      {
+        "class": "SIO_000009",
+        "subclasses": [
+          {
+            "class": "SIO_000287",
+            "subclasses": [{"class": "SIO_000173"}]
+          },
+          {
+            "class": "SIO_000010",
+            "subclasses": [{
+              "class": "SIO_000620",
+              "subclasses": [
+                {
+                  "class": "SIO_000012",
+                  "subclasses": [
+                    {"class": "SIO_000688"},
+                    {
+                      "class": "SIO_000619",
+                      "subclasses": [{"class": "SIO_010383"}]
+                    },
+                    {"class": "SIO_000693"},
+                    {
+                      "class": "SIO_000285",
+                      "subclasses": [
+                        {"class": "SIO_000290"},
+                        {"class": "SIO_000686"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "SIO_001061",
+                  "subclasses": [{
+                    "class": "SIO_001062",
+                    "subclasses": [{"class": "SIO_001016"}]
+                  }]
+                },
+                {"class": "SIO_001063"},
+                {"class": "SIO_001064"},
+                {
+                  "class": "SIO_000403",
+                  "subclasses": [
+                    {"class": "SIO_001069"},
+                    {"class": "SIO_001068"}
+                  ]
+                }
+              ]
+            }]
+          }
+        ]
+      },
+      {
+        "class": "SIO_000602",
+        "subclasses": [
+          {"class": "SIO_000756"},
+          {"class": "SIO_000067"},
+          {
+            "class": "SIO_001300",
+            "subclasses": [
+              {"class": "SIO_001301"},
+              {"class": "SIO_001302"}
+            ]
+          },
+          {
+            "class": "SIO_000069",
+            "subclasses": [
+              {
+                "class": "SIO_000472",
+                "subclasses": [
+                  {
+                    "class": "SIO_010019",
+                    "subclasses": [
+                      {"class": "SIO_010028"},
+                      {"class": "SIO_010298"},
+                      {"class": "SIO_010065"}
+                    ]
+                  },
+                  {"class": "SIO_011123"}
+                ]
+              },
+              {"class": "object_record"},
+              {"class": "SIO_001330"},
+              {
+                "class": "SIO_000089",
+                "subclasses": [{"class": "SIO_001377"}]
+              }
+            ]
+          },
+          {"class": "SIO_001165"},
+          {
+            "class": "SIO_000753",
+            "subclasses": [{"class": "SIO_000757"}]
+          },
+          {
+            "instances": [
+              "ExplanationInLinguistics",
+              "ExplanationInSociology",
+              "ExplanationInPhilosophy",
+              "ExplanationInComputerScience",
+              "ContrastiveExpInstance",
+              "ExplanationInNeuroscience",
+              "ExplanationInPsychology"
+            ],
+            "class": "Explanation",
+            "subclasses": [
+              {
+                "class": "EverydayExplanation",
+                "subclasses": [{"class": "ClinicalPearl"}]
+              },
+              {"class": "StatisticalExplanation"},
+              {"class": "SimulationBasedExplanation"},
+              {"class": "ContextualExplanation"},
+              {
+                "class": "scientificExplanation",
+                "subclasses": [
+                  {"class": "Mechanistic_Explanation"},
+                  {"class": "Evidence_Based_Explanation"}
+                ]
+              },
+              {"class": "TraceBasedExplanation"},
+              {"class": "CaseBasedExplanation"},
+              {"class": "ContrastiveExplanation"},
+              {
+                "instances": [
+                  "CounterfactualProbable2",
+                  "CounterfactualProbable1"
+                ],
+                "class": "CounterfactualExplanation"
+              }
+            ]
+          },
+          {
+            "class": "SIO_000755",
+            "subclasses": [
+              {"class": "SIO_000760"},
+              {"class": "SIO_000759"},
+              {"class": "SIO_000761"}
+            ]
+          },
+          {
+            "instances": [
+              "SystemRecExampleForContrastiveExpA",
+              "SystemRecExampleForContrastiveExpB"
+            ],
+            "class": "SystemRecommendation"
+          },
+          {
+            "class": "SIO_000762",
+            "subclasses": [
+              {"class": "SIO_000764"},
+              {"class": "SIO_000763"}
+            ]
+          },
+          {
+            "class": "SIO_000752",
+            "subclasses": [{"class": "SIO_001187"}]
+          },
+          {"class": "SIO_000750"},
+          {
+            "class": "SIO_000097",
+            "subclasses": [
+              {
+                "class": "SIO_000101",
+                "subclasses": [
+                  {"class": "SIO_000102"},
+                  {
+                    "class": "SIO_000140",
+                    "subclasses": [
+                      {"class": "SIO_001191"},
+                      {
+                        "class": "SIO_001189",
+                        "subclasses": [{"class": "SIO_001188"}]
+                      },
+                      {"class": "SIO_001190"}
+                    ]
+                  }
+                ]
+              },
+              {"class": "SIO_000098"},
+              {"class": "SIO_000103"},
+              {"class": "Reasoning_Mode"},
+              {"class": "SystemTrace"},
+              {"class": "SIO_000100"},
+              {"class": "SIO_000099"}
+            ]
+          },
+          {"class": "SIO_000754"}
+        ]
+      },
+      {
+        "class": "SIO_001194",
+        "subclasses": [
+          {"class": "SIO_001370"},
+          {"class": "SIO_000924"},
+          {"class": "SIO_001170"},
+          {
+            "class": "SIO_000448",
+            "subclasses": [
+              {"class": "SIO_000449"},
+              {"class": "SIO_000468"}
+            ]
+          },
+          {
+            "class": "SIO_000396",
+            "subclasses": [{
+              "class": "SIO_011120",
+              "subclasses": [{"class": "SIO_011130"}]
+            }]
+          },
+          {"class": "SIO_000297"},
+          {
+            "class": "SIO_000080",
+            "subclasses": [
+              {
+                "class": "SIO_000904",
+                "subclasses": [
+                  {
+                    "class": "SIO_000083",
+                    "subclasses": [
+                      {
+                        "class": "SIO_000443",
+                        "subclasses": [
+                          {"class": "SIO_000444"},
+                          {"class": "SIO_000446"},
+                          {"class": "SIO_000445"}
+                        ]
+                      },
+                      {"class": "SIO_000442"},
+                      {"class": "SIO_000423"},
+                      {
+                        "class": "SIO_000934",
+                        "subclasses": [{"class": "SIO_000908"}]
+                      },
+                      {
+                        "class": "SIO_000447",
+                        "subclasses": [{"class": "SIO_000909"}]
+                      }
+                    ]
+                  },
+                  {
+                    "class": "SIO_000931",
+                    "subclasses": [{
+                      "class": "SIO_001332",
+                      "subclasses": [{
+                        "class": "SIO_000945",
+                        "subclasses": [{"class": "SIO_000948"}]
+                      }]
+                    }]
+                  },
+                  {
+                    "class": "SIO_000907",
+                    "subclasses": [{"class": "SIO_000910"}]
+                  },
+                  {"class": "SIO_000933"},
+                  {"class": "SIO_000906"},
+                  {
+                    "class": "SIO_000911",
+                    "subclasses": [{"class": "SIO_000932"}]
+                  },
+                  {
+                    "class": "SIO_000937",
+                    "subclasses": [
+                      {"class": "SIO_000939"},
+                      {"class": "SIO_000936"},
+                      {"class": "SIO_000938"}
+                    ]
+                  },
+                  {"class": "SIO_000947"},
+                  {"class": "SIO_000930"},
+                  {"class": "SIO_000922"},
+                  {"class": "SIO_000946"},
+                  {
+                    "class": "SIO_000940",
+                    "subclasses": [
+                      {"class": "SIO_000929"},
+                      {"class": "SIO_000935"}
+                    ]
+                  }
+                ]
+              },
+              {"class": "SIO_000419"},
+              {
+                "class": "SIO_000081",
+                "subclasses": [{
+                  "class": "SIO_000082",
+                  "subclasses": [{"class": "SIO_000301"}]
+                }]
+              }
+            ]
+          },
+          {"class": "SIO_001168"}
+        ]
+      },
+      {
+        "class": "SIO_000075",
+        "subclasses": [
+          {
+            "class": "SIO_000238",
+            "subclasses": [
+              {
+                "class": "SIO_000280",
+                "subclasses": [{"class": "SIO_000282"}]
+              },
+              {"class": "SIO_000220"},
+              {"class": "SIO_000239"},
+              {"class": "SIO_000281"}
+            ]
+          },
+          {
+            "class": "SIO_001429",
+            "subclasses": [
+              {
+                "class": "SIO_001434",
+                "subclasses": [
+                  {"class": "SIO_001433"},
+                  {"class": "SIO_001430"}
+                ]
+              },
+              {
+                "class": "SIO_001431",
+                "subclasses": [{
+                  "class": "SIO_000366",
+                  "subclasses": [{
+                    "class": "SIO_000070",
+                    "subclasses": [
+                      {
+                        "class": "SIO_000052",
+                        "subclasses": [
+                          {
+                            "class": "SIO_000257",
+                            "subclasses": [
+                              {
+                                "class": "SIO_000638",
+                                "subclasses": [
+                                  {"class": "SIO_001021"},
+                                  {"class": "SIO_000765"},
+                                  {"class": "SIO_001245"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_001018",
+                                "subclasses": [
+                                  {"class": "SIO_001351"},
+                                  {"class": "SIO_001355"},
+                                  {"class": "SIO_001074"},
+                                  {"class": "SIO_001352"},
+                                  {
+                                    "class": "SIO_001078",
+                                    "subclasses": [
+                                      {"class": "SIO_001081"},
+                                      {"class": "SIO_001082"}
+                                    ]
+                                  },
+                                  {"class": "SIO_001408"},
+                                  {"class": "SIO_001413"},
+                                  {"class": "SIO_001184"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_000794",
+                                "subclasses": [
+                                  {"class": "SIO_010061"},
+                                  {"class": "SIO_001161"},
+                                  {"class": "SIO_000178"},
+                                  {"class": "SIO_001160"},
+                                  {
+                                    "class": "SIO_001162",
+                                    "subclasses": [
+                                      {"class": "SIO_001164"},
+                                      {"class": "SIO_001163"}
+                                    ]
+                                  },
+                                  {"class": "SIO_001328"},
+                                  {"class": "SIO_000309"},
+                                  {"class": "SIO_000308"},
+                                  {"class": "SIO_000787"},
+                                  {"class": "SIO_001115"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_001414",
+                                "subclasses": [{"class": "SIO_001415"}]
+                              },
+                              {"class": "SIO_001089"}
+                            ]
+                          },
+                          {"class": "SIO_001112"},
+                          {"class": "SIO_001114"},
+                          {"class": "SIO_000074"},
+                          {
+                            "class": "SIO_001108",
+                            "subclasses": [
+                              {"class": "SIO_001111"},
+                              {"class": "SIO_001109"},
+                              {"class": "SIO_001110"}
+                            ]
+                          },
+                          {
+                            "class": "SIO_000258",
+                            "subclasses": [
+                              {"class": "SIO_001013"},
+                              {
+                                "class": "SIO_001365",
+                                "subclasses": [
+                                  {
+                                    "class": "SIO_001368",
+                                    "subclasses": [{"class": "SIO_001369"}]
+                                  },
+                                  {"class": "SIO_001367"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_000391",
+                                "subclasses": [
+                                  {
+                                    "class": "SIO_000417",
+                                    "subclasses": [
+                                      {"class": "SIO_000432"},
+                                      {"class": "SIO_000434"},
+                                      {"class": "SIO_000428"},
+                                      {"class": "SIO_000431"},
+                                      {"class": "SIO_000433"},
+                                      {"class": "SIO_001354"},
+                                      {"class": "SIO_000435"},
+                                      {"class": "SIO_000429"},
+                                      {"class": "SIO_000430"}
+                                    ]
+                                  },
+                                  {
+                                    "class": "SIO_000418",
+                                    "subclasses": [
+                                      {"class": "SIO_000669"},
+                                      {"class": "SIO_001314"},
+                                      {"class": "SIO_000032"},
+                                      {"class": "SIO_000031"},
+                                      {"class": "SIO_000670"},
+                                      {"class": "SIO_001083"}
+                                    ]
+                                  }
+                                ]
+                              },
+                              {"class": "SIO_001077"},
+                              {
+                                "class": "SIO_000037",
+                                "subclasses": [
+                                  {
+                                    "class": "SIO_000044",
+                                    "subclasses": [
+                                      {
+                                        "class": "SIO_000046",
+                                        "subclasses": [{"class": "SIO_000047"}]
+                                      },
+                                      {
+                                        "class": "SIO_000045",
+                                        "subclasses": [{"class": "SIO_001407"}]
+                                      }
+                                    ]
+                                  },
+                                  {"class": "SIO_000279"},
+                                  {
+                                    "class": "SIO_000038",
+                                    "subclasses": [
+                                      {"class": "SIO_000042"},
+                                      {
+                                        "class": "SIO_000039",
+                                        "subclasses": [{"class": "SIO_000043"}]
+                                      },
+                                      {"class": "SIO_000041"},
+                                      {"class": "SIO_000040"}
+                                    ]
+                                  },
+                                  {
+                                    "class": "SIO_000048",
+                                    "subclasses": [
+                                      {"class": "SIO_001088"},
+                                      {"class": "SIO_001406"},
+                                      {"class": "SIO_000049"}
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "class": "SIO_001019",
+                                "subclasses": [{"class": "SIO_001020"}]
+                              },
+                              {"class": "SIO_001327"}
+                            ]
+                          },
+                          {
+                            "class": "SIO_001243",
+                            "subclasses": [{"class": "SIO_001244"}]
+                          },
+                          {"class": "SIO_000769"},
+                          {"class": "SIO_001113"},
+                          {"class": "SIO_000770"}
+                        ]
+                      },
+                      {
+                        "class": "SIO_000056",
+                        "subclasses": [
+                          {"class": "SIO_000439"},
+                          {"class": "SIO_000057"},
+                          {
+                            "class": "SIO_000788",
+                            "subclasses": [
+                              {
+                                "class": "SIO_000943",
+                                "subclasses": [
+                                  {
+                                    "class": "SIO_001071",
+                                    "subclasses": [{"class": "SIO_001057"}]
+                                  },
+                                  {"class": "SIO_000791"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_000789",
+                                "subclasses": [
+                                  {"class": "SIO_000792"},
+                                  {"class": "SIO_000791"}
+                                ]
+                              },
+                              {
+                                "class": "SIO_000953",
+                                "subclasses": [
+                                  {"class": "SIO_000792"},
+                                  {
+                                    "class": "SIO_001072",
+                                    "subclasses": [{"class": "SIO_001058"}]
+                                  }
+                                ]
+                              },
+                              {
+                                "class": "SIO_000613",
+                                "subclasses": [
+                                  {"class": "SIO_000305"},
+                                  {"class": "SIO_001056"}
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "class": "SIO_000013",
+                            "subclasses": [
+                              {"class": "SIO_000318"},
+                              {"class": "SIO_000767"},
+                              {"class": "SIO_000319"}
+                            ]
+                          },
+                          {
+                            "class": "SIO_000071",
+                            "subclasses": [
+                              {"class": "SIO_000073"},
+                              {
+                                "class": "SIO_000072",
+                                "subclasses": [
+                                  {"class": "SIO_000400"},
+                                  {"class": "SIO_000402"},
+                                  {"class": "SIO_000333"},
+                                  {"class": "SIO_000401"}
+                                ]
+                              }
+                            ]
+                          },
+                          {"class": "SIO_000438"}
+                        ]
+                      }
+                    ]
+                  }]
+                }]
+              }
+            ]
+          },
+          {"class": "SIO_001432"},
+          {
+            "class": "SIO_000944",
+            "subclasses": [{"class": "SIO_000177"}]
+          },
+          {
+            "class": "SIO_000367",
+            "subclasses": [
+              {
+                "class": "SIO_000920",
+                "subclasses": [{
+                  "class": "SIO_000144",
+                  "subclasses": [{"class": "SIO_000952"}]
+                }]
+              },
+              {"class": "SIO_001070"},
+              {"class": "SIO_000921"}
+            ]
+          },
+          {
+            "class": "SIO_000094",
+            "subclasses": [{"class": "SIO_000127"}]
+          },
+          {
+            "class": "SIO_000289",
+            "subclasses": [
+              {"class": "SIO_000138"},
+              {
+                "class": "SIO_000150",
+                "subclasses": [
+                  {"class": "SIO_001116"},
+                  {"class": "SIO_001117"},
+                  {"class": "SIO_001118"},
+                  {
+                    "class": "SIO_001316",
+                    "subclasses": [{"class": "SIO_001315"}]
+                  },
+                  {"class": "SIO_000464"}
+                ]
+              },
+              {
+                "class": "SIO_000616",
+                "subclasses": [
+                  {"class": "SIO_001241"},
+                  {"class": "SIO_001419"},
+                  {"class": "SIO_000546"},
+                  {"class": "SIO_001380"},
+                  {
+                    "class": "SIO_000295",
+                    "subclasses": [
+                      {"class": "SIO_000296"},
+                      {
+                        "class": "SIO_000162",
+                        "subclasses": [
+                          {"class": "SIO_000121"},
+                          {"class": "SIO_000163"},
+                          {"class": "SIO_000160"}
+                        ]
+                      },
+                      {"class": "SIO_000158"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_010066",
+                    "subclasses": [
+                      {"class": "SIO_010067"},
+                      {"class": "SIO_010068"}
+                    ]
+                  },
+                  {"class": "SIO_001382"},
+                  {"class": "SIO_001421"},
+                  {"class": "SIO_011131"}
+                ]
+              },
+              {"class": "SIO_000617"},
+              {
+                "class": "SIO_001246",
+                "subclasses": [
+                  {
+                    "class": "SIO_001251",
+                    "subclasses": [{"class": "SIO_001248"}]
+                  },
+                  {
+                    "class": "SIO_001253",
+                    "subclasses": [{"class": "SIO_001249"}]
+                  },
+                  {
+                    "class": "SIO_001252",
+                    "subclasses": [{"class": "SIO_001248"}]
+                  },
+                  {
+                    "class": "SIO_001254",
+                    "subclasses": [{"class": "SIO_001249"}]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000368",
+            "subclasses": [
+              {
+                "class": "SIO_000569",
+                "subclasses": [
+                  {"class": "SIO_000568"},
+                  {"class": "SIO_000567"}
+                ]
+              },
+              {
+                "class": "SIO_000566",
+                "subclasses": [{"class": "SIO_000565"}]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000897",
+            "subclasses": [
+              {"class": "SIO_001257"},
+              {
+                "class": "SIO_000898",
+                "subclasses": [{"class": "SIO_000923"}]
+              },
+              {"class": "SIO_001250"},
+              {
+                "class": "SIO_001171",
+                "subclasses": [{"class": "SIO_001172"}]
+              },
+              {"class": "SIO_000993"},
+              {"class": "SIO_001337"},
+              {
+                "class": "SIO_000983",
+                "subclasses": [
+                  {
+                    "class": "SIO_001121",
+                    "subclasses": [
+                      {"class": "SIO_001124"},
+                      {
+                        "class": "SIO_001350",
+                        "subclasses": [
+                          {"class": "SIO_001349"},
+                          {"class": "SIO_001348"},
+                          {
+                            "class": "SIO_001122",
+                            "subclasses": [
+                              {
+                                "class": "SIO_001119",
+                                "subclasses": [
+                                  {"class": "SIO_001344"},
+                                  {"class": "SIO_001345"}
+                                ]
+                              },
+                              {"class": "SIO_001343"},
+                              {
+                                "class": "SIO_001342",
+                                "subclasses": [
+                                  {"class": "SIO_001347"},
+                                  {"class": "SIO_001346"}
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {"class": "SIO_001123"}
+                    ]
+                  },
+                  {"class": "SIO_001120"}
+                ]
+              }
+            ]
+          },
+          {
+            "class": "SIO_001258",
+            "subclasses": [
+              {
+                "class": "SIO_001259",
+                "subclasses": [
+                  {"class": "SIO_001418"},
+                  {"class": "SIO_001420"}
+                ]
+              },
+              {
+                "class": "SIO_001260",
+                "subclasses": [{"class": "SIO_001261"}]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000130",
+            "subclasses": [
+              {"class": "SIO_000131"},
+              {"class": "SIO_010531"},
+              {"class": "SIO_001197"}
+            ]
+          }
+        ]
+      },
+      {
+        "class": "SIO_000078",
+        "subclasses": [
+          {"class": "SIO_000108"},
+          {
+            "class": "SIO_000136",
+            "subclasses": [
+              {
+                "class": "SIO_001196",
+                "subclasses": [
+                  {"class": "SIO_010053"},
+                  {"class": "SIO_010673"},
+                  {"class": "SIO_010060"}
+                ]
+              },
+              {
+                "class": "SIO_000090",
+                "subclasses": [
+                  {
+                    "class": "SIO_001385",
+                    "subclasses": [
+                      {
+                        "class": "SIO_001386",
+                        "subclasses": [{"class": "SIO_001387"}]
+                      },
+                      {
+                        "class": "SIO_001388",
+                        "subclasses": [{"class": "SIO_001389"}]
+                      }
+                    ]
+                  },
+                  {
+                    "class": "SIO_000315",
+                    "subclasses": [
+                      {
+                        "class": "SIO_000621",
+                        "subclasses": [
+                          {"class": "SIO_001391"},
+                          {
+                            "class": "SIO_001080",
+                            "subclasses": [{"class": "SIO_001396"}]
+                          }
+                        ]
+                      },
+                      {
+                        "class": "SIO_000912",
+                        "subclasses": [
+                          {"class": "SIO_000914"},
+                          {"class": "SIO_000913"},
+                          {
+                            "class": "SIO_000915",
+                            "subclasses": [
+                              {"class": "SIO_000916"},
+                              {"class": "SIO_000917"}
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "class": "SIO_000316",
+                        "subclasses": [{
+                          "class": "SIO_000141",
+                          "subclasses": [
+                            {"class": "SIO_000143"},
+                            {"class": "SIO_000142"}
+                          ]
+                        }]
+                      },
+                      {
+                        "class": "SIO_000600",
+                        "subclasses": [{
+                          "class": "SIO_000625",
+                          "subclasses": [
+                            {
+                              "class": "SIO_000626",
+                              "subclasses": [{"class": "SIO_001100"}]
+                            },
+                            {"class": "SIO_001099"}
+                          ]
+                        }]
+                      },
+                      {
+                        "class": "SIO_000317",
+                        "subclasses": [{
+                          "class": "SIO_000320",
+                          "subclasses": [
+                            {"class": "SIO_000321"},
+                            {"class": "SIO_000327"},
+                            {"class": "SIO_000329"},
+                            {"class": "SIO_000330"}
+                          ]
+                        }]
+                      },
+                      {"class": "SIO_001079"},
+                      {"class": "SIO_000705"},
+                      {
+                        "class": "SIO_001080",
+                        "subclasses": [{"class": "SIO_001396"}]
+                      }
+                    ]
+                  },
+                  {
+                    "class": "SIO_000091",
+                    "subclasses": [
+                      {
+                        "class": "SIO_001043",
+                        "subclasses": [
+                          {"class": "SIO_001041"},
+                          {"class": "SIO_000964"}
+                        ]
+                      },
+                      {"class": "SIO_000076"},
+                      {
+                        "class": "SIO_001107",
+                        "subclasses": [{
+                          "class": "SIO_010526",
+                          "subclasses": [
+                            {"class": "SIO_010528"},
+                            {
+                              "class": "SIO_010525",
+                              "subclasses": [
+                                {
+                                  "class": "SIO_010533",
+                                  "subclasses": [{"class": "SIO_001256"}]
+                                },
+                                {
+                                  "class": "SIO_010532",
+                                  "subclasses": [{"class": "SIO_001255"}]
+                                }
+                              ]
+                            },
+                            {"class": "SIO_010527"}
+                          ]
+                        }]
+                      },
+                      {"class": "SIO_001042"}
+                    ]
+                  },
+                  {"class": "SIO_000618"}
+                ]
+              },
+              {"class": "SIO_001017"},
+              {"class": "SIO_000135"},
+              {"class": "SIO_000785"},
+              {
+                "class": "SIO_000256",
+                "subclasses": [
+                  {
+                    "class": "SIO_000337",
+                    "subclasses": [
+                      {"class": "ExplanationGoal"},
+                      {"class": "AITakGoal"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_001183",
+                    "subclasses": [{"class": "SIO_001384"}]
+                  },
+                  {"class": "SIO_001167"},
+                  {"class": "SIO_001025"},
+                  {"class": "SIO_000284"},
+                  {
+                    "class": "SIO_000259",
+                    "subclasses": [
+                      {"class": "SIO_000264"},
+                      {"class": "SIO_000263"},
+                      {
+                        "class": "SIO_000266",
+                        "subclasses": [{"class": "SIO_000265"}]
+                      },
+                      {"class": "SIO_000267"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_000262",
+                    "subclasses": [{"class": "SIO_001331"}]
+                  },
+                  {"class": "SIO_000585"},
+                  {"class": "SIO_001394"},
+                  {"class": "SIO_000261"},
+                  {
+                    "class": "SIO_000360",
+                    "subclasses": [{
+                      "class": "SIO_001004",
+                      "subclasses": [
+                        {"class": "SIO_001003"},
+                        {"class": "SIO_001065"}
+                      ]
+                    }]
+                  },
+                  {
+                    "class": "SIO_000683",
+                    "subclasses": [{
+                      "class": "SIO_001053",
+                      "subclasses": [{"class": "SIO_000359"}]
+                    }]
+                  }
+                ]
+              },
+              {"class": "SIO_001166"}
+            ]
+          },
+          {"class": "SIO_001040"},
+          {
+            "class": "SIO_000275",
+            "subclasses": [
+              {
+                "class": "SIO_000133",
+                "subclasses": [{"class": "SIO_000147"}]
+              },
+              {
+                "class": "SIO_000342",
+                "subclasses": [
+                  {"class": "SIO_000123"},
+                  {"class": "SIO_000124"},
+                  {"class": "SIO_000122"},
+                  {"class": "SIO_000125"},
+                  {"class": "SIO_000126"}
+                ]
+              },
+              {
+                "class": "SIO_000326",
+                "subclasses": [{"class": "SIO_000137"}]
+              },
+              {
+                "class": "SIO_000179",
+                "subclasses": [
+                  {
+                    "class": "SIO_000116",
+                    "subclasses": [
+                      {"class": "SIO_000077"},
+                      {"class": "SIO_000117"},
+                      {"class": "SIO_000182"},
+                      {"class": "SIO_000119"},
+                      {"class": "SIO_000181"},
+                      {
+                        "class": "SIO_001317",
+                        "subclasses": [{"class": "SIO_001318"}]
+                      },
+                      {
+                        "class": "SIO_000183",
+                        "subclasses": [{"class": "SIO_000184"}]
+                      },
+                      {
+                        "class": "SIO_000120",
+                        "subclasses": [{"class": "SIO_001383"}]
+                      },
+                      {"class": "SIO_000118"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_000185",
+                    "subclasses": [
+                      {"class": "SIO_000471"},
+                      {
+                        "class": "SIO_000470",
+                        "subclasses": [
+                          {"class": "SIO_000474"},
+                          {"class": "SIO_000473"}
+                        ]
+                      },
+                      {"class": "SIO_000469"},
+                      {"class": "SIO_000175"}
+                    ]
+                  },
+                  {"class": "SIO_000942"},
+                  {"class": "SIO_000237"},
+                  {"class": "SIO_000180"},
+                  {
+                    "class": "SIO_000115",
+                    "subclasses": [
+                      {
+                        "class": "SIO_000731",
+                        "subclasses": [
+                          {"class": "SIO_001323"},
+                          {
+                            "class": "SIO_001319",
+                            "subclasses": [
+                              {"class": "SIO_001320"},
+                              {"class": "SIO_001324"},
+                              {"class": "SIO_001325"},
+                              {"class": "SIO_001321"}
+                            ]
+                          },
+                          {"class": "SIO_001322"},
+                          {
+                            "class": "SIO_000729",
+                            "subclasses": [{"class": "SIO_010032"}]
+                          },
+                          {"class": "SIO_000811"},
+                          {"class": "SIO_001185"}
+                        ]
+                      },
+                      {"class": "SIO_000675"},
+                      {
+                        "class": "SIO_000653",
+                        "subclasses": [
+                          {"class": "SIO_000186"},
+                          {
+                            "class": "SIO_000654",
+                            "subclasses": [
+                              {"class": "SIO_001031"},
+                              {"class": "SIO_001032"},
+                              {"class": "SIO_001030"}
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "class": "SIO_000328",
+                        "subclasses": [
+                          {"class": "SIO_000172"},
+                          {"class": "SIO_000766"},
+                          {"class": "SIO_000768"}
+                        ]
+                      },
+                      {
+                        "class": "SIO_000730",
+                        "subclasses": [{
+                          "class": "SIO_000728",
+                          "subclasses": [{
+                            "class": "SIO_000732",
+                            "subclasses": [
+                              {"class": "SIO_001075"},
+                              {"class": "SIO_010031"}
+                            ]
+                          }]
+                        }]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000483",
+            "subclasses": [{
+              "class": "SIO_000113",
+              "subclasses": [
+                {
+                  "instances": [
+                    "QuestionFromUserStudy1",
+                    "ContrastiveQuestion",
+                    "QuestionFromUserStudy2"
+                  ],
+                  "class": "SIO_000085",
+                  "subclasses": [{
+                    "class": "UserQuestion",
+                    "subclasses": [
+                      {"class": "WhyQuestion"},
+                      {
+                        "instances": ["What_is_the_anomaly_in_the_sensor"],
+                        "class": "WhatQuestion"
+                      },
+                      {"class": "WhenQuestion"},
+                      {"class": "HowQuestion"}
+                    ]
+                  }]
+                },
+                {"class": "SIO_000493"}
+              ]
+            }]
+          },
+          {
+            "class": "SIO_000651",
+            "subclasses": [
+              {
+                "class": "SIO_000298",
+                "subclasses": [{"class": "SIO_000299"}]
+              },
+              {"class": "SIO_000110"},
+              {"class": "SIO_001073"},
+              {
+                "class": "SIO_000148",
+                "subclasses": [
+                  {
+                    "class": "SIO_001373",
+                    "subclasses": [
+                      {"class": "SIO_000153"},
+                      {"class": "SIO_001374"},
+                      {"class": "SIO_001371"},
+                      {"class": "SIO_001376"},
+                      {"class": "SIO_001372"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_000129",
+                    "subclasses": [
+                      {"class": "SIO_000623"},
+                      {"class": "SIO_000331"},
+                      {"class": "SIO_000622"}
+                    ]
+                  },
+                  {"class": "SIO_000302"},
+                  {"class": "SIO_000304"},
+                  {"class": "SIO_000151"},
+                  {"class": "SIO_000306"},
+                  {"class": "SIO_000169"},
+                  {
+                    "class": "SIO_000087",
+                    "subclasses": [
+                      {"class": "SIO_000155"},
+                      {
+                        "class": "SIO_000159",
+                        "subclasses": [{"class": "SIO_001169"}]
+                      },
+                      {"class": "SIO_000109"},
+                      {"class": "SIO_000161"},
+                      {"class": "SIO_000164"},
+                      {
+                        "class": "SIO_000165",
+                        "subclasses": [
+                          {"class": "SIO_000166"},
+                          {"class": "SIO_000168"},
+                          {"class": "SIO_000167"}
+                        ]
+                      },
+                      {
+                        "class": "SIO_000106",
+                        "subclasses": [
+                          {"class": "SIO_000156"},
+                          {"class": "SIO_000157"}
+                        ]
+                      },
+                      {
+                        "class": "SIO_000154",
+                        "subclasses": [{"class": "SIO_001029"}]
+                      }
+                    ]
+                  },
+                  {
+                    "class": "SIO_000088",
+                    "subclasses": [
+                      {"class": "SIO_000771"},
+                      {"class": "SIO_001027"}
+                    ]
+                  },
+                  {"class": "SIO_000170"},
+                  {"class": "SIO_000152"},
+                  {
+                    "class": "SIO_001026",
+                    "subclasses": [{"class": "SIO_001028"}]
+                  }
+                ]
+              },
+              {
+                "class": "SIO_000171",
+                "subclasses": [
+                  {
+                    "class": "SIO_000111",
+                    "subclasses": [
+                      {"class": "SIO_000192"},
+                      {"class": "SIO_000107"},
+                      {"class": "SIO_000194"},
+                      {"class": "SIO_000196"},
+                      {"class": "SIO_000188"},
+                      {"class": "SIO_000201"},
+                      {"class": "SIO_000198"},
+                      {"class": "SIO_000200"},
+                      {"class": "SIO_001375"},
+                      {"class": "SIO_000199"},
+                      {"class": "SIO_000191"},
+                      {"class": "SIO_000193"},
+                      {"class": "SIO_000195"},
+                      {"class": "SIO_000197"},
+                      {"class": "SIO_000189"},
+                      {"class": "SIO_000190"}
+                    ]
+                  },
+                  {"class": "SIO_000174"},
+                  {"class": "SIO_000176"}
+                ]
+              }
+            ]
+          },
+          {"class": "SIO_000079"},
+          {
+            "class": "SIO_000786",
+            "subclasses": [
+              {"class": "SIO_000977"},
+              {"class": "SIO_000979"},
+              {"class": "SIO_000978"}
+            ]
+          },
+          {
+            "class": "SIO_000104",
+            "subclasses": [
+              {"class": "SIO_000980"},
+              {"class": "SIO_000982"},
+              {"class": "SIO_000981"}
+            ]
+          },
+          {"class": "SIO_000114"}
+        ]
+      },
+      {
+        "class": "SIO_000612",
+        "subclasses": [
+          {
+            "instances": ["YoloImage"],
+            "class": "ExplanationModality"
+          },
+          {
+            "class": "SIO_000510",
+            "subclasses": [
+              {"class": "SIO_000647"},
+              {"class": "SIO_000648"}
+            ]
+          },
+          {"class": "SIO_000105"}
+        ]
+      }
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "HierarchyDistance",
+    "class": "SIO_000006",
+    "subclasses": [
+      {
+        "class": "SIO_001195",
+        "subclasses": [{
+          "class": "SIO_000276",
+          "subclasses": [
+            {
+              "class": "SIO_000832",
+              "subclasses": [
+                {
+                  "class": "SIO_000863",
+                  "subclasses": [
+                    {"class": "SIO_000868"},
+                    {"class": "SIO_000842"},
+                    {"class": "SIO_000824"},
+                    {"class": "SIO_000826"},
+                    {"class": "SIO_000854"}
+                  ]
+                },
+                {"class": "SIO_000866"},
+                {
+                  "class": "SIO_000949",
+                  "subclasses": [
+                    {
+                      "class": "SIO_000815",
+                      "subclasses": [{"class": "SIO_000813"}]
+                    },
+                    {
+                      "class": "SIO_000837",
+                      "subclasses": [
+                        {
+                          "class": "SIO_000829",
+                          "subclasses": [{"class": "SIO_000871"}]
+                        },
+                        {"class": "SIO_000855"}
+                      ]
+                    },
+                    {
+                      "class": "SIO_000873",
+                      "subclasses": [{
+                        "class": "SIO_000861",
+                        "subclasses": [{"class": "SIO_000862"}]
+                      }]
+                    }
+                  ]
+                },
+                {"class": "SIO_000841"},
+                {"class": "SIO_000833"},
+                {"class": "SIO_000827"},
+                {
+                  "class": "SIO_000845",
+                  "subclasses": [
+                    {"class": "SIO_000869"},
+                    {"class": "SIO_000951"},
+                    {"class": "SIO_001281"}
+                  ]
+                },
+                {"class": "SIO_001283"},
+                {"class": "SIO_001286"},
+                {"class": "SIO_000820"},
+                {"class": "SIO_001285"},
+                {"class": "SIO_000857"},
+                {
+                  "class": "SIO_000814",
+                  "subclasses": [{"class": "SIO_000838"}]
+                },
+                {"class": "SIO_001287"},
+                {"class": "SIO_000865"},
+                {"class": "SIO_000867"},
+                {
+                  "class": "SIO_000834",
+                  "subclasses": [{"class": "SIO_000849"}]
+                },
+                {"class": "SIO_000852"},
+                {
+                  "class": "SIO_000844",
+                  "subclasses": [{
+                    "class": "SIO_000828",
+                    "subclasses": [
+                      {"class": "SIO_000950"},
+                      {"class": "SIO_000411"},
+                      {"class": "SIO_000821"},
+                      {"class": "SIO_000851"},
+                      {
+                        "class": "SIO_000410",
+                        "subclasses": [{"class": "SIO_000860"}]
+                      }
+                    ]
+                  }]
+                },
+                {"class": "SIO_001282"},
+                {"class": "SIO_000846"}
+              ]
+            },
+            {
+              "class": "SIO_000831",
+              "subclasses": [
+                {
+                  "class": "SIO_000848",
+                  "subclasses": [{
+                    "class": "SIO_000825",
+                    "subclasses": [
+                      {"class": "SIO_000853"},
+                      {"class": "SIO_000823"},
+                      {"class": "SIO_000856"},
+                      {
+                        "instances": [
+                          "Debugging",
+                          "Scruitablity",
+                          "Persuasiveness",
+                          "Education",
+                          "Efficiency",
+                          "Trust",
+                          "Transparency",
+                          "Satisfaction",
+                          "Effectiveness"
+                        ],
+                        "class": "SIO_000358"
+                      }
+                    ]
+                  }]
+                },
+                {
+                  "class": "SIO_000840",
+                  "subclasses": [
+                    {"class": "SIO_000835"},
+                    {
+                      "class": "SIO_000822",
+                      "subclasses": [{
+                        "class": "SIO_000864",
+                        "subclasses": [{"class": "SIO_000859"}]
+                      }]
+                    },
+                    {"class": "SIO_000850"},
+                    {"class": "SIO_000858"}
+                  ]
+                },
+                {"class": "SIO_000817"},
+                {"class": "SIO_000818"},
+                {"class": "SIO_000843"},
+                {"class": "SIO_000819"},
+                {"class": "SIO_000412"},
+                {"class": "SIO_000812"},
+                {"class": "SIO_000839"},
+                {"class": "SIO_000830"},
+                {"class": "SIO_001284"},
+                {"class": "SIO_000836"},
+                {
+                  "class": "SIO_000870",
+                  "subclasses": [{"class": "SIO_000872"}]
+                }
+              ]
+            },
+            {
+              "class": "SIO_000847",
+              "subclasses": [{"class": "SIO_000816"}]
+            }
+          ]
+        }]
+      },
+      {
+        "class": "SIO_000593",
+        "subclasses": [
+          {
+            "class": "SIO_001055",
+            "subclasses": [{"class": "SIO_000379"}]
+          },
+          {"class": "SIO_001049"},
+          {
+            "class": "SIO_000589",
+            "subclasses": [
+              {
+                "class": "SIO_000609",
+                "subclasses": [
+                  {"class": "SIO_010296"},
+                  {
+                    "class": "SIO_001145",
+                    "subclasses": [
+                      {
+                        "class": "SIO_001151",
+                        "subclasses": [
+                          {"class": "SIO_001147"},
+                          {"class": "SIO_001146"},
+                          {"class": "SIO_001152"}
+                        ]
+                      },
+                      {
+                        "class": "SIO_001127",
+                        "subclasses": [
+                          {
+                            "class": "SIO_001129",
+                            "subclasses": [
+                              {"class": "SIO_001201"},
+                              {"class": "SIO_001199"},
+                              {"class": "SIO_001200"},
+                              {"class": "SIO_001202"}
+                            ]
+                          },
+                          {
+                            "class": "SIO_001128",
+                            "subclasses": [
+                              {"class": "SIO_001203"},
+                              {"class": "SIO_001206"},
+                              {"class": "SIO_001205"},
+                              {"class": "SIO_001204"}
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "class": "SIO_001150",
+                        "subclasses": [
+                          {"class": "SIO_001153"},
+                          {"class": "SIO_001148"},
+                          {"class": "SIO_001149"}
+                        ]
+                      }
+                    ]
+                  },
+                  {"class": "SIO_010295"},
+                  {
+                    "class": "SIO_001139",
+                    "subclasses": [
+                      {"class": "SIO_001142"},
+                      {"class": "SIO_001140"},
+                      {"class": "SIO_001141"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_010287",
+                    "subclasses": [
+                      {
+                        "class": "SIO_001126",
+                        "subclasses": [
+                          {"class": "SIO_001130"},
+                          {"class": "SIO_001131"}
+                        ]
+                      },
+                      {"class": "SIO_001125"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_001132",
+                    "subclasses": [{"class": "SIO_001366"}]
+                  },
+                  {
+                    "class": "SIO_001135",
+                    "subclasses": [
+                      {"class": "SIO_001133"},
+                      {"class": "SIO_001134"},
+                      {"class": "SIO_001144"}
+                    ]
+                  },
+                  {
+                    "class": "SIO_001136",
+                    "subclasses": [
+                      {"class": "SIO_001138"},
+                      {"class": "SIO_001143"},
+                      {"class": "SIO_001137"}
+                    ]
+                  }
+                ]
+              },
+              {
+                "class": "SIO_000610",
+                "subclasses": [{
+                  "class": "SIO_000611",
+                  "subclasses": [
+                    {"class": "SIO_010289"},
+                    {"class": "SIO_010288"}
+                  ]
+                }]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000591",
+            "subclasses": [
+              {
+                "class": "SIO_000592",
+                "subclasses": [
+                  {"class": "SIO_001208"},
+                  {"class": "SIO_010286"},
+                  {"class": "SIO_001207"}
+                ]
+              },
+              {"class": "SIO_000583"}
+            ]
+          },
+          {"class": "SIO_000918"},
+          {
+            "class": "SIO_000575",
+            "subclasses": [{
+              "class": "SIO_010283",
+              "subclasses": [{
+                "class": "SIO_000576",
+                "subclasses": [
+                  {"class": "SIO_000562"},
+                  {
+                    "class": "SIO_010284",
+                    "subclasses": [
+                      {"class": "SIO_000577"},
+                      {
+                        "class": "SIO_000578",
+                        "subclasses": [
+                          {"class": "SIO_000579"},
+                          {"class": "SIO_000580"}
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }]
+            }]
+          },
+          {
+            "class": "SIO_010013",
+            "subclasses": [
+              {
+                "class": "SIO_010345",
+                "subclasses": [
+                  {"class": "SIO_010509"},
+                  {
+                    "class": "SIO_010516",
+                    "subclasses": [{
+                      "class": "SIO_010518",
+                      "subclasses": [
+                        {
+                          "class": "SIO_010519",
+                          "subclasses": [
+                            {"class": "SIO_010522"},
+                            {"class": "SIO_010523"}
+                          ]
+                        },
+                        {
+                          "class": "SIO_010520",
+                          "subclasses": [{"class": "SIO_010521"}]
+                        }
+                      ]
+                    }]
+                  },
+                  {
+                    "class": "SIO_010508",
+                    "subclasses": [{"class": "SIO_010036"}]
+                  },
+                  {
+                    "class": "SIO_010510",
+                    "subclasses": [
+                      {
+                        "class": "SIO_010512",
+                        "subclasses": [
+                          {"class": "SIO_010514"},
+                          {"class": "SIO_010513"}
+                        ]
+                      },
+                      {"class": "SIO_010511"},
+                      {"class": "SIO_010515"}
+                    ]
+                  },
+                  {"class": "SIO_010307"},
+                  {"class": "SIO_010507"},
+                  {"class": "SIO_010517"}
+                ]
+              },
+              {
+                "class": "SIO_010308",
+                "subclasses": [
+                  {"class": "SIO_010309"},
+                  {"class": "SIO_010310"}
+                ]
+              },
+              {"class": "SIO_001399"},
+              {
+                "class": "SIO_001005",
+                "subclasses": [{"class": "SIO_001006"}]
+              }
+            ]
+          },
+          {
+            "class": "SIO_000588",
+            "subclasses": [
+              {"class": "SIO_000739"},
+              {
+                "class": "SIO_000919",
+                "subclasses": [{"class": "SIO_000587"}]
+              },
+              {
+                "class": "SIO_000559",
+                "subclasses": [
+                  {"class": "SIO_010285"},
+                  {
+                    "class": "SIO_000590",
+                    "subclasses": [
+                      {"class": "SIO_010301"},
+                      {"class": "SIO_010300"}
+                    ]
+                  }
+                ]
+              },
+              {"class": "SIO_000582"},
+              {"class": "SIO_000744"},
+              {"class": "SIO_000746"},
+              {"class": "SIO_000703"},
+              {"class": "SIO_000748"}
+            ]
+          },
+          {"class": "SIO_001054"},
+          {"class": "SIO_000745"},
+          {
+            "class": "SIO_000969",
+            "subclasses": [
+              {"class": "SIO_001357"},
+              {"class": "SIO_001059"},
+              {"class": "SIO_000941"}
+            ]
+          }
+        ]
+      },
+      {
+        "class": "SIO_000570",
+        "subclasses": [
+          {
+            "class": "SIO_000574",
+            "subclasses": [{"class": "SIO_000581"}]
+          },
+          {
+            "class": "SIO_000573",
+            "subclasses": [{
+              "class": "SIO_000564",
+              "subclasses": [
+                {"class": "SIO_000572"},
+                {"class": "SIO_000571"}
+              ]
+            }]
+          }
+        ]
+      },
+      {
+        "instances": ["ProductManufacturing"],
+        "class": "SIO_000999",
+        "subclasses": [
+          {
+            "class": "SIO_000747",
+            "subclasses": [
+              {
+                "class": "SIO_000994",
+                "subclasses": [
+                  {"class": "SIO_001076"},
+                  {
+                    "class": "SIO_001048",
+                    "subclasses": [{"class": "SIO_001000"}]
+                  },
+                  {
+                    "class": "SIO_000976",
+                    "subclasses": [{"class": "SIO_001067"}]
+                  },
+                  {"class": "SIO_001180"}
+                ]
+              },
+              {"class": "SIO_001066"},
+              {"class": "ScientificMethod"}
+            ]
+          },
+          {
+            "class": "SIO_000649",
+            "subclasses": [
+              {
+                "class": "AITask",
+                "subclasses": [
+                  {"class": "AbductiveTask"},
+                  {"class": "InductiveTask"},
+                  {
+                    "class": "Classification",
+                    "subclasses": [{
+                      "instances": ["BoschSensorAnomalyDetection"],
+                      "class": "AnomalyDetection"
+                    }]
+                  },
+                  {"class": "Forecasting"},
+                  {
+                    "instances": ["AITaskExample"],
+                    "class": "DeductiveTask"
+                  }
+                ]
+              },
+              {"class": "SIO_000998"},
+              {"class": "SIO_001051"},
+              {
+                "class": "SIO_000667",
+                "subclasses": [
+                  {
+                    "class": "SIO_001192",
+                    "subclasses": [{"class": "SIO_001193"}]
+                  },
+                  {
+                    "class": "ArtificialIntelligenceMethod",
+                    "subclasses": [
+                      {"class": "OMIT_0001177"},
+                      {
+                        "class": "OMIT_0024712",
+                        "subclasses": [{
+                          "class": "OMIT_0028401",
+                          "subclasses": [{"class": "OMIT_0028314"}]
+                        }]
+                      },
+                      {"class": "OMIT_0013278"},
+                      {
+                        "instances": [
+                          "YoloNeuralNetwork",
+                          "BoschAnomalyDeepNeuralNetwork"
+                        ],
+                        "class": "OMIT_0017046"
+                      },
+                      {"class": "OMIT_0010354"},
+                      {
+                        "class": "OMIT_0001480",
+                        "subclasses": [
+                          {"class": "OMIT_0001486"},
+                          {
+                            "class": "OMIT_0001483",
+                            "subclasses": [
+                              {"class": "OMIT_0027764"},
+                              {"class": "DecisionTree"}
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "class": "KnowledgeBasedSystems",
+                        "subclasses": [{"class": "OMIT_0006327"}]
+                      },
+                      {"class": "OMIT_0017538"}
+                    ]
+                  }
+                ]
+              },
+              {"class": "SIO_001052"},
+              {
+                "class": "SIO_000594",
+                "subclasses": [{"class": "SIO_000595"}]
+              },
+              {
+                "class": "SIO_001359",
+                "subclasses": [
+                  {"class": "SIO_001356"},
+                  {"class": "SIO_001360"}
+                ]
+              }
+            ]
+          },
+          {
+            "class": "SIO_001024",
+            "subclasses": [
+              {"class": "SIO_001023"},
+              {"class": "SIO_001002"},
+              {"class": "SIO_001022"},
+              {"class": "SIO_001001"},
+              {"class": "SIO_001398"}
+            ]
+          },
+          {"class": "SIO_001007"}
+        ]
+      }
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "SameTypeMatch",
+    "class": "AITask",
+    "subclasses": [
+      {"class": "AbductiveTask"},
+      {"class": "InductiveTask"},
+      {
+        "class": "Classification",
+        "subclasses": [{
+          "instances": ["BoschSensorAnomalyDetection"],
+          "class": "AnomalyDetection"
+        }]
+      },
+      {"class": "Forecasting"},
+      {
+        "instances": ["AITaskExample"],
+        "class": "DeductiveTask"
+      }
+    ]
+  },
+  {
+    "applicableSimilarityStrategy": "ExactMatch",
+    "instances": [
+      "global",
+      "local",
+      "cohort"
+    ],
+    "class": "ExplanationScope"
+  }
+]}
