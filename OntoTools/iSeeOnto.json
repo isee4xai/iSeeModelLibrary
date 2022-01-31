@@ -1,0 +1,3889 @@
+{"iSeeOnto": [{
+  "class": "Thing",
+  "subclasses": [
+    {
+      "class": "Technical Facilities",
+      "subclasses": [
+        {
+          "instances": ["Speaker"],
+          "class": "Audio Facilities"
+        },
+        {
+          "instances": ["ScreenDisplay"],
+          "class": "Visual Facilities"
+        }
+      ]
+    },
+    {"class": "Variable"},
+    {
+      "instances": [
+        "SocialBehaviour",
+        "Phenomenon",
+        "GeneralisedNewKnowledge",
+        "LinguisticFact",
+        "Component",
+        "Entity",
+        "PositiveObservation",
+        "CauseVariable",
+        "EffectVariable",
+        "Grammar",
+        "Activity",
+        "SocialRegularity"
+      ],
+      "class": "Event"
+    },
+    {"class": "Agent"},
+    {
+      "instances": ["BoschAnomolyVisualisation"],
+      "class": "Explainability Technique"
+    },
+    {
+      "class": "SoftwareAgent",
+      "subclasses": [
+        {"class": "ProvenanceService"},
+        {"class": "ServiceDescription"}
+      ]
+    },
+    {
+      "class": "UserQuestionTarget",
+      "subclasses": [
+        {
+          "class": "AI Method",
+          "subclasses": [
+            {
+              "class": "Knowledge based Systems",
+              "subclasses": [{"class": "Expert Systems"}]
+            },
+            {
+              "class": "Knowledge Bases",
+              "subclasses": [{
+                "class": "Biological Ontologies",
+                "subclasses": [{"class": "Gene Ontology"}]
+              }]
+            },
+            {
+              "instances": [
+                "YoloNeuralNetwork",
+                "BoschAnomalyDeepNeuralNetwork"
+              ],
+              "class": "Neural Networks (Computer)"
+            },
+            {
+              "class": "Machine Learning",
+              "subclasses": [
+                {
+                  "class": "Supervised Machine Learning",
+                  "subclasses": [
+                    {"class": "Support Vector Machine"},
+                    {"class": "Decision Tree"}
+                  ]
+                },
+                {"class": "Unsupervised Machine Learning"}
+              ]
+            },
+            {"class": "Computer Heuristics"},
+            {"class": "Fuzzy Logic"},
+            {"class": "Robotics"},
+            {"class": "Natural Language Processing"}
+          ]
+        },
+        {
+          "instances": [
+            "SystemRecExampleForContrastiveExpA",
+            "SystemRecExampleForContrastiveExpB"
+          ],
+          "class": "System Recommendation"
+        }
+      ]
+    },
+    {
+      "class": "Task",
+      "subclasses": [
+        {"class": "Composite Task"},
+        {"class": "Simple Task"}
+      ]
+    },
+    {
+      "class": "Agent",
+      "subclasses": [
+        {"class": "Person"},
+        {"class": "Organization"},
+        {
+          "class": "SoftwareAgent",
+          "subclasses": [
+            {"class": "ProvenanceService"},
+            {"class": "ServiceDescription"}
+          ]
+        }
+      ]
+    },
+    {
+      "instances": [
+        "modelSpecific",
+        "modelClassSpecific",
+        "model-agnostic"
+      ],
+      "class": "Portability"
+    },
+    {
+      "instances": [
+        "categorical",
+        "image",
+        "ordinal",
+        "numerical"
+      ],
+      "class": "Data Type",
+      "subclasses": [
+        {"class": "Categorical"},
+        {
+          "instances": ["ColorImage"],
+          "class": "Image"
+        },
+        {"class": "Numerical"},
+        {"class": "Ordinal"}
+      ]
+    },
+    {
+      "class": "Activity",
+      "subclasses": [
+        {"class": "Accept"},
+        {"class": "RightsAssignment"},
+        {"class": "Copyright"},
+        {"class": "Publish"},
+        {
+          "class": "Contribute",
+          "subclasses": [{"class": "Create"}]
+        },
+        {"class": "Modify"},
+        {
+          "class": "Assessment",
+          "subclasses": [{"class": "AI Method Effectiveness Assessment"}]
+        },
+        {"class": "Submit"},
+        {"class": "Replace"}
+      ]
+    },
+    {"class": "Workflow"},
+    {
+      "class": "Control Construct",
+      "subclasses": [
+        {"class": "If Then Else"},
+        {"class": "Sequence"}
+      ]
+    },
+    {
+      "instances": [
+        "post-hoc",
+        "ante-hoc"
+      ],
+      "class": "Explainer Concurrentness"
+    },
+    {
+      "instances": [
+        "Language",
+        "IntelligentBehaviour",
+        "Constraint",
+        "Intervention",
+        "Condition",
+        "SocialWorld"
+      ],
+      "class": "Situation"
+    },
+    {
+      "instances": [
+        "global",
+        "local",
+        "cohort"
+      ],
+      "class": "Explanation Scope"
+    },
+    {
+      "class": "Dictionary",
+      "subclasses": [{"class": "Empty Dictionary"}]
+    },
+    {"class": "Description"},
+    {"class": "Domain"},
+    {"class": "Dataset"},
+    {
+      "class": "Entity",
+      "subclasses": [
+        {"class": "Bundle"},
+        {
+          "class": "Result",
+          "subclasses": [{"class": "AI Method Assessment Result"}]
+        },
+        {"class": "Subject"},
+        {"class": "Plan"},
+        {
+          "class": "Dimension",
+          "subclasses": [{"class": "AI Method Assessment Dimension"}]
+        },
+        {
+          "class": "Metric",
+          "subclasses": [{"class": "AI Method Assessment Metric"}]
+        },
+        {
+          "class": "Collection",
+          "subclasses": [{
+            "class": "EmptyCollection",
+            "subclasses": [{"class": "Empty Dictionary"}]
+          }]
+        }
+      ]
+    },
+    {"class": "Property"},
+    {"class": "Computational Complexity"},
+    {
+      "instances": [
+        "low",
+        "high",
+        "medium"
+      ],
+      "class": "Knowledge Level"
+    },
+    {
+      "class": "Case Feature",
+      "subclasses": [
+        {
+          "instances": ["BoschExplainer"],
+          "class": "Explainer"
+        },
+        {
+          "instances": ["BoschAnomalyDetectionModel"],
+          "class": "AIModel"
+        },
+        {
+          "instances": ["BoschUser"],
+          "class": "User"
+        }
+      ]
+    },
+    {
+      "instances": ["BoschExplanationExperience"],
+      "class": "Explanation Experience"
+    },
+    {"class": "Location"},
+    {
+      "instances": [
+        "prediction",
+        "model",
+        "data"
+      ],
+      "class": "Explanation Target"
+    },
+    {
+      "class": "Role",
+      "subclasses": [
+        {
+          "class": "Contributor",
+          "subclasses": [{"class": "Creator"}]
+        },
+        {"class": "result"},
+        {"class": "RightsHolder"},
+        {"class": "Publisher"},
+        {"class": "metric"},
+        {"class": "subject"}
+      ]
+    },
+    {
+      "class": "Influence",
+      "subclasses": [
+        {
+          "class": "AgentInfluence",
+          "subclasses": [
+            {"class": "Association"},
+            {"class": "Attribution"},
+            {"class": "Delegation"}
+          ]
+        },
+        {
+          "class": "EntityInfluence",
+          "subclasses": [
+            {"class": "Usage"},
+            {"class": "End"},
+            {
+              "class": "Derivation",
+              "subclasses": [
+                {"class": "Revision"},
+                {"class": "Quotation"},
+                {"class": "Removal"},
+                {"class": "Insertion"},
+                {"class": "PrimarySource"}
+              ]
+            },
+            {"class": "Start"}
+          ]
+        },
+        {
+          "class": "ActivityInfluence",
+          "subclasses": [
+            {"class": "Communication"},
+            {"class": "Generation"},
+            {"class": "Invalidation"}
+          ]
+        }
+      ]
+    },
+    {
+      "instances": ["BoschDescription"],
+      "class": "Description"
+    },
+    {
+      "class": "entity",
+      "subclasses": [
+        {
+          "class": "process",
+          "subclasses": [
+            {
+              "class": "behaviour",
+              "subclasses": [{
+                "class": "emotion",
+                "subclasses": [
+                  {
+                    "class": "negative emotion",
+                    "subclasses": [
+                      {"class": "shame"},
+                      {"class": "embarassment"},
+                      {
+                        "class": "hostility",
+                        "subclasses": [{
+                          "class": "disgust",
+                          "subclasses": [
+                            {"class": "contempt"},
+                            {
+                              "class": "anger",
+                              "subclasses": [{"class": "rage"}]
+                            },
+                            {"class": "loathing"},
+                            {"class": "hate"},
+                            {"class": "resentment"}
+                          ]
+                        }]
+                      },
+                      {"class": "shock"},
+                      {"class": "loneliness"},
+                      {
+                        "class": "sadness",
+                        "subclasses": [
+                          {"class": "misery"},
+                          {"class": "grief"},
+                          {"class": "despair"},
+                          {"class": "sorrow"},
+                          {"class": "depression"}
+                        ]
+                      },
+                      {"class": "guilt"},
+                      {"class": "boredom"},
+                      {
+                        "class": "annoyance",
+                        "subclasses": [{"class": "frustration"}]
+                      },
+                      {
+                        "class": "envy",
+                        "subclasses": [{"class": "jealousy"}]
+                      },
+                      {"class": "shyness"},
+                      {
+                        "class": "hurt",
+                        "subclasses": [
+                          {"class": "pain"},
+                          {"class": "suffering"},
+                          {"class": "humiliation"}
+                        ]
+                      },
+                      {"class": "hysteria"},
+                      {"class": "pity"},
+                      {"class": "disappointment"},
+                      {
+                        "class": "apprehension",
+                        "subclasses": [
+                          {
+                            "class": "fear",
+                            "subclasses": [
+                              {"class": "panic"},
+                              {
+                                "class": "dread",
+                                "subclasses": [{"class": "terror"}]
+                              }
+                            ]
+                          },
+                          {
+                            "class": "anxiety",
+                            "subclasses": [{"class": "angst"}]
+                          },
+                          {
+                            "class": "worry",
+                            "subclasses": [{
+                              "class": "regret",
+                              "subclasses": [{"class": "remorse"}]
+                            }]
+                          }
+                        ]
+                      },
+                      {"class": "hunger"},
+                      {"class": "discouragement"},
+                      {"class": "irritability"},
+                      {"class": "indecision"},
+                      {"class": "suicidal"}
+                    ]
+                  },
+                  {
+                    "class": "positive emotion",
+                    "subclasses": [
+                      {"class": "hope"},
+                      {"class": "ecstasy"},
+                      {"class": "love"},
+                      {"class": "excitement"},
+                      {
+                        "class": "interest",
+                        "subclasses": [{
+                          "class": "desire",
+                          "subclasses": [
+                            {"class": "lust"},
+                            {
+                              "instances": [
+                                "Debugging",
+                                "Scruitablity",
+                                "Persuasiveness",
+                                "Education",
+                                "Efficiency",
+                                "Trust",
+                                "Transparency",
+                                "Satisfaction",
+                                "Effectiveness"
+                              ],
+                              "class": "intent"
+                            },
+                            {"class": "curiosity"},
+                            {"class": "passion"}
+                          ]
+                        }]
+                      },
+                      {"class": "affection"},
+                      {"class": "awe"},
+                      {"class": "boldness"},
+                      {"class": "arousal"},
+                      {"class": "gratitude"},
+                      {"class": "satisfaction"},
+                      {
+                        "class": "happiness",
+                        "subclasses": [
+                          {
+                            "class": "contentment",
+                            "subclasses": [{
+                              "class": "satisfaction",
+                              "subclasses": [{"class": "pride"}]
+                            }]
+                          },
+                          {"class": "pleasure"},
+                          {"class": "euphoria"},
+                          {"class": "joy"}
+                        ]
+                      },
+                      {
+                        "class": "surprise",
+                        "subclasses": [{"class": "wonder"}]
+                      }
+                    ]
+                  },
+                  {
+                    "class": "indifference",
+                    "subclasses": [{"class": "apathy"}]
+                  }
+                ]
+              }]
+            },
+            {
+              "instances": ["ProductManufacturing"],
+              "class": "procedure",
+              "subclasses": [
+                {"class": "assay"},
+                {
+                  "class": "information processing",
+                  "subclasses": [
+                    {
+                      "class": "sofware execution",
+                      "subclasses": [
+                        {
+                          "class": "AI Method",
+                          "subclasses": [
+                            {
+                              "class": "Knowledge based Systems",
+                              "subclasses": [{"class": "Expert Systems"}]
+                            },
+                            {
+                              "class": "Knowledge Bases",
+                              "subclasses": [{
+                                "class": "Biological Ontologies",
+                                "subclasses": [{"class": "Gene Ontology"}]
+                              }]
+                            },
+                            {
+                              "instances": [
+                                "YoloNeuralNetwork",
+                                "BoschAnomalyDeepNeuralNetwork"
+                              ],
+                              "class": "Neural Networks (Computer)"
+                            },
+                            {
+                              "class": "Machine Learning",
+                              "subclasses": [
+                                {
+                                  "class": "Supervised Machine Learning",
+                                  "subclasses": [
+                                    {"class": "Support Vector Machine"},
+                                    {"class": "Decision Tree"}
+                                  ]
+                                },
+                                {"class": "Unsupervised Machine Learning"}
+                              ]
+                            },
+                            {"class": "Computer Heuristics"},
+                            {"class": "Fuzzy Logic"},
+                            {"class": "Robotics"},
+                            {"class": "Natural Language Processing"}
+                          ]
+                        },
+                        {
+                          "class": "web service invocation",
+                          "subclasses": [{"class": "SADI web service invocation"}]
+                        }
+                      ]
+                    },
+                    {"class": "literature curation"},
+                    {
+                      "class": "information translation",
+                      "subclasses": [
+                        {"class": "information decoding"},
+                        {"class": "information encoding"}
+                      ]
+                    },
+                    {"class": "data analysis"},
+                    {
+                      "class": "AI Task",
+                      "subclasses": [
+                        {
+                          "class": "Classification",
+                          "subclasses": [{
+                            "instances": ["BoschSensorAnomalyDetection"],
+                            "class": "AnomalyDetection"
+                          }]
+                        },
+                        {"class": "Abductive Task"},
+                        {
+                          "instances": ["AITaskExample"],
+                          "class": "Deductive Task"
+                        },
+                        {"class": "Inductive Task"},
+                        {"class": "Forecasting"}
+                      ]
+                    },
+                    {"class": "data collection"},
+                    {
+                      "class": "data transformation",
+                      "subclasses": [{"class": "parameterized data transformation"}]
+                    }
+                  ]
+                },
+                {
+                  "class": "investigation",
+                  "subclasses": [
+                    {"class": "study"},
+                    {
+                      "class": "experiment",
+                      "subclasses": [
+                        {
+                          "class": "observational study",
+                          "subclasses": [{"class": "controlled observational cohort study"}]
+                        },
+                        {"class": "mass spectrometry experiment"},
+                        {"class": "microarray experiment"},
+                        {
+                          "class": "intervention study",
+                          "subclasses": [{"class": "clinical trial"}]
+                        }
+                      ]
+                    },
+                    {"class": "Scientific Method"}
+                  ]
+                },
+                {
+                  "class": "medical procedure",
+                  "subclasses": [
+                    {"class": "diagnostic test"},
+                    {"class": "medical diagnosis"},
+                    {"class": "medical screening"},
+                    {"class": "medical intervention"},
+                    {"class": "differential diagnosis"}
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "interacting",
+              "subclasses": [
+                {"class": "comparing"},
+                {
+                  "class": "creating",
+                  "subclasses": [
+                    {"class": "learning"},
+                    {"class": "predicting"},
+                    {"class": "reasoning"},
+                    {
+                      "class": "chemical synthesis",
+                      "subclasses": [
+                        {
+                          "class": "biosynthesis",
+                          "subclasses": [
+                            {"class": "translation"},
+                            {"class": "transcription"}
+                          ]
+                        },
+                        {"class": "molecular complex formation"}
+                      ]
+                    },
+                    {"class": "evolving"},
+                    {"class": "birthing"},
+                    {"class": "planning"},
+                    {
+                      "class": "reproducing",
+                      "subclasses": [{"class": "biological reproduction"}]
+                    }
+                  ]
+                },
+                {
+                  "class": "regulating",
+                  "subclasses": [
+                    {
+                      "class": "regulation of capability",
+                      "subclasses": [{
+                        "class": "regulation of catalytic capability",
+                        "subclasses": [
+                          {"class": "biochemical activation"},
+                          {"class": "biochemical inhibition"}
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "regulation of process",
+                      "subclasses": [
+                        {
+                          "class": "regulation of process spatial extent",
+                          "subclasses": [
+                            {"class": "increased spatial extent of process from increased regulation"},
+                            {"class": "decreased spatial extent of process from decreased regulation"},
+                            {"class": "maintenance of spatial extent of process"}
+                          ]
+                        },
+                        {
+                          "class": "process maintenance",
+                          "subclasses": [{"class": "information maintenance"}]
+                        },
+                        {"class": "process up-regulation"},
+                        {"class": "process down-regulation"},
+                        {
+                          "class": "regulation of process duration",
+                          "subclasses": [
+                            {"class": "decreased duration of process from increased regulation"},
+                            {"class": "maintenance of duration of process"},
+                            {"class": "increased duration of process from increased regulation"}
+                          ]
+                        },
+                        {
+                          "class": "regulation of biochemical process",
+                          "subclasses": [
+                            {"class": "regulation of transcription"},
+                            {
+                              "class": "regulation of translation",
+                              "subclasses": [
+                                {"class": "protein mediated regulation of translation"},
+                                {"class": "rna mediated regulation of translation"}
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "regulation of object quantity",
+                          "subclasses": [
+                            {
+                              "class": "regulation of molecular quantity",
+                              "subclasses": [
+                                {
+                                  "class": "regulation of molecular degradation",
+                                  "subclasses": [
+                                    {"class": "increased molecular degradation from increased regulation"},
+                                    {"class": "decreased molecular degradation from increased regulation"},
+                                    {"class": "decreased molecular degradation from decreased regulation"},
+                                    {"class": "increased molecular degradation from decreased regulation"}
+                                  ]
+                                },
+                                {
+                                  "class": "regulation of molecular production",
+                                  "subclasses": [
+                                    {"class": "decreased molecular production from decreased regulation"},
+                                    {"class": "decreased molecular production from increased regulation"},
+                                    {"class": "increased molecular production from decreased regulation"},
+                                    {"class": "increased molecular production from increased regulation"}
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "class": "regulation of object consumption",
+                              "subclasses": [
+                                {"class": "decreased object consumption from increased regulation"},
+                                {"class": "maintenance of level of object consumption"},
+                                {"class": "increased object consumption from increased regulation"}
+                              ]
+                            },
+                            {
+                              "class": "regulation of object production",
+                              "subclasses": [
+                                {"class": "maintenance of quantity of object production"},
+                                {"class": "decreased object production from increased regulation"},
+                                {"class": "increased object production from increased regulation"}
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "regulation of process frequency",
+                          "subclasses": [
+                            {"class": "maintenance of frequency of process"},
+                            {"class": "increased frequency of process from increased regulation"},
+                            {"class": "decreased frequency of process from increased regulation"}
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "communicating",
+                  "subclasses": [
+                    {"class": "conversing"},
+                    {"class": "gesturing"},
+                    {"class": "speech"}
+                  ]
+                },
+                {
+                  "class": "observing",
+                  "subclasses": [{"class": "perception"}]
+                },
+                {"class": "modifying"},
+                {
+                  "class": "destroying",
+                  "subclasses": [
+                    {"class": "dying"},
+                    {
+                      "class": "chemical destruction",
+                      "subclasses": [
+                        {"class": "increased chemical destruction"},
+                        {"class": "decreased chemical destruction"},
+                        {"class": "molecular complex dissociation"}
+                      ]
+                    }
+                  ]
+                },
+                {"class": "measuring"},
+                {
+                  "class": "transporting",
+                  "subclasses": [{
+                    "class": "chemical transport",
+                    "subclasses": [{
+                      "class": "membrane transport",
+                      "subclasses": [
+                        {
+                          "class": "active transport",
+                          "subclasses": [
+                            {"class": "primary active transport"},
+                            {
+                              "class": "secondary active transport",
+                              "subclasses": [
+                                {"class": "symport enabled secondary active transport"},
+                                {"class": "antiport enabled secondary active transport"}
+                              ]
+                            }
+                          ]
+                        },
+                        {"class": "passive transport"}
+                      ]
+                    }]
+                  }]
+                },
+                {"class": "sampling"},
+                {
+                  "class": "chemical interaction",
+                  "subclasses": [
+                    {
+                      "class": "chemical reaction",
+                      "subclasses": [
+                        {
+                          "class": "inorganic reaction",
+                          "subclasses": [
+                            {"class": "decomposition reaction"},
+                            {
+                              "class": "displacement reaction",
+                              "subclasses": [
+                                {"class": "double displacement reaction"},
+                                {"class": "single displacement reaction"}
+                              ]
+                            },
+                            {"class": "synthesis reaction"}
+                          ]
+                        },
+                        {"class": "molecular modification"},
+                        {
+                          "class": "organic reaction",
+                          "subclasses": [{
+                            "class": "addition reaction",
+                            "subclasses": [
+                              {
+                                "class": "polar addition reaction",
+                                "subclasses": [
+                                  {"class": "nucleophilic addition reaction"},
+                                  {"class": "electrophilic addition reaction"}
+                                ]
+                              },
+                              {
+                                "class": "non-polar addition reaction",
+                                "subclasses": [{"class": "free radical addition"}]
+                              }
+                            ]
+                          }]
+                        },
+                        {"class": "isomerization reaction"},
+                        {"class": "acid-base reaction"},
+                        {
+                          "class": "catalyzed reaction",
+                          "subclasses": [{"class": "biochemical reaction"}]
+                        },
+                        {"class": "redox reaction"}
+                      ]
+                    },
+                    {
+                      "class": "metabolism",
+                      "subclasses": [
+                        {"class": "catabolism"},
+                        {"class": "anabolism"}
+                      ]
+                    },
+                    {
+                      "class": "chemical effect",
+                      "subclasses": [{"class": "drug drug interaction"}]
+                    },
+                    {"class": "chemical exposure"}
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "movement",
+              "subclasses": [
+                {
+                  "class": "passive movement",
+                  "subclasses": [{
+                    "class": "diffusion",
+                    "subclasses": [
+                      {"class": "brownian motion"},
+                      {"class": "osmosis"}
+                    ]
+                  }]
+                },
+                {
+                  "class": "active movement",
+                  "subclasses": [{"class": "locomotion"}]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "class": "object",
+          "subclasses": [
+            {
+              "class": "spatial region",
+              "subclasses": [
+                {
+                  "class": "geographic region",
+                  "subclasses": [
+                    {
+                      "class": "geolegal region",
+                      "subclasses": [{
+                        "class": "geopolitical region",
+                        "subclasses": [
+                          {"class": "city"},
+                          {"class": "township"},
+                          {"class": "territory"},
+                          {"class": "country"},
+                          {"class": "province"},
+                          {"class": "state"}
+                        ]
+                      }]
+                    },
+                    {"class": "environment"}
+                  ]
+                },
+                {
+                  "class": "site",
+                  "subclasses": [
+                    {
+                      "class": "molecular site",
+                      "subclasses": [
+                        {
+                          "class": "binding site",
+                          "subclasses": [{"class": "allosteric site"}]
+                        },
+                        {"class": "active site"},
+                        {"class": "molecular pocket"}
+                      ]
+                    },
+                    {"class": "hole"}
+                  ]
+                },
+                {
+                  "class": "spatial boundary",
+                  "subclasses": [{"class": "material boundary"}]
+                }
+              ]
+            },
+            {
+              "class": "specialized object",
+              "subclasses": [
+                {"class": "anatomical entity"},
+                {
+                  "class": "person",
+                  "subclasses": [
+                    {
+                      "class": "medical practitioner",
+                      "subclasses": [
+                        {"class": "doctor"},
+                        {"class": "nurse"}
+                      ]
+                    },
+                    {
+                      "class": "academic",
+                      "subclasses": [
+                        {"class": "professor"},
+                        {"class": "student"}
+                      ]
+                    },
+                    {
+                      "instances": ["HyperglycemiaPatient"],
+                      "class": "patient"
+                    },
+                    {"class": "study subject"},
+                    {
+                      "instances": ["BoschUser"],
+                      "class": "User"
+                    }
+                  ]
+                },
+                {"class": "specialized material entity"}
+              ]
+            },
+            {
+              "class": "information content entity",
+              "subclasses": [
+                {
+                  "class": "representation",
+                  "subclasses": [
+                    {"class": "symbol"},
+                    {
+                      "class": "model",
+                      "subclasses": [
+                        {"class": "process model"},
+                        {"class": "object model"}
+                      ]
+                    },
+                    {
+                      "instances": ["YoloImage"],
+                      "class": "Explanation Modality"
+                    }
+                  ]
+                },
+                {
+                  "class": "computational entity",
+                  "subclasses": [
+                    {
+                      "class": "cell (informational)",
+                      "subclasses": [
+                        {"class": "unique cell"},
+                        {"class": "referencing cell"},
+                        {"class": "referent cell"}
+                      ]
+                    },
+                    {"class": "database entry"},
+                    {
+                      "class": "column",
+                      "subclasses": [{"class": "database column"}]
+                    },
+                    {"class": "database table"},
+                    {
+                      "instances": [
+                        "SystemRecExampleForContrastiveExpA",
+                        "SystemRecExampleForContrastiveExpB"
+                      ],
+                      "class": "System Recommendation"
+                    },
+                    {"class": "user account"},
+                    {
+                      "instances": [
+                        "ExplanationInLinguistics",
+                        "ExplanationInSociology",
+                        "ExplanationInPhilosophy",
+                        "ExplanationInComputerScience",
+                        "ContrastiveExpInstance",
+                        "ExplanationInNeuroscience",
+                        "ExplanationInPsychology"
+                      ],
+                      "class": "Explanation",
+                      "subclasses": [
+                        {"class": "Contrastive Explanation"},
+                        {"class": "Case Based Explanation"},
+                        {"class": "Simulation Based Explanation"},
+                        {"class": "Statistical Explanation"},
+                        {
+                          "instances": [
+                            "CounterfactualProbable2",
+                            "CounterfactualProbable1"
+                          ],
+                          "class": "Counterfactual Explanation"
+                        },
+                        {"class": "Trace Based Explanation"},
+                        {"class": "Contextual Explanation"},
+                        {
+                          "class": "Everyday Explanation",
+                          "subclasses": [{"class": "Clinical Pearls"}]
+                        },
+                        {
+                          "class": "Scientific Explanation",
+                          "subclasses": [
+                            {"class": "Evidence Based Explanation"},
+                            {"class": "Mechanistic Explanation"}
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "software entity",
+                      "subclasses": [
+                        {"class": "System Trace"},
+                        {"class": "Reasoning Mode"},
+                        {"class": "software method"},
+                        {"class": "software module"},
+                        {"class": "software script"},
+                        {"class": "software library"},
+                        {
+                          "class": "software application",
+                          "subclasses": [
+                            {
+                              "class": "web service",
+                              "subclasses": [
+                                {"class": "REST web service"},
+                                {"class": "SOAP web service"},
+                                {
+                                  "class": "semantic web service",
+                                  "subclasses": [{"class": "SADI semantic web service"}]
+                                }
+                              ]
+                            },
+                            {"class": "software interpreter"}
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "database key",
+                      "subclasses": [
+                        {"class": "foreign database key"},
+                        {"class": "primary database key"}
+                      ]
+                    },
+                    {
+                      "class": "data item",
+                      "subclasses": [
+                        {"class": "metadata"},
+                        {
+                          "class": "scientific data",
+                          "subclasses": [
+                            {
+                              "class": "biological data",
+                              "subclasses": [
+                                {"class": "genetic data"},
+                                {"class": "bioinformatic data"},
+                                {"class": "medical data"}
+                              ]
+                            },
+                            {"class": "chemical data"}
+                          ]
+                        },
+                        {"class": "Object Record"},
+                        {
+                          "class": "dataset",
+                          "subclasses": [{"class": "versioned dataset"}]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "row",
+                      "subclasses": [{"class": "database row"}]
+                    },
+                    {"class": "namespace"},
+                    {
+                      "class": "ovopub",
+                      "subclasses": [
+                        {"class": "collection ovopub"},
+                        {"class": "assertion ovopub"}
+                      ]
+                    },
+                    {"class": "database"}
+                  ]
+                },
+                {
+                  "class": "media",
+                  "subclasses": [
+                    {
+                      "class": "figure part",
+                      "subclasses": [
+                        {"class": "legend"},
+                        {"class": "plot"}
+                      ]
+                    },
+                    {
+                      "class": "figure",
+                      "subclasses": [
+                        {"class": "table"},
+                        {
+                          "class": "image",
+                          "subclasses": [{
+                            "class": "photograph",
+                            "subclasses": [{"class": "geographic image"}]
+                          }]
+                        },
+                        {
+                          "class": "chart",
+                          "subclasses": [
+                            {
+                              "class": "network diagram",
+                              "subclasses": [{
+                                "class": "directed acyclic graph",
+                                "subclasses": [{
+                                  "class": "tree diagram",
+                                  "subclasses": [{"class": "dendrogram"}]
+                                }]
+                              }]
+                            },
+                            {
+                              "class": "mereological chart",
+                              "subclasses": [
+                                {"class": "treemap"},
+                                {"class": "pie chart"}
+                              ]
+                            },
+                            {"class": "matrix chart"},
+                            {
+                              "class": "statistical graph",
+                              "subclasses": [
+                                {
+                                  "class": "line-bar graph",
+                                  "subclasses": [{"class": "boxplot"}]
+                                },
+                                {"class": "scatterplot"},
+                                {
+                                  "class": "stack graph",
+                                  "subclasses": [{"class": "streamgraph"}]
+                                },
+                                {
+                                  "class": "bar graph",
+                                  "subclasses": [
+                                    {"class": "vertical bar graph"},
+                                    {"class": "stacked bar graph"},
+                                    {"class": "horizontal bar graph"}
+                                  ]
+                                },
+                                {"class": "line graph"}
+                              ]
+                            },
+                            {"class": "flowchart"},
+                            {"class": "venn diagram"},
+                            {"class": "bubble chart"},
+                            {
+                              "class": "histogram",
+                              "subclasses": [{"class": "block histogram"}]
+                            },
+                            {"class": "Gantt chart"},
+                            {"class": "map"},
+                            {
+                              "class": "heatmap",
+                              "subclasses": [{"class": "geographic heatmap"}]
+                            },
+                            {
+                              "class": "textual chart",
+                              "subclasses": [
+                                {"class": "word tree"},
+                                {"class": "phrase net diagram"},
+                                {"class": "tag cloud"}
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {"class": "television program"},
+                    {"class": "slide"},
+                    {"class": "slideshow"},
+                    {
+                      "class": "file",
+                      "subclasses": [{
+                        "class": "molecular structure file",
+                        "subclasses": [{"class": "PDB file"}]
+                      }]
+                    },
+                    {"class": "movie"},
+                    {"class": "audio recording"}
+                  ]
+                },
+                {
+                  "class": "geometric entity",
+                  "subclasses": [
+                    {"class": "collection of points"},
+                    {"class": "polyhedral skeleton"},
+                    {"class": "polygonal face"},
+                    {"class": "polyline"},
+                    {
+                      "class": "point",
+                      "subclasses": [
+                        {"class": "2D cartesian point"},
+                        {"class": "3D cartesian point"},
+                        {
+                          "class": "data point",
+                          "subclasses": [{
+                            "class": "stationary point",
+                            "subclasses": [
+                              {
+                                "class": "local maximum stationary point",
+                                "subclasses": [{"class": "global maximal stationary point"}]
+                              },
+                              {
+                                "class": "local minimum stationary point",
+                                "subclasses": [{"class": "global minimal stationary point"}]
+                              }
+                            ]
+                          }]
+                        },
+                        {
+                          "class": "terminal point",
+                          "subclasses": [
+                            {"class": "endpoint"},
+                            {"class": "start point"}
+                          ]
+                        },
+                        {
+                          "class": "node",
+                          "subclasses": [{"class": "polygon vertex"}]
+                        },
+                        {"class": "1D cartesian point"}
+                      ]
+                    },
+                    {"class": "polyhedral surface"},
+                    {
+                      "class": "polygon",
+                      "subclasses": [
+                        {
+                          "class": "quadrilateral",
+                          "subclasses": [{
+                            "class": "rectangle",
+                            "subclasses": [{"class": "bar"}]
+                          }]
+                        },
+                        {"class": "triangle"}
+                      ]
+                    },
+                    {
+                      "class": "curve",
+                      "subclasses": [
+                        {
+                          "class": "line",
+                          "subclasses": [
+                            {
+                              "class": "statistical graph line",
+                              "subclasses": [
+                                {
+                                  "class": "trend line",
+                                  "subclasses": [
+                                    {"class": "increasing line"},
+                                    {"class": "decreasing line"},
+                                    {"class": "plateau line"}
+                                  ]
+                                },
+                                {"class": "drop line"}
+                              ]
+                            },
+                            {
+                              "class": "positionally oriented line",
+                              "subclasses": [
+                                {"class": "horizontal line"},
+                                {"class": "vertical line"}
+                              ]
+                            },
+                            {
+                              "class": "line segment",
+                              "subclasses": [
+                                {
+                                  "class": "tick mark",
+                                  "subclasses": [
+                                    {"class": "major tick mark"},
+                                    {"class": "minor tick mark"}
+                                  ]
+                                },
+                                {"class": "polygon edge"},
+                                {
+                                  "class": "directed line segment",
+                                  "subclasses": [
+                                    {
+                                      "class": "arrowed line segment",
+                                      "subclasses": [
+                                        {"class": "double arrowed line segment"},
+                                        {"class": "single arrowed line segment"}
+                                      ]
+                                    },
+                                    {
+                                      "class": "axis",
+                                      "subclasses": [
+                                        {
+                                          "class": "value axis",
+                                          "subclasses": [
+                                            {"class": "left value axis"},
+                                            {"class": "top value axis"},
+                                            {"class": "bottom value axis"},
+                                            {
+                                              "class": "scaled value axis",
+                                              "subclasses": [
+                                                {"class": "linear value axis"},
+                                                {"class": "logarithmic value axis"}
+                                              ]
+                                            },
+                                            {
+                                              "class": "Cartesian coordinate axis",
+                                              "subclasses": [
+                                                {"class": "z-axis"},
+                                                {"class": "x-axis"},
+                                                {"class": "y-axis"}
+                                              ]
+                                            },
+                                            {"class": "right value axis"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "category axis",
+                                          "subclasses": [
+                                            {"class": "primary category axis"},
+                                            {"class": "secondary category axis"}
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {"class": "infinite line"},
+                            {
+                              "class": "ray",
+                              "subclasses": [{
+                                "class": "vector line",
+                                "subclasses": [
+                                  {"class": "surface normal"},
+                                  {"class": "vertex normal"}
+                                ]
+                              }]
+                            },
+                            {"class": "edge"}
+                          ]
+                        },
+                        {"class": "curve segment"},
+                        {"class": "arc"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "social entity",
+                  "subclasses": [
+                    {
+                      "class": "social structure",
+                      "subclasses": [{
+                        "class": "collective",
+                        "subclasses": [
+                          {
+                            "class": "study group",
+                            "subclasses": [
+                              {"class": "control group"},
+                              {"class": "intervention group"}
+                            ]
+                          },
+                          {"class": "family"},
+                          {
+                            "class": "population",
+                            "subclasses": [{
+                              "class": "human population",
+                              "subclasses": [{"class": "ethnic group"}]
+                            }]
+                          },
+                          {"class": "community"},
+                          {
+                            "class": "organization",
+                            "subclasses": [
+                              {"class": "institute"},
+                              {
+                                "class": "academic organization",
+                                "subclasses": [
+                                  {"class": "university"},
+                                  {"class": "academic department"}
+                                ]
+                              },
+                              {"class": "corporation"},
+                              {
+                                "class": "regulatory authority",
+                                "subclasses": [{"class": "drug regulatory authority"}]
+                              }
+                            ]
+                          }
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "social relation",
+                      "subclasses": [{"class": "affiliation"}]
+                    }
+                  ]
+                },
+                {
+                  "class": "mathematical entity",
+                  "subclasses": [
+                    {
+                      "class": "logical operator",
+                      "subclasses": [
+                        {"class": "conjunction (and)"},
+                        {"class": "negation (not)"},
+                        {
+                          "class": "disjunction (or)",
+                          "subclasses": [{"class": "exclusive disjunction (xor)"}]
+                        },
+                        {"class": "implies (->)"}
+                      ]
+                    },
+                    {
+                      "class": "equation",
+                      "subclasses": [
+                        {
+                          "class": "differential equation",
+                          "subclasses": [
+                            {"class": "partial differential equation"},
+                            {"class": "ordinary differential equation"}
+                          ]
+                        },
+                        {
+                          "class": "movement equation",
+                          "subclasses": [{"class": "diffusion equation"}]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "association",
+                      "subclasses": [
+                        {
+                          "class": "statistical association",
+                          "subclasses": [{"class": "correlation"}]
+                        },
+                        {"class": "epimer association"},
+                        {"class": "chemical-pathway association"},
+                        {
+                          "class": "database cross-reference",
+                          "subclasses": [{"class": "exact cross-reference"}]
+                        },
+                        {"class": "chemical-disease association"},
+                        {"class": "chemical-gene assocation"},
+                        {
+                          "class": "gene-disease association",
+                          "subclasses": [
+                            {
+                              "class": "gene-disease biomarker association",
+                              "subclasses": [
+                                {
+                                  "class": "gene-disease association linked with genomic alterations",
+                                  "subclasses": [
+                                    {"class": "gene-disease association linked with chromosomal rearrangement"},
+                                    {"class": "fusion gene-disease association"},
+                                    {
+                                      "class": "gene-disease association linked with genetic variation",
+                                      "subclasses": [
+                                        {
+                                          "class": "gene-disease association linked with causal mutation",
+                                          "subclasses": [
+                                            {"class": "gene-disease association linked with somatic causal mutation"},
+                                            {"class": "gene-disease association linked with germline causal mutation"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "gene-disease association linked with modifying mutation",
+                                          "subclasses": [
+                                            {"class": "gene-disease association linked with germline modifying mutation"},
+                                            {"class": "gene-disease association linked with somatic modifying mutation"}
+                                          ]
+                                        },
+                                        {"class": "gene-disease association linked with susceptibility mutation"}
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {"class": "gene-disease association linked with altered gene expression"},
+                                {"class": "gene-disease association linked with post-translational modification"}
+                              ]
+                            },
+                            {"class": "therapeutic gene-disease association"}
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "algorithm",
+                      "subclasses": [{"class": "workflow"}]
+                    },
+                    {
+                      "class": "interval",
+                      "subclasses": [{"class": "page range"}]
+                    },
+                    {
+                      "class": "tensor",
+                      "subclasses": [
+                        {
+                          "class": "rank nonzero tensor",
+                          "subclasses": [
+                            {"class": "vector"},
+                            {"class": "matrix"}
+                          ]
+                        },
+                        {
+                          "class": "scalar",
+                          "subclasses": [{
+                            "class": "number",
+                            "subclasses": [{
+                              "class": "measurement value",
+                              "subclasses": [
+                                {
+                                  "class": "quantity",
+                                  "subclasses": [
+                                    {
+                                      "class": "centrality measure",
+                                      "subclasses": [
+                                        {"class": "mean"},
+                                        {"class": "median"},
+                                        {"class": "mode"}
+                                      ]
+                                    },
+                                    {
+                                      "class": "dimensional quantity",
+                                      "subclasses": [
+                                        {"class": "protein expression value"},
+                                        {
+                                          "class": "dose",
+                                          "subclasses": [{"class": "effective dose"}]
+                                        },
+                                        {
+                                          "class": "time measurement",
+                                          "subclasses": [
+                                            {
+                                              "class": "time instant",
+                                              "subclasses": [
+                                                {"class": "date of issue"},
+                                                {"class": "start time"},
+                                                {"class": "date of database submission"},
+                                                {"class": "end date"},
+                                                {"class": "end time"},
+                                                {"class": "start date"}
+                                              ]
+                                            },
+                                            {
+                                              "class": "time interval",
+                                              "subclasses": [
+                                                {"class": "minute"},
+                                                {"class": "second"},
+                                                {"class": "month"},
+                                                {"class": "year"},
+                                                {"class": "millennium"},
+                                                {"class": "hour"},
+                                                {"class": "day"},
+                                                {"class": "week"},
+                                                {"class": "century"}
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {"class": "gene expression value"},
+                                        {
+                                          "class": "spatial quantity",
+                                          "subclasses": [
+                                            {
+                                              "class": "1D extent quantity",
+                                              "subclasses": [
+                                                {
+                                                  "class": "depth",
+                                                  "subclasses": [{"class": "thickness"}]
+                                                },
+                                                {"class": "height"},
+                                                {"class": "length"},
+                                                {"class": "width"}
+                                              ]
+                                            },
+                                            {
+                                              "class": "2D extent quantity",
+                                              "subclasses": [
+                                                {
+                                                  "class": "area",
+                                                  "subclasses": [{"class": "surface area"}]
+                                                },
+                                                {
+                                                  "class": "length of perimeter",
+                                                  "subclasses": [{"class": "circumference"}]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "class": "3D extent quantity",
+                                              "subclasses": [
+                                                {"class": "volume"},
+                                                {"class": "density"},
+                                                {"class": "concentration"}
+                                              ]
+                                            },
+                                            {"class": "mass"}
+                                          ]
+                                        },
+                                        {"class": "age"},
+                                        {
+                                          "class": "rate of change",
+                                          "subclasses": [
+                                            {"class": "frequency"},
+                                            {
+                                              "class": "speed",
+                                              "subclasses": [{"class": "velocity"}]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {"class": "uncertainty value"},
+                                    {
+                                      "class": "likelihood",
+                                      "subclasses": [{"class": "log likelihood"}]
+                                    },
+                                    {"class": "standard deviation"},
+                                    {"class": "unit of measurement"},
+                                    {"class": "maximal value"},
+                                    {
+                                      "class": "dimensionless quantity",
+                                      "subclasses": [
+                                        {
+                                          "class": "ratio",
+                                          "subclasses": [
+                                            {"class": "percentage"},
+                                            {"class": "aspect ratio"},
+                                            {"class": "t-statistic"},
+                                            {"class": "slope"},
+                                            {"class": "DisGeNET Pleiotropy Index"},
+                                            {
+                                              "class": "differential gene expression ratio",
+                                              "subclasses": [
+                                                {"class": "t-statistic based increased differential gene expression"},
+                                                {"class": "t-statistic based decreased differential gene expression"}
+                                              ]
+                                            },
+                                            {"class": "DisGeNET disease specificity"},
+                                            {"class": "specific gravity"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "quantile",
+                                          "subclasses": [{"class": "percentile"}]
+                                        },
+                                        {
+                                          "class": "probability measure",
+                                          "subclasses": [
+                                            {"class": "probability value"},
+                                            {"class": "expected value"},
+                                            {"class": "standard score"}
+                                          ]
+                                        },
+                                        {"class": "pH"},
+                                        {
+                                          "class": "count",
+                                          "subclasses": [
+                                            {"class": "copy number variation"},
+                                            {"class": "page number"},
+                                            {"class": "edition number"},
+                                            {"class": "number of objects consumed"},
+                                            {"class": "volume number"},
+                                            {
+                                              "class": "difference in number of objects produced",
+                                              "subclasses": [
+                                                {"class": "increase in number of objects produced"},
+                                                {"class": "decrease in number of objects produced"}
+                                              ]
+                                            },
+                                            {"class": "generation number"},
+                                            {"class": "number of objects produced"},
+                                            {"class": "member count"},
+                                            {"class": "page total"}
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {"class": "sum"},
+                                    {"class": "minimal value"}
+                                  ]
+                                },
+                                {
+                                  "class": "position",
+                                  "subclasses": [
+                                    {
+                                      "class": "linear position",
+                                      "subclasses": [
+                                        {
+                                          "class": "end position",
+                                          "subclasses": [
+                                            {
+                                              "class": "text span end position",
+                                              "subclasses": [{"class": "word end position"}]
+                                            },
+                                            {"class": "sequence end position"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "sequence element position",
+                                          "subclasses": [
+                                            {"class": "sequence start position"},
+                                            {"class": "sequence end position"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "ordinal position",
+                                          "subclasses": [
+                                            {"class": "process number"},
+                                            {"class": "character position"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "start position",
+                                          "subclasses": [
+                                            {
+                                              "class": "text span start position",
+                                              "subclasses": [{"class": "word start position"}]
+                                            },
+                                            {"class": "sequence start position"}
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {"class": "altitude"},
+                                    {"class": "center of mass"},
+                                    {
+                                      "class": "coordinate",
+                                      "subclasses": [
+                                        {
+                                          "class": "cartesian coordinate",
+                                          "subclasses": [
+                                            {"class": "y cartesian coordinate"},
+                                            {"class": "z cartesian coordinate"},
+                                            {"class": "3D cartesian coordinate"},
+                                            {"class": "x cartesian coordinate"}
+                                          ]
+                                        },
+                                        {"class": "polar coordinate"}
+                                      ]
+                                    },
+                                    {"class": "orientation"},
+                                    {
+                                      "class": "geographic position",
+                                      "subclasses": [
+                                        {"class": "postal code"},
+                                        {"class": "latitude"},
+                                        {"class": "longitude"}
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }]
+                          }]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "pattern",
+                      "subclasses": [
+                        {"class": "sequence motif"},
+                        {"class": "structural motif"},
+                        {"class": "sequence profile"}
+                      ]
+                    },
+                    {
+                      "class": "set",
+                      "subclasses": [
+                        {"class": "class"},
+                        {
+                          "class": "collection",
+                          "subclasses": [
+                            {"class": "collection of points"},
+                            {"class": "a collection of replicates"},
+                            {"class": "unigene cluster"},
+                            {"class": "protein family"},
+                            {"class": "collection of 3d molecular structure models"},
+                            {"class": "catalog"},
+                            {
+                              "class": "collection of documents",
+                              "subclasses": [
+                                {"class": "website"},
+                                {
+                                  "class": "periodical",
+                                  "subclasses": [
+                                    {"class": "journal"},
+                                    {"class": "magazine"},
+                                    {"class": "newspaper"}
+                                  ]
+                                },
+                                {"class": "book series"}
+                              ]
+                            },
+                            {
+                              "class": "sequence alignment",
+                              "subclasses": [
+                                {"class": "multiple sequence alignment"},
+                                {"class": "pairwise sequence alignment"}
+                              ]
+                            },
+                            {"class": "a collection of duplicates"}
+                          ]
+                        },
+                        {
+                          "class": "list",
+                          "subclasses": [
+                            {"class": "sequence"},
+                            {
+                              "class": "ordered list",
+                              "subclasses": [{"class": "author list"}]
+                            },
+                            {"class": "union"},
+                            {"class": "intersection"},
+                            {"class": "data series"}
+                          ]
+                        },
+                        {"class": "empty set"},
+                        {
+                          "class": "interval",
+                          "subclasses": [
+                            {
+                              "class": "right closed interval",
+                              "subclasses": [{"class": "closed interval"}]
+                            },
+                            {
+                              "class": "left closed interval",
+                              "subclasses": [{"class": "closed interval"}]
+                            },
+                            {
+                              "class": "left open interval",
+                              "subclasses": [{"class": "open interval"}]
+                            },
+                            {
+                              "class": "right open interval",
+                              "subclasses": [{"class": "open interval"}]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "set item",
+                      "subclasses": [
+                        {
+                          "class": "collection item",
+                          "subclasses": [
+                            {"class": "replicate"},
+                            {"class": "duplicate"}
+                          ]
+                        },
+                        {
+                          "class": "list item",
+                          "subclasses": [{"class": "ordered list item"}]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "variable",
+                      "subclasses": [
+                        {
+                          "class": "independent variable",
+                          "subclasses": [{
+                            "class": "parameter",
+                            "subclasses": [{"class": "default parameter"}]
+                          }]
+                        },
+                        {"class": "dependent variable"},
+                        {"class": "control variable"}
+                      ]
+                    },
+                    {"class": "vector space"}
+                  ]
+                },
+                {
+                  "class": "language entity",
+                  "subclasses": [
+                    {
+                      "class": "language",
+                      "subclasses": [
+                        {"class": "written language"},
+                        {"class": "sign language"},
+                        {"class": "verbal language"}
+                      ]
+                    },
+                    {
+                      "class": "verbal language entity",
+                      "subclasses": [
+                        {"class": "vowel"},
+                        {"class": "syllable"},
+                        {"class": "consonant"}
+                      ]
+                    },
+                    {"class": "morpheme"},
+                    {"class": "character"},
+                    {
+                      "class": "phrase",
+                      "subclasses": [{
+                        "class": "sentence",
+                        "subclasses": [
+                          {
+                            "instances": [
+                              "QuestionFromUserStudy1",
+                              "ContrastiveQuestion",
+                              "QuestionFromUserStudy2"
+                            ],
+                            "class": "question",
+                            "subclasses": [{
+                              "class": "UserQuestion",
+                              "subclasses": [
+                                {
+                                  "instances": ["What_is_the_anomaly_in_the_sensor"],
+                                  "class": "WhatQuestion"
+                                },
+                                {"class": "HowQuestion"},
+                                {"class": "WhenQuestion"},
+                                {"class": "WhyQuestion"}
+                              ]
+                            }]
+                          },
+                          {"class": "clause"}
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "term",
+                      "subclasses": [
+                        {
+                          "class": "concept",
+                          "subclasses": [{"class": "category"}]
+                        },
+                        {
+                          "class": "label",
+                          "subclasses": [
+                            {"class": "numeric label"},
+                            {
+                              "class": "identifier",
+                              "subclasses": [
+                                {
+                                  "class": "informational entity identifier",
+                                  "subclasses": [
+                                    {"class": "URL"},
+                                    {
+                                      "class": "telephone number",
+                                      "subclasses": [
+                                        {"class": "home phone number"},
+                                        {"class": "cellular phone number"},
+                                        {"class": "work phone number"},
+                                        {"class": "fax number"}
+                                      ]
+                                    },
+                                    {"class": "software process identifier"},
+                                    {
+                                      "class": "record identifier",
+                                      "subclasses": [{"class": "PDB record identifier"}]
+                                    },
+                                    {"class": "email address"},
+                                    {"class": "IP number"}
+                                  ]
+                                },
+                                {
+                                  "class": "positional identifier",
+                                  "subclasses": [
+                                    {"class": "street name"},
+                                    {"class": "address"},
+                                    {"class": "apartment number"}
+                                  ]
+                                },
+                                {
+                                  "class": "physical entity identifier",
+                                  "subclasses": [{
+                                    "class": "chemical identifier",
+                                    "subclasses": [{
+                                      "class": "molecular identifier",
+                                      "subclasses": [
+                                        {"class": "microarray probe set identifier"},
+                                        {"class": "PDB chain identifier"}
+                                      ]
+                                    }]
+                                  }]
+                                },
+                                {"class": "unique identifier"},
+                                {
+                                  "class": "version label",
+                                  "subclasses": [
+                                    {
+                                      "class": "software version label",
+                                      "subclasses": [
+                                        {"class": "major version number"},
+                                        {"class": "minor version number"},
+                                        {"class": "revision number"}
+                                      ]
+                                    },
+                                    {"class": "document version"}
+                                  ]
+                                }
+                              ]
+                            },
+                            {"class": "namespace label"},
+                            {
+                              "class": "name",
+                              "subclasses": [
+                                {"class": "preferred name"},
+                                {
+                                  "class": "middle name",
+                                  "subclasses": [{"class": "middle initial"}]
+                                },
+                                {"class": "common name"},
+                                {"class": "last name"},
+                                {
+                                  "class": "personal name",
+                                  "subclasses": [{"class": "legal name"}]
+                                },
+                                {"class": "brand name"},
+                                {"class": "first name"},
+                                {
+                                  "class": "scientific name",
+                                  "subclasses": [{"class": "gene symbol"}]
+                                },
+                                {"class": "generic name"}
+                              ]
+                            },
+                            {"class": "language label"},
+                            {
+                              "class": "title",
+                              "subclasses": [
+                                {"class": "graph title"},
+                                {"class": "document title"},
+                                {
+                                  "class": "primary title",
+                                  "subclasses": [
+                                    {"class": "primary graph title"},
+                                    {"class": "secondary graph title"}
+                                  ]
+                                },
+                                {"class": "secondary title"}
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "term variant",
+                          "subclasses": [
+                            {"class": "homonym"},
+                            {"class": "hypernym"},
+                            {"class": "hyponym"},
+                            {"class": "synonym"},
+                            {"class": "antonym"}
+                          ]
+                        },
+                        {
+                          "class": "descriptor",
+                          "subclasses": [{"class": "keyword"}]
+                        }
+                      ]
+                    },
+                    {"class": "word"},
+                    {
+                      "class": "description",
+                      "subclasses": [
+                        {
+                          "class": "specification",
+                          "subclasses": [
+                            {
+                              "class": "functional specification",
+                              "subclasses": [
+                                {
+                                  "class": "vocabulary",
+                                  "subclasses": [{"class": "terminology"}]
+                                },
+                                {
+                                  "class": "design specification",
+                                  "subclasses": [{
+                                    "class": "criterion",
+                                    "subclasses": [
+                                      {"class": "inclusion criterion"},
+                                      {"class": "exclusion criterion"}
+                                    ]
+                                  }]
+                                },
+                                {
+                                  "class": "formal specification",
+                                  "subclasses": [
+                                    {
+                                      "class": "vocabulary",
+                                      "subclasses": [{"class": "terminology"}]
+                                    },
+                                    {"class": "ontology"}
+                                  ]
+                                },
+                                {
+                                  "class": "structure",
+                                  "subclasses": [{
+                                    "class": "chemical structure",
+                                    "subclasses": [
+                                      {
+                                        "class": "molecular structure",
+                                        "subclasses": [{"class": "crystal structure"}]
+                                      },
+                                      {"class": "electronic structure"}
+                                    ]
+                                  }]
+                                },
+                                {"class": "design"},
+                                {
+                                  "class": "spatial specification",
+                                  "subclasses": [{
+                                    "class": "coordinate system",
+                                    "subclasses": [
+                                      {"class": "polar coordinate system"},
+                                      {"class": "cylindrical coordinate system"},
+                                      {"class": "spherical coordinate system"},
+                                      {"class": "cartesian coordinate system"}
+                                    ]
+                                  }]
+                                },
+                                {
+                                  "class": "measurement scale",
+                                  "subclasses": [
+                                    {"class": "nomimal scale"},
+                                    {"class": "binary scale"},
+                                    {
+                                      "class": "numeric scale",
+                                      "subclasses": [
+                                        {"class": "integer scale"},
+                                        {"class": "decimal scale"}
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {"class": "genotype"}
+                              ]
+                            },
+                            {
+                              "class": "action specification",
+                              "subclasses": [
+                                {
+                                  "class": "pathway",
+                                  "subclasses": [{
+                                    "class": "chemical reaction pathway",
+                                    "subclasses": [
+                                      {
+                                        "class": "biochemical pathway",
+                                        "subclasses": [
+                                          {
+                                            "class": "metabolic pathway",
+                                            "subclasses": [{"class": "pharmacokinetic pathway"}]
+                                          },
+                                          {
+                                            "class": "regulatory pathway",
+                                            "subclasses": [{"class": "pharmacodynamic pathway"}]
+                                          }
+                                        ]
+                                      },
+                                      {"class": "chemical synthesis pathway"},
+                                      {"class": "chemical degradation pathway"}
+                                    ]
+                                  }]
+                                },
+                                {"class": "plan"},
+                                {"class": "recipe"},
+                                {
+                                  "class": "experimental protocol",
+                                  "subclasses": [
+                                    {"class": "standard operating procedure"},
+                                    {"class": "study design"}
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "class": "notation",
+                              "subclasses": [
+                                {
+                                  "class": "chemical notation",
+                                  "subclasses": [{"class": "InCHI notation"}]
+                                },
+                                {
+                                  "class": "sequence variation notation",
+                                  "subclasses": [{"class": "hgvs notation"}]
+                                }
+                              ]
+                            },
+                            {"class": "standard"}
+                          ]
+                        },
+                        {"class": "syndrome"},
+                        {"class": "annotation"},
+                        {
+                          "class": "history",
+                          "subclasses": [
+                            {"class": "family history"},
+                            {"class": "evolutionary lineage"},
+                            {"class": "medical history"}
+                          ]
+                        },
+                        {
+                          "class": "proposition",
+                          "subclasses": [
+                            {
+                              "class": "objective",
+                              "subclasses": [
+                                {"class": "AI Task Goal"},
+                                {"class": "Explanation Goal"}
+                              ]
+                            },
+                            {
+                              "class": "argument",
+                              "subclasses": [
+                                {"class": "deductive argument"},
+                                {"class": "inductive argument"},
+                                {"class": "invalid argument"},
+                                {
+                                  "class": "valid argument",
+                                  "subclasses": [{"class": "sound argument"}]
+                                }
+                              ]
+                            },
+                            {
+                              "class": "statement",
+                              "subclasses": [{"class": "statement of consequence"}]
+                            },
+                            {"class": "premise"},
+                            {
+                              "class": "belief",
+                              "subclasses": [{
+                                "class": "opinion",
+                                "subclasses": [
+                                  {"class": "speculation"},
+                                  {"class": "diagnostic opinion"}
+                                ]
+                              }]
+                            },
+                            {"class": "evidence"},
+                            {
+                              "class": "conclusion",
+                              "subclasses": [{"class": "diagnosis"}]
+                            },
+                            {"class": "hypothesis"},
+                            {
+                              "class": "justification",
+                              "subclasses": [{
+                                "class": "reason",
+                                "subclasses": [{"class": "purpose"}]
+                              }]
+                            },
+                            {"class": "comment"},
+                            {"class": "idea"},
+                            {"class": "prognosis"}
+                          ]
+                        },
+                        {"class": "definition"},
+                        {"class": "answer"}
+                      ]
+                    },
+                    {"class": "visual language entity"},
+                    {
+                      "class": "textual entity",
+                      "subclasses": [
+                        {
+                          "class": "document",
+                          "subclasses": [
+                            {"class": "email"},
+                            {
+                              "class": "ontology document",
+                              "subclasses": [
+                                {"class": "OBO ontology"},
+                                {"class": "RDFS ontology"},
+                                {"class": "OWL ontology"}
+                              ]
+                            },
+                            {"class": "web page"},
+                            {"class": "letter"},
+                            {"class": "diary"},
+                            {
+                              "class": "publication",
+                              "subclasses": [
+                                {
+                                  "class": "book",
+                                  "subclasses": [
+                                    {"class": "conference proceedings"},
+                                    {"class": "book volume"}
+                                  ]
+                                },
+                                {
+                                  "class": "edited publication",
+                                  "subclasses": [{"class": "issue"}]
+                                },
+                                {"class": "manual"},
+                                {"class": "novel"},
+                                {"class": "technical report"},
+                                {
+                                  "class": "article",
+                                  "subclasses": [{"class": "peer reviewed article"}]
+                                },
+                                {
+                                  "class": "thesis document",
+                                  "subclasses": [
+                                    {"class": "phd thesis"},
+                                    {"class": "honor's thesis"},
+                                    {"class": "master's thesis"}
+                                  ]
+                                },
+                                {"class": "blog"}
+                              ]
+                            },
+                            {
+                              "class": "record",
+                              "subclasses": [
+                                {"class": "medical health record"},
+                                {"class": "versioned record"}
+                              ]
+                            },
+                            {"class": "manuscript"},
+                            {"class": "note"},
+                            {
+                              "class": "legal document",
+                              "subclasses": [
+                                {"class": "statute"},
+                                {"class": "brief"},
+                                {"class": "patent"},
+                                {"class": "legislation"},
+                                {"class": "bill"}
+                              ]
+                            },
+                            {
+                              "class": "report",
+                              "subclasses": [{"class": "medical report"}]
+                            },
+                            {"class": "booklet"}
+                          ]
+                        },
+                        {"class": "text span"},
+                        {
+                          "class": "document component",
+                          "subclasses": [
+                            {"class": "reference"},
+                            {"class": "citation"},
+                            {
+                              "class": "document section",
+                              "subclasses": [
+                                {"class": "chapter"},
+                                {"class": "author contribution section"},
+                                {"class": "copyright section"},
+                                {"class": "correspondence section"},
+                                {"class": "author section"},
+                                {"class": "bibliography section"},
+                                {"class": "materials and methods section"},
+                                {"class": "book section"},
+                                {"class": "materials section"},
+                                {"class": "discussion section"},
+                                {"class": "introduction section"},
+                                {"class": "table of contents"},
+                                {"class": "methods section"},
+                                {"class": "abstract section"},
+                                {"class": "results section"},
+                                {"class": "acknowledgements section"}
+                              ]
+                            }
+                          ]
+                        },
+                        {"class": "paragraph"},
+                        {
+                          "class": "excerpt",
+                          "subclasses": [{"class": "quote"}]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "material entity",
+              "subclasses": [
+                {
+                  "class": "chemical entity",
+                  "subclasses": [
+                    {
+                      "class": "chemical substance",
+                      "subclasses": [
+                        {
+                          "class": "drug",
+                          "subclasses": [
+                            {
+                              "class": "pharmaceutical drug",
+                              "subclasses": [{"class": "biologic"}]
+                            },
+                            {"class": "poison"}
+                          ]
+                        },
+                        {
+                          "class": "centrifugation substance",
+                          "subclasses": [
+                            {"class": "centrifugation pellet"},
+                            {"class": "supernatant"}
+                          ]
+                        },
+                        {
+                          "class": "ingredient",
+                          "subclasses": [{
+                            "class": "pharmaceutical ingredient",
+                            "subclasses": [
+                              {"class": "inactive ingredient"},
+                              {"class": "active ingredient"}
+                            ]
+                          }]
+                        },
+                        {"class": "analyte"},
+                        {
+                          "class": "heterogeneous substance",
+                          "subclasses": [
+                            {"class": "reagent"},
+                            {"class": "liquid solution"},
+                            {
+                              "class": "liquid solution component",
+                              "subclasses": [
+                                {"class": "buffer"},
+                                {
+                                  "class": "solvent",
+                                  "subclasses": [
+                                    {"class": "polar solvent"},
+                                    {"class": "nonpolar solvent"}
+                                  ]
+                                },
+                                {"class": "solute"},
+                                {"class": "acid"},
+                                {"class": "base"}
+                              ]
+                            },
+                            {"class": "placebo"},
+                            {
+                              "class": "sample",
+                              "subclasses": [{"class": "specimen"}]
+                            },
+                            {
+                              "class": "device",
+                              "subclasses": [
+                                {
+                                  "class": "communication device",
+                                  "subclasses": [
+                                    {"class": "radio receiver"},
+                                    {"class": "telephone"}
+                                  ]
+                                },
+                                {"class": "radar"},
+                                {
+                                  "class": "data collection device",
+                                  "subclasses": [
+                                    {"class": "mass spectrometer"},
+                                    {"class": "microarray device"},
+                                    {"class": "nmr device"}
+                                  ]
+                                },
+                                {
+                                  "class": "data storage device",
+                                  "subclasses": [{
+                                    "class": "hard disk drive",
+                                    "subclasses": [{"class": "solid state hard drive"}]
+                                  }]
+                                }
+                              ]
+                            },
+                            {
+                              "class": "chemical salt",
+                              "subclasses": [
+                                {"class": "weak chemical salt"},
+                                {"class": "strong chemical salt"}
+                              ]
+                            },
+                            {
+                              "class": "wave",
+                              "subclasses": [{"class": "sound wave"}]
+                            },
+                            {
+                              "class": "biological entity",
+                              "subclasses": [
+                                {"class": "genome"},
+                                {"class": "biological fluid"},
+                                {"class": "cell line"},
+                                {"class": "subcellular entity"},
+                                {
+                                  "class": "organism",
+                                  "subclasses": [
+                                    {
+                                      "class": "non-cellular organism",
+                                      "subclasses": [
+                                        {"class": "virus"},
+                                        {"class": "viroid"}
+                                      ]
+                                    },
+                                    {"class": "pathogen"},
+                                    {"class": "host"},
+                                    {"class": "strain"},
+                                    {
+                                      "class": "cellular organism",
+                                      "subclasses": [
+                                        {
+                                          "class": "multicellular organism",
+                                          "subclasses": [
+                                            {"class": "rat"},
+                                            {"class": "worm"},
+                                            {"class": "human"},
+                                            {"class": "mouse"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "unicellular organism",
+                                          "subclasses": [{"class": "e.coli"}]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "class": "cell",
+                                  "subclasses": [{
+                                    "class": "unicellular organism",
+                                    "subclasses": [{"class": "e.coli"}]
+                                  }]
+                                },
+                                {"class": "tissue"},
+                                {"class": "organ"}
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "chemical complex",
+                          "subclasses": [{
+                            "class": "molecular complex",
+                            "subclasses": [
+                              {"class": "chromosome"},
+                              {
+                                "class": "double stranded nucleic acid",
+                                "subclasses": [
+                                  {"class": "double stranded DNA"},
+                                  {"class": "double stranded RNA"}
+                                ]
+                              },
+                              {
+                                "class": "protein complex",
+                                "subclasses": [{"class": "antibody"}]
+                              }
+                            ]
+                          }]
+                        },
+                        {
+                          "class": "homogeneous substance",
+                          "subclasses": [{
+                            "class": "chemical element",
+                            "subclasses": [{
+                              "class": "allotrope",
+                              "subclasses": [{
+                                "class": "carbon allotrope",
+                                "subclasses": [
+                                  {"class": "diamond"},
+                                  {"class": "graphite"},
+                                  {"class": "fullerene"},
+                                  {"class": "aggregated carbon nanorods"},
+                                  {"class": "amorphous carbon"},
+                                  {"class": "carbon nanofoam"},
+                                  {"class": "chaoite"},
+                                  {"class": "glassy carbon"},
+                                  {"class": "ionsdaleite"}
+                                ]
+                              }]
+                            }]
+                          }]
+                        },
+                        {"class": "catalyst"},
+                        {
+                          "class": "binary compound",
+                          "subclasses": [{"class": "ionic compound"}]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "ion",
+                      "subclasses": [
+                        {"class": "cation"},
+                        {"class": "anion"}
+                      ]
+                    },
+                    {
+                      "class": "submolecular entity",
+                      "subclasses": [
+                        {
+                          "class": "weak submolecular component",
+                          "subclasses": [
+                            {"class": "dipole-dipole interaction"},
+                            {"class": "van der Waals interaction"},
+                            {"class": "base stack"},
+                            {
+                              "class": "hydrogen bond",
+                              "subclasses": [{"class": "low barrier hydrogen bond"}]
+                            },
+                            {
+                              "class": "ionic interaction",
+                              "subclasses": [{"class": "cation pi interaction"}]
+                            },
+                            {"class": "base pair"}
+                          ]
+                        },
+                        {
+                          "class": "submolecule",
+                          "subclasses": [
+                            {
+                              "class": "chemical functional group",
+                              "subclasses": [{
+                                "class": "ring",
+                                "subclasses": [
+                                  {"class": "aromatic ring"},
+                                  {"class": "heterocyclic ring"},
+                                  {"class": "homocyclic ring"}
+                                ]
+                              }]
+                            },
+                            {
+                              "class": "organic submolecule",
+                              "subclasses": [
+                                {"class": "carbohydrate residue"},
+                                {
+                                  "class": "nucleic acid part",
+                                  "subclasses": [
+                                    {"class": "genetic polymorphism"},
+                                    {
+                                      "class": "gene component",
+                                      "subclasses": [
+                                        {"class": "exon"},
+                                        {"class": "3' untranslated region"},
+                                        {"class": "protein coding sequence"},
+                                        {"class": "open reading frame"},
+                                        {
+                                          "class": "gene regulatory component",
+                                          "subclasses": [
+                                            {"class": "gene promoter"},
+                                            {"class": "gene enhancer"}
+                                          ]
+                                        },
+                                        {"class": "5' untranslated region"},
+                                        {"class": "intron"}
+                                      ]
+                                    },
+                                    {"class": "trans-regulatory element"},
+                                    {
+                                      "class": "genomic sequence variant",
+                                      "subclasses": [{"class": "haplotype"}]
+                                    },
+                                    {"class": "pseudogene"},
+                                    {"class": "operon"},
+                                    {
+                                      "class": "RNA transcript component",
+                                      "subclasses": [
+                                        {"class": "start codon"},
+                                        {"class": "stop codon"},
+                                        {
+                                          "class": "splice site",
+                                          "subclasses": [
+                                            {"class": "5' splice site"},
+                                            {"class": "3' splice site"}
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "class": "nucleotide residue",
+                                      "subclasses": [
+                                        {"class": "deoxyribonucleotide residue"},
+                                        {"class": "ribonucleotide residue"},
+                                        {"class": "single nucleotide polymorphism"}
+                                      ]
+                                    },
+                                    {"class": "cis regulatory element"},
+                                    {
+                                      "class": "gene",
+                                      "subclasses": [
+                                        {"class": "predicted gene"},
+                                        {"class": "protein coding gene"},
+                                        {
+                                          "class": "non-protein coding RNA (ncRNA) gene",
+                                          "subclasses": [
+                                            {"class": "small nuclear RNA (snRNA) gene"},
+                                            {"class": "small nucleolar RNA (snoRNA) gene"},
+                                            {"class": "small cytoplasmic RNA (scRNA) gene"},
+                                            {"class": "ribosomal RNA gene"},
+                                            {"class": "transfer RNA (tRNA) gene"}
+                                          ]
+                                        },
+                                        {"class": "dna gene"},
+                                        {"class": "validated gene"},
+                                        {"class": "allele"},
+                                        {
+                                          "class": "rna gene",
+                                          "subclasses": [{"class": "functional rna coding gene"}]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {"class": "lipid residue"},
+                                {
+                                  "class": "amino acid polymer submolecule",
+                                  "subclasses": [
+                                    {"class": "alpha helix"},
+                                    {"class": "beta strand"},
+                                    {"class": "post-translational modification"},
+                                    {"class": "amino acid residue"},
+                                    {"class": "protein domain"}
+                                  ]
+                                }
+                              ]
+                            },
+                            {"class": "monomer"}
+                          ]
+                        },
+                        {
+                          "class": "strong submolecular component",
+                          "subclasses": [{
+                            "class": "covalent bond",
+                            "subclasses": [
+                              {"class": "double bond"},
+                              {"class": "triple bond"},
+                              {"class": "aromatic bond"},
+                              {
+                                "class": "single bond",
+                                "subclasses": [{"class": "disulfide bond"}]
+                              }
+                            ]
+                          }]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "atom",
+                      "subclasses": [
+                        {"class": "cerium atom"},
+                        {"class": "praseodymium atom"},
+                        {"class": "neodymium atom"},
+                        {"class": "promethium atom"},
+                        {"class": "samarium atom"},
+                        {"class": "europium atom"},
+                        {"class": "gadolinium atom"},
+                        {"class": "terbium atom"},
+                        {"class": "sodium atom"},
+                        {"class": "dysprosium atom"},
+                        {"class": "holmium atom"},
+                        {"class": "magnesium atom"},
+                        {"class": "aluminium atom"},
+                        {"class": "silicon atom"},
+                        {"class": "phosphorus atom"},
+                        {"class": "sulfur atom"},
+                        {"class": "chlorine atom"},
+                        {"class": "argon atom"},
+                        {"class": "potassium atom"},
+                        {"class": "calcium atom"},
+                        {"class": "scandium atom"},
+                        {"class": "titanium atom"},
+                        {"class": "vanadium atom"},
+                        {"class": "chromium atom"},
+                        {"class": "manganese atom"},
+                        {"class": "iron atom"},
+                        {"class": "cobalt atom"},
+                        {"class": "nickel atom"},
+                        {"class": "copper atom"},
+                        {"class": "zinc atom"},
+                        {"class": "gallium atom"},
+                        {"class": "germanium atom"},
+                        {"class": "arsenic atom"},
+                        {"class": "selenium atom"},
+                        {"class": "bromine atom"},
+                        {"class": "krypton atom"},
+                        {"class": "rubidium atom"},
+                        {"class": "strontium atom"},
+                        {"class": "yttrium atom"},
+                        {"class": "zirconium atom"},
+                        {"class": "niobium atom"},
+                        {"class": "molybdemum atom"},
+                        {"class": "technetium atom"},
+                        {"class": "ruthenium atom"},
+                        {"class": "rhodium atom"},
+                        {"class": "palladium atom"},
+                        {"class": "silver atom"},
+                        {"class": "cadmium atom"},
+                        {"class": "indium atom"},
+                        {"class": "tin atom"},
+                        {"class": "antimony atom"},
+                        {"class": "tellurium atom"},
+                        {"class": "iodine atom"},
+                        {"class": "xenon atom"},
+                        {"class": "caesium atom"},
+                        {"class": "barium atom"},
+                        {"class": "lanthanum atom"},
+                        {"class": "hafnium atom"},
+                        {"class": "tantalum atom"},
+                        {"class": "tungsten atom"},
+                        {"class": "rhenium atom"},
+                        {"class": "osmium atom"},
+                        {"class": "iridium atom"},
+                        {"class": "platinum atom"},
+                        {"class": "gold atom"},
+                        {"class": "mercury atom"},
+                        {"class": "thallium atom"},
+                        {"class": "lead atom"},
+                        {"class": "erbium atom"},
+                        {"class": "thulium atom"},
+                        {"class": "bismuth atom"},
+                        {"class": "polonium atom"},
+                        {"class": "ytterbium atom"},
+                        {"class": "lutetium atom"},
+                        {"class": "thorium atom"},
+                        {"class": "protactinium atom"},
+                        {"class": "uranium atom"},
+                        {"class": "neptunium atom"},
+                        {"class": "plutonium atom"},
+                        {"class": "americium atom"},
+                        {"class": "astatine atom"},
+                        {"class": "radon atom"},
+                        {"class": "francium atom"},
+                        {"class": "radium atom"},
+                        {"class": "actinium atom"},
+                        {"class": "rutherfordium atom"},
+                        {"class": "dubnium atom"},
+                        {"class": "curium atom"},
+                        {"class": "seaborgium atom"},
+                        {"class": "bohrium atom"},
+                        {"class": "berkelium atom"},
+                        {"class": "hassium atom"},
+                        {"class": "californium atom"},
+                        {"class": "einsteinium atom"},
+                        {"class": "fermium atom"},
+                        {"class": "mendelevium atom"},
+                        {"class": "nobelium atom"},
+                        {"class": "lawrencium atom"},
+                        {"class": "meitnerium atom"},
+                        {"class": "darmstadtium atom"},
+                        {"class": "roentgenium atom"},
+                        {"class": "copernicium atom"},
+                        {"class": "unutrium atom"},
+                        {"class": "ununquadium atom"},
+                        {"class": "ununpentium atom"},
+                        {"class": "ununhexium atom"},
+                        {"class": "ununseptium atom"},
+                        {"class": "boron atom"},
+                        {"class": "ununoctium atom"},
+                        {"class": "carbon atom"},
+                        {"class": "hydrogen atom"},
+                        {"class": "helium atom"},
+                        {"class": "lithium atom"},
+                        {"class": "beryllium atom"},
+                        {"class": "nitrogen atom"},
+                        {"class": "oxygen atom"},
+                        {"class": "fluorine atom"},
+                        {"class": "neon atom"}
+                      ]
+                    },
+                    {
+                      "class": "molecule",
+                      "subclasses": [
+                        {
+                          "class": "isomer",
+                          "subclasses": [
+                            {
+                              "class": "stereoisomer",
+                              "subclasses": [
+                                {"class": "epimer"},
+                                {"class": "diastereomer"},
+                                {"class": "enantiomer"},
+                                {"class": "optical isomer"}
+                              ]
+                            },
+                            {"class": "structural isomer"}
+                          ]
+                        },
+                        {
+                          "class": "target",
+                          "subclasses": [{"class": "substrate"}]
+                        },
+                        {"class": "polymer"},
+                        {
+                          "class": "molecular regulator",
+                          "subclasses": [
+                            {"class": "activator"},
+                            {"class": "inhibitor"}
+                          ]
+                        },
+                        {
+                          "class": "signal transducer",
+                          "subclasses": [
+                            {
+                              "class": "messenger",
+                              "subclasses": [{"class": "second messenger"}]
+                            },
+                            {"class": "receptor"}
+                          ]
+                        },
+                        {"class": "signal"},
+                        {
+                          "class": "organic molecule",
+                          "subclasses": [
+                            {
+                              "class": "organic polymer",
+                              "subclasses": [
+                                {
+                                  "class": "amino acid polymer",
+                                  "subclasses": [
+                                    {"class": "oligopeptide"},
+                                    {"class": "polypeptide"},
+                                    {"class": "peptide"},
+                                    {
+                                      "class": "protein",
+                                      "subclasses": [{"class": "enzyme"}]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "class": "nucleic acid",
+                                  "subclasses": [
+                                    {
+                                      "class": "ribonucleic acid",
+                                      "subclasses": [{
+                                        "class": "RNA transcript",
+                                        "subclasses": [
+                                          {
+                                            "class": "non-protein coding RNA (ncRNA)",
+                                            "subclasses": [
+                                              {"class": "small cytoplasmic RNA (scRNA)"},
+                                              {"class": "transfer RNA (tRNA)"},
+                                              {"class": "microRNA (miRNA)"},
+                                              {"class": "small nuclear RNA (snRNA)"},
+                                              {"class": "small nucleolar RNA (snoRNA)"}
+                                            ]
+                                          },
+                                          {
+                                            "class": "messenger RNA",
+                                            "subclasses": [
+                                              {"class": "mature mRNA"},
+                                              {"class": "pre-mRNA"},
+                                              {"class": "mRNA splice variant"}
+                                            ]
+                                          }
+                                        ]
+                                      }]
+                                    },
+                                    {
+                                      "class": "primer",
+                                      "subclasses": [{"class": "deoxyribonucleic acid primer"}]
+                                    },
+                                    {
+                                      "class": "nucleic acid strand",
+                                      "subclasses": [
+                                        {"class": "negative nucleic acid strand"},
+                                        {"class": "positive nucleic acid strand"}
+                                      ]
+                                    },
+                                    {
+                                      "class": "deoxyribonucleic acid",
+                                      "subclasses": [
+                                        {"class": "deoxyribonucleic acid template"},
+                                        {"class": "deoxyribonucleic acid primer"}
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {"class": "biopolymer"},
+                                {"class": "carbohydrate"}
+                              ]
+                            },
+                            {"class": "monosaccharide"},
+                            {"class": "amino acid"},
+                            {"class": "lipid"}
+                          ]
+                        },
+                        {"class": "antigen"},
+                        {"class": "substrate"},
+                        {"class": "product"},
+                        {"class": "ligand"}
+                      ]
+                    }
+                  ]
+                },
+                {"class": "specialized material entity"}
+              ]
+            }
+          ]
+        },
+        {
+          "class": "attribute",
+          "subclasses": [
+            {
+              "class": "quality",
+              "subclasses": [
+                {
+                  "class": "informational quality",
+                  "subclasses": [
+                    {
+                      "class": "agreement quality",
+                      "subclasses": [
+                        {
+                          "class": "agreement",
+                          "subclasses": [
+                            {"class": "consensus"},
+                            {"class": "full agreement"}
+                          ]
+                        },
+                        {
+                          "class": "disagreement",
+                          "subclasses": [{"class": "full disagreement"}]
+                        }
+                      ]
+                    },
+                    {"class": "status descriptor"},
+                    {
+                      "class": "quality descriptor",
+                      "subclasses": [
+                        {"class": "very poor quality"},
+                        {"class": "good quality"},
+                        {"class": "very good quality"},
+                        {"class": "poor quality"},
+                        {"class": "neither good nor poor quality"},
+                        {"class": "excellent quality"}
+                      ]
+                    },
+                    {
+                      "class": "satisfaction qualifier",
+                      "subclasses": [
+                        {"class": "very dissatisfied qualifier"},
+                        {"class": "satisfied qualifier"},
+                        {"class": "dissatisfied qualifier"},
+                        {"class": "neither satisfied or dissatisfied qualifier"}
+                      ]
+                    },
+                    {
+                      "class": "truth value",
+                      "subclasses": [
+                        {"class": "true"},
+                        {"class": "false"}
+                      ]
+                    },
+                    {
+                      "class": "quantity modifier",
+                      "subclasses": [
+                        {"class": "moderately quantifier"},
+                        {"class": "mostly quantifier"},
+                        {"class": "none quantifier"},
+                        {"class": "a little quantifier"},
+                        {"class": "completely quantifier"}
+                      ]
+                    },
+                    {
+                      "class": "temporal qualifier",
+                      "subclasses": [
+                        {"class": "some of the time"},
+                        {"class": "most of the time"},
+                        {"class": "always"},
+                        {"class": "never"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "process quality",
+                  "subclasses": [{
+                    "class": "process status",
+                    "subclasses": [
+                      {"class": "aborted"},
+                      {"class": "suspended"},
+                      {
+                        "class": "not started",
+                        "subclasses": [
+                          {"class": "cancelled"},
+                          {"class": "planned"}
+                        ]
+                      },
+                      {"class": "completed"},
+                      {"class": "ongoing"}
+                    ]
+                  }]
+                },
+                {
+                  "class": "normality",
+                  "subclasses": [
+                    {
+                      "class": "abnormal",
+                      "subclasses": [
+                        {"class": "decreased"},
+                        {"class": "increased"}
+                      ]
+                    },
+                    {"class": "normal"}
+                  ]
+                },
+                {
+                  "class": "assertional qualifier",
+                  "subclasses": [
+                    {"class": "positive"},
+                    {"class": "negative"}
+                  ]
+                },
+                {
+                  "class": "existence quality",
+                  "subclasses": [
+                    {"class": "virtual"},
+                    {
+                      "class": "hypothetical",
+                      "subclasses": [
+                        {"class": "predicted"},
+                        {"class": "fictional"}
+                      ]
+                    },
+                    {"class": "real"},
+                    {"class": "unsupported"}
+                  ]
+                },
+                {
+                  "class": "object quality",
+                  "subclasses": [
+                    {
+                      "class": "mereological quality",
+                      "subclasses": [{
+                        "class": "containment quality",
+                        "subclasses": [
+                          {"class": "empty"},
+                          {"class": "full"}
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "structural quality",
+                      "subclasses": [
+                        {
+                          "class": "helicity",
+                          "subclasses": [
+                            {"class": "circularly helical"},
+                            {"class": "left-handed helical"},
+                            {"class": "right-handed helical"}
+                          ]
+                        },
+                        {"class": "rigid"},
+                        {"class": "disordered"}
+                      ]
+                    },
+                    {"class": "fitness"},
+                    {
+                      "class": "object relational quality",
+                      "subclasses": [
+                        {"class": "sample quality"},
+                        {"class": "replica quality"},
+                        {"class": "synthetic quality"}
+                      ]
+                    },
+                    {
+                      "class": "compositional quality",
+                      "subclasses": [
+                        {"class": "heterogeneous"},
+                        {"class": "homogeneous"}
+                      ]
+                    },
+                    {
+                      "class": "chemical quality",
+                      "subclasses": [
+                        {
+                          "class": "toxicity",
+                          "subclasses": [
+                            {"class": "toxic"},
+                            {"class": "non toxic"}
+                          ]
+                        },
+                        {"class": "coding frame offset"},
+                        {
+                          "class": "polar quality",
+                          "subclasses": [
+                            {"class": "polar"},
+                            {"class": "non-polar"}
+                          ]
+                        },
+                        {"class": "molecular orbital"},
+                        {
+                          "class": "molecular structure descriptor",
+                          "subclasses": [{
+                            "class": "biomolecular structure descriptor",
+                            "subclasses": [
+                              {"class": "secondary structure descriptor"},
+                              {
+                                "class": "tertiary structure descriptor",
+                                "subclasses": [{"class": "3d structure model"}]
+                              },
+                              {"class": "quaternary structure"},
+                              {
+                                "class": "primary structure descriptor",
+                                "subclasses": [{
+                                  "class": "biopolymer sequence",
+                                  "subclasses": [
+                                    {"class": "protein sequence"},
+                                    {
+                                      "class": "nucleic acid sequence",
+                                      "subclasses": [
+                                        {"class": "ribonucleic acid sequence"},
+                                        {"class": "deoxyribonucleic acid sequence"},
+                                        {"class": "coding sequence"}
+                                      ]
+                                    },
+                                    {"class": "sequence assembly"}
+                                  ]
+                                }]
+                              }
+                            ]
+                          }]
+                        },
+                        {
+                          "class": "charge quality",
+                          "subclasses": [
+                            {
+                              "class": "charged",
+                              "subclasses": [
+                                {
+                                  "class": "complete charge",
+                                  "subclasses": [
+                                    {"class": "positive charge"},
+                                    {"class": "negative charge"}
+                                  ]
+                                },
+                                {
+                                  "class": "partial charge",
+                                  "subclasses": [
+                                    {"class": "partial positive charge"},
+                                    {"class": "partial negative charge"}
+                                  ]
+                                }
+                              ]
+                            },
+                            {"class": "uncharged"}
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "text quality",
+                      "subclasses": [{
+                        "class": "written",
+                        "subclasses": [
+                          {
+                            "class": "reviewed",
+                            "subclasses": [
+                              {"class": "editor reviewed"},
+                              {"class": "peer-reviewed"}
+                            ]
+                          },
+                          {"class": "finalized"},
+                          {"class": "draft"}
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "shape",
+                      "subclasses": [{
+                        "class": "curvature",
+                        "subclasses": [
+                          {"class": "curved"},
+                          {"class": "bent"},
+                          {"class": "straight"}
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "biological quality",
+                      "subclasses": [
+                        {
+                          "class": "biological sex",
+                          "subclasses": [
+                            {"class": "male"},
+                            {
+                              "class": "intersex",
+                              "subclasses": [{"class": "hermaphrodite"}]
+                            },
+                            {"class": "female"}
+                          ]
+                        },
+                        {
+                          "class": "zygosity",
+                          "subclasses": [
+                            {"class": "homozygous"},
+                            {"class": "heterozygous"},
+                            {"class": "hemizygous"},
+                            {"class": "nullizygous"}
+                          ]
+                        },
+                        {
+                          "class": "parental transmission",
+                          "subclasses": [
+                            {"class": "paternally transmitted"},
+                            {"class": "maternally transmitted"}
+                          ]
+                        },
+                        {
+                          "class": "cellular quality",
+                          "subclasses": [{"class": "ploidy"}]
+                        },
+                        {"class": "race"},
+                        {"class": "phenotype"},
+                        {"class": "disease"},
+                        {
+                          "class": "life status",
+                          "subclasses": [
+                            {"class": "dead"},
+                            {
+                              "class": "alive",
+                              "subclasses": [
+                                {"class": "sick"},
+                                {"class": "healthy"}
+                              ]
+                            }
+                          ]
+                        },
+                        {"class": "ethnicity"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "intensity",
+                  "subclasses": [
+                    {"class": "strong"},
+                    {"class": "weak"},
+                    {"class": "severe"},
+                    {"class": "fatal"},
+                    {"class": "mild"},
+                    {"class": "moderate"}
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "realizable entity",
+              "subclasses": [
+                {
+                  "class": "role",
+                  "subclasses": [
+                    {
+                      "class": "abstract role",
+                      "subclasses": [
+                        {
+                          "class": "comparative role",
+                          "subclasses": [
+                            {"class": "duplicate role"},
+                            {
+                              "class": "variant role",
+                              "subclasses": [{
+                                "class": "sequence variant role",
+                                "subclasses": [
+                                  {"class": "insertion variant role"},
+                                  {"class": "deletion variant role"}
+                                ]
+                              }]
+                            },
+                            {"class": "replicate role"}
+                          ]
+                        },
+                        {"class": "positional role"}
+                      ]
+                    },
+                    {
+                      "class": "social role",
+                      "subclasses": [{
+                        "class": "occupational role",
+                        "subclasses": [
+                          {
+                            "class": "academic role",
+                            "subclasses": [
+                              {
+                                "class": "student advisor role",
+                                "subclasses": [
+                                  {"class": "undergraduate student advisor role"},
+                                  {"class": "graduate student advisor role"}
+                                ]
+                              },
+                              {"class": "department chair role"},
+                              {"class": "professor role"},
+                              {"class": "student role"}
+                            ]
+                          },
+                          {
+                            "class": "medical role",
+                            "subclasses": [
+                              {"class": "patient role"},
+                              {"class": "doctor role"},
+                              {"class": "nurse role"},
+                              {"class": "dentist role"}
+                            ]
+                          },
+                          {
+                            "class": "administrative role",
+                            "subclasses": [{"class": "secretary role"}]
+                          },
+                          {
+                            "class": "publishing role",
+                            "subclasses": [
+                              {"class": "publisher role"},
+                              {"class": "author role"}
+                            ]
+                          }
+                        ]
+                      }]
+                    },
+                    {
+                      "class": "processual role",
+                      "subclasses": [
+                        {
+                          "class": "chemical entity role",
+                          "subclasses": [
+                            {
+                              "class": "chemical substance role",
+                              "subclasses": [
+                                {"class": "buffer role"},
+                                {
+                                  "class": "toxic role",
+                                  "subclasses": [{
+                                    "class": "poison role",
+                                    "subclasses": [{"class": "toxin role"}]
+                                  }]
+                                },
+                                {"class": "host role"},
+                                {"class": "reagent role"}
+                              ]
+                            },
+                            {
+                              "class": "molecular entity role",
+                              "subclasses": [
+                                {
+                                  "class": "cofactor role",
+                                  "subclasses": [{
+                                    "class": "co-enzyme role",
+                                    "subclasses": [
+                                      {"class": "prosthetic group role"},
+                                      {"class": "co-substrate role"}
+                                    ]
+                                  }]
+                                },
+                                {"class": "product role"},
+                                {
+                                  "class": "reactant role",
+                                  "subclasses": [
+                                    {"class": "molecular tracer role"},
+                                    {
+                                      "class": "substrate role",
+                                      "subclasses": [{
+                                        "class": "co-enzyme role",
+                                        "subclasses": [
+                                          {"class": "prosthetic group role"},
+                                          {"class": "co-substrate role"}
+                                        ]
+                                      }]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "class": "regulator role",
+                                  "subclasses": [
+                                    {"class": "inhibitor role"},
+                                    {"class": "activator role"},
+                                    {"class": "catalytic role"}
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "investigational role",
+                          "subclasses": [
+                            {
+                              "class": "evaluation role",
+                              "subclasses": [
+                                {"class": "test role"},
+                                {"class": "control role"}
+                              ]
+                            },
+                            {"class": "subject role"}
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "capability",
+                  "subclasses": [
+                    {
+                      "class": "to interact with",
+                      "subclasses": [
+                        {
+                          "class": "to passively interact with",
+                          "subclasses": [
+                            {"class": "to be a member of"},
+                            {
+                              "class": "to describe",
+                              "subclasses": [{"class": "to characterize"}]
+                            },
+                            {
+                              "class": "to observe",
+                              "subclasses": [{
+                                "class": "to examine",
+                                "subclasses": [
+                                  {"class": "to compare"},
+                                  {"class": "to test a hypothesis"}
+                                ]
+                              }]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "to actively interact with",
+                          "subclasses": [
+                            {
+                              "class": "to retrieve",
+                              "subclasses": [{"class": "to provide"}]
+                            },
+                            {"class": "to produce"},
+                            {
+                              "class": "to investigate",
+                              "subclasses": [
+                                {"class": "to identify"},
+                                {"class": "to measure"}
+                              ]
+                            },
+                            {"class": "to transport"},
+                            {"class": "to maintain information"},
+                            {"class": "to decode information"},
+                            {
+                              "class": "to associate",
+                              "subclasses": [{"class": "to bind to"}]
+                            },
+                            {
+                              "class": "to consume",
+                              "subclasses": [{"class": "to ingest"}]
+                            },
+                            {"class": "to store"},
+                            {"class": "to encode information"},
+                            {
+                              "class": "to serve as",
+                              "subclasses": [
+                                {"class": "to serve as a primer for DNA synthesis"},
+                                {
+                                  "class": "to serve as a template for molecular synthesis",
+                                  "subclasses": [
+                                    {"class": "to serve as a template for RNA synthesis"},
+                                    {"class": "to serve as a template for DNA synthesis"},
+                                    {"class": "to serve as a template for protein synthesis"}
+                                  ]
+                                },
+                                {"class": "to serve as a host"}
+                              ]
+                            },
+                            {"class": "to assemble"},
+                            {"class": "to record"},
+                            {
+                              "class": "to modify",
+                              "subclasses": [
+                                {"class": "to disassociate"},
+                                {
+                                  "class": "to separate",
+                                  "subclasses": [
+                                    {"class": "to filter"},
+                                    {"class": "to extract"}
+                                  ]
+                                },
+                                {
+                                  "class": "to modify conformation of",
+                                  "subclasses": [
+                                    {"class": "to conformationally activate"},
+                                    {"class": "to conformationally inhibit"}
+                                  ]
+                                },
+                                {
+                                  "class": "to change spatially",
+                                  "subclasses": [{
+                                    "class": "to contain",
+                                    "subclasses": [{"class": "to immobilize"}]
+                                  }]
+                                },
+                                {
+                                  "class": "to regulate",
+                                  "subclasses": [{
+                                    "class": "to regulate the rate of formation",
+                                    "subclasses": [
+                                      {"class": "to increase the rate of formation"},
+                                      {"class": "to decrease the rate of formation"}
+                                    ]
+                                  }]
+                                },
+                                {
+                                  "class": "to change energetically",
+                                  "subclasses": [
+                                    {
+                                      "class": "to supply energy",
+                                      "subclasses": [
+                                        {
+                                          "class": "to heat",
+                                          "subclasses": [{"class": "to boil"}]
+                                        },
+                                        {"class": "to excite"},
+                                        {"class": "to supply electricity"}
+                                      ]
+                                    },
+                                    {
+                                      "class": "to reduce energy",
+                                      "subclasses": [
+                                        {
+                                          "class": "to cool",
+                                          "subclasses": [{"class": "to freeze"}]
+                                        },
+                                        {"class": "to emit"}
+                                      ]
+                                    },
+                                    {
+                                      "class": "to modify electronically",
+                                      "subclasses": [
+                                        {
+                                          "class": "to modify oxidation state of",
+                                          "subclasses": [
+                                            {"class": "to oxidize"},
+                                            {"class": "to reduce"}
+                                          ]
+                                        },
+                                        {
+                                          "class": "to ionize",
+                                          "subclasses": [
+                                            {"class": "to positively charge"},
+                                            {"class": "to negatively charge"}
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "class": "to change the activation energy",
+                                      "subclasses": [
+                                        {"class": "to reduce the activation energy"},
+                                        {"class": "to increase the activation energy"}
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "class": "to inject",
+                                  "subclasses": [{"class": "to infect"}]
+                                },
+                                {
+                                  "class": "to change appearance",
+                                  "subclasses": [
+                                    {"class": "to distort"},
+                                    {"class": "to demagnify"},
+                                    {"class": "to magnify"}
+                                  ]
+                                },
+                                {
+                                  "class": "to change materially",
+                                  "subclasses": [
+                                    {"class": "to cause disease"},
+                                    {
+                                      "class": "to disassemble",
+                                      "subclasses": [{"class": "to cleave"}]
+                                    },
+                                    {"class": "to combine"},
+                                    {
+                                      "class": "to covalently modify",
+                                      "subclasses": [
+                                        {"class": "to remove a covalent bond"},
+                                        {"class": "to add a covalent bond"}
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {"class": "to translocate"}
+                      ]
+                    },
+                    {"class": "function"},
+                    {
+                      "class": "to be interacted with",
+                      "subclasses": [
+                        {"class": "to be translocated"},
+                        {
+                          "class": "to be actively interacted with",
+                          "subclasses": [
+                            {"class": "to be transported"},
+                            {
+                              "class": "to luminesce",
+                              "subclasses": [{"class": "to fluoresce"}]
+                            },
+                            {
+                              "class": "to be modified",
+                              "subclasses": [
+                                {
+                                  "class": "to be combined",
+                                  "subclasses": [{"class": "to be a part of"}]
+                                },
+                                {
+                                  "class": "to be electronically modified",
+                                  "subclasses": [
+                                    {"class": "to gain an electron"},
+                                    {"class": "to lose an electron"}
+                                  ]
+                                },
+                                {
+                                  "class": "to be conformationally changed",
+                                  "subclasses": [
+                                    {"class": "to be activated"},
+                                    {"class": "to be inhibited"}
+                                  ]
+                                },
+                                {"class": "to be cleaved"},
+                                {
+                                  "class": "to be covalently modified",
+                                  "subclasses": [
+                                    {"class": "to gain a covalent bond"},
+                                    {"class": "to lose a covalent bond"}
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "class": "to be passively interacted with",
+                          "subclasses": [{
+                            "class": "to be observed",
+                            "subclasses": [
+                              {
+                                "class": "to be examined",
+                                "subclasses": [{"class": "to be compared"}]
+                              },
+                              {"class": "to be recorded"}
+                            ]
+                          }]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "disposition",
+                      "subclasses": [{
+                        "class": "mutual disposition",
+                        "subclasses": [{"class": "to interact and to be interacted with"}]
+                      }]
+                    },
+                    {"class": "to breathe"},
+                    {"class": "dysfunction"}
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "SimilarityStrategy",
+      "subclasses": [
+        {"class": "SameTypeMatch"},
+        {"class": "ExactMatch"},
+        {"class": "HierarchyMatch"},
+        {"class": "HierarchyDistance"}
+      ]
+    },
+    {
+      "instances": [
+        "MetaphysicalLaw",
+        "HumanCapacity",
+        "EmpiricalLaw",
+        "PriorKnowledge",
+        "Experiment",
+        "HumanExperience",
+        "LanguageUniversal",
+        "Law"
+      ],
+      "class": "Theory",
+      "subclasses": [{
+        "class": "Knowledge",
+        "subclasses": [
+          {
+            "instances": ["BoshUserDomainExpertKnowledge"],
+            "class": "Domain Knowledge"
+          },
+          {
+            "instances": ["GuidelineEvidence"],
+            "class": "Fact"
+          },
+          {
+            "instances": ["ContextualKnowledgePatientA"],
+            "class": "Foil"
+          },
+          {
+            "instances": ["ContextualKnowledgePatientA"],
+            "class": "Contextual Knowledge",
+            "subclasses": [
+              {"class": "Environmental Context"},
+              {"class": "User Context"}
+            ]
+          },
+          {"class": "Numerical Evidence"},
+          {"class": "Experential Knowledge"},
+          {
+            "instances": ["GuidelineEvidence"],
+            "class": "Scientific Knowledge"
+          },
+          {"class": "AI Method Knowledge"}
+        ]
+      }]
+    },
+    {
+      "class": "InstantaneousEvent",
+      "subclasses": [
+        {"class": "Usage"},
+        {"class": "End"},
+        {"class": "Generation"},
+        {"class": "Invalidation"},
+        {"class": "Start"}
+      ]
+    },
+    {"class": "Key-Entity Pair"},
+    {"class": "Solution"}
+  ]
+}]}

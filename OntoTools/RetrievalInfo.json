@@ -6,7 +6,7 @@
       "model",
       "data"
     ],
-    "class": "ExplanationTarget"
+    "class": "Explanation Target"
   },
   {
     "applicableSimilarityStrategy": "ExactMatch",
@@ -30,46 +30,46 @@
           "SystemRecExampleForContrastiveExpA",
           "SystemRecExampleForContrastiveExpB"
         ],
-        "class": "SystemRecommendation"
+        "class": "System Recommendation"
       },
       {
-        "class": "ArtificialIntelligenceMethod",
+        "class": "AI Method",
         "subclasses": [
-          {"class": "OMIT_0001177"},
+          {"class": "Computer Heuristics"},
           {
-            "class": "OMIT_0024712",
+            "class": "Knowledge Bases",
             "subclasses": [{
-              "class": "OMIT_0028401",
-              "subclasses": [{"class": "OMIT_0028314"}]
+              "class": "Biological Ontologies",
+              "subclasses": [{"class": "Gene Ontology"}]
             }]
           },
-          {"class": "OMIT_0013278"},
+          {"class": "Robotics"},
           {
             "instances": [
               "YoloNeuralNetwork",
               "BoschAnomalyDeepNeuralNetwork"
             ],
-            "class": "OMIT_0017046"
+            "class": "Neural Networks (Computer)"
           },
-          {"class": "OMIT_0010354"},
+          {"class": "Natural Language Processing"},
           {
-            "class": "OMIT_0001480",
+            "class": "Machine Learning",
             "subclasses": [
-              {"class": "OMIT_0001486"},
+              {"class": "Unsupervised Machine Learning"},
               {
-                "class": "OMIT_0001483",
+                "class": "Supervised Machine Learning",
                 "subclasses": [
-                  {"class": "OMIT_0027764"},
-                  {"class": "DecisionTree"}
+                  {"class": "Support Vector Machine"},
+                  {"class": "Decision Tree"}
                 ]
               }
             ]
           },
           {
-            "class": "KnowledgeBasedSystems",
-            "subclasses": [{"class": "OMIT_0006327"}]
+            "class": "Knowledge based Systems",
+            "subclasses": [{"class": "Expert Systems"}]
           },
-          {"class": "OMIT_0017538"}
+          {"class": "Fuzzy Logic"}
         ]
       }
     ]
@@ -81,53 +81,53 @@
       "high",
       "medium"
     ],
-    "class": "KnowledgeLevel"
+    "class": "Knowledge Level"
   },
   {
     "applicableSimilarityStrategy": "SameTypeMatch",
-    "class": "ArtificialIntelligenceMethod",
+    "class": "AI Method",
     "subclasses": [
-      {"class": "OMIT_0001177"},
+      {"class": "Computer Heuristics"},
       {
-        "class": "OMIT_0024712",
+        "class": "Knowledge Bases",
         "subclasses": [{
-          "class": "OMIT_0028401",
-          "subclasses": [{"class": "OMIT_0028314"}]
+          "class": "Biological Ontologies",
+          "subclasses": [{"class": "Gene Ontology"}]
         }]
       },
-      {"class": "OMIT_0013278"},
+      {"class": "Robotics"},
       {
         "instances": [
           "YoloNeuralNetwork",
           "BoschAnomalyDeepNeuralNetwork"
         ],
-        "class": "OMIT_0017046"
+        "class": "Neural Networks (Computer)"
       },
-      {"class": "OMIT_0010354"},
+      {"class": "Natural Language Processing"},
       {
-        "class": "OMIT_0001480",
+        "class": "Machine Learning",
         "subclasses": [
-          {"class": "OMIT_0001486"},
+          {"class": "Unsupervised Machine Learning"},
           {
-            "class": "OMIT_0001483",
+            "class": "Supervised Machine Learning",
             "subclasses": [
-              {"class": "OMIT_0027764"},
-              {"class": "DecisionTree"}
+              {"class": "Support Vector Machine"},
+              {"class": "Decision Tree"}
             ]
           }
         ]
       },
       {
-        "class": "KnowledgeBasedSystems",
-        "subclasses": [{"class": "OMIT_0006327"}]
+        "class": "Knowledge based Systems",
+        "subclasses": [{"class": "Expert Systems"}]
       },
-      {"class": "OMIT_0017538"}
+      {"class": "Fuzzy Logic"}
     ]
   },
   {
     "applicableSimilarityStrategy": "SameTypeMatch",
     "instances": ["YoloImage"],
-    "class": "ExplanationModality"
+    "class": "Explanation Modality"
   },
   {
     "applicableSimilarityStrategy": "ExactMatch",
@@ -146,7 +146,7 @@
       "Satisfaction",
       "Effectiveness"
     ],
-    "class": "SIO_000358"
+    "class": "intent"
   },
   {
     "applicableSimilarityStrategy": "ExactMatch",
@@ -154,19 +154,19 @@
       "post-hoc",
       "ante-hoc"
     ],
-    "class": "ExplainerConcurrentness"
+    "class": "Explainer Concurrentness"
   },
   {
     "applicableSimilarityStrategy": "SameTypeMatch",
-    "class": "TechnicalFacilities",
+    "class": "Technical Facilities",
     "subclasses": [
       {
         "instances": ["ScreenDisplay"],
-        "class": "VisualFacilities"
+        "class": "Visual Facilities"
       },
       {
         "instances": ["Speaker"],
-        "class": "AudioFacilities"
+        "class": "Audio Facilities"
       }
     ]
   },
@@ -178,7 +178,7 @@
       "ordinal",
       "numerical"
     ],
-    "class": "DataType",
+    "class": "Data Type",
     "subclasses": [
       {
         "instances": ["ColorImage"],
@@ -191,127 +191,127 @@
   },
   {
     "applicableSimilarityStrategy": "HierarchyDistance",
-    "class": "SIO_000015",
+    "class": "information content entity",
     "subclasses": [
       {
-        "class": "SIO_000506",
+        "class": "geometric entity",
         "subclasses": [
-          {"class": "SIO_000502"},
-          {"class": "SIO_000504"},
-          {"class": "SIO_000503"},
-          {"class": "SIO_000545"},
+          {"class": "polyhedral skeleton"},
+          {"class": "polyhedral surface"},
+          {"class": "polygonal face"},
+          {"class": "polyline"},
           {
-            "class": "SIO_000505",
+            "class": "polygon",
             "subclasses": [
-              {"class": "SIO_000520"},
+              {"class": "triangle"},
               {
-                "class": "SIO_000517",
+                "class": "quadrilateral",
                 "subclasses": [{
-                  "class": "SIO_000518",
-                  "subclasses": [{"class": "SIO_000519"}]
+                  "class": "rectangle",
+                  "subclasses": [{"class": "bar"}]
                 }]
               }
             ]
           },
           {
-            "class": "SIO_000507",
+            "class": "point",
             "subclasses": [
               {
-                "class": "SIO_000532",
+                "class": "terminal point",
                 "subclasses": [
-                  {"class": "SIO_000508"},
-                  {"class": "SIO_000509"}
+                  {"class": "endpoint"},
+                  {"class": "start point"}
                 ]
               },
-              {"class": "SIO_000441"},
-              {"class": "SIO_000437"},
-              {"class": "SIO_000440"},
+              {"class": "1D cartesian point"},
+              {"class": "2D cartesian point"},
+              {"class": "3D cartesian point"},
               {
-                "class": "SIO_000465",
+                "class": "data point",
                 "subclasses": [{
-                  "class": "SIO_000741",
+                  "class": "stationary point",
                   "subclasses": [
                     {
-                      "class": "SIO_000743",
-                      "subclasses": [{"class": "SIO_000467"}]
+                      "class": "local minimum stationary point",
+                      "subclasses": [{"class": "global minimal stationary point"}]
                     },
                     {
-                      "class": "SIO_000742",
-                      "subclasses": [{"class": "SIO_000466"}]
+                      "class": "local maximum stationary point",
+                      "subclasses": [{"class": "global maximal stationary point"}]
                     }
                   ]
                 }]
               },
               {
-                "class": "SIO_001335",
-                "subclasses": [{"class": "SIO_000500"}]
+                "class": "node",
+                "subclasses": [{"class": "polygon vertex"}]
               }
             ]
           },
           {
-            "class": "SIO_000608",
+            "class": "curve",
             "subclasses": [
-              {"class": "SIO_001333"},
-              {"class": "SIO_000740"},
+              {"class": "arc"},
+              {"class": "curve segment"},
               {
-                "class": "SIO_000511",
+                "class": "line",
                 "subclasses": [
-                  {"class": "SIO_001334"},
+                  {"class": "edge"},
                   {
-                    "class": "SIO_000516",
+                    "class": "ray",
                     "subclasses": [{
-                      "class": "SIO_000540",
+                      "class": "vector line",
                       "subclasses": [
-                        {"class": "SIO_000541"},
-                        {"class": "SIO_000533"}
+                        {"class": "vertex normal"},
+                        {"class": "surface normal"}
                       ]
                     }]
                   },
                   {
-                    "class": "SIO_000534",
+                    "class": "positionally oriented line",
                     "subclasses": [
-                      {"class": "SIO_000525"},
-                      {"class": "SIO_000526"}
+                      {"class": "horizontal line"},
+                      {"class": "vertical line"}
                     ]
                   },
-                  {"class": "SIO_000539"},
+                  {"class": "infinite line"},
                   {
-                    "class": "SIO_000512",
+                    "class": "line segment",
                     "subclasses": [
-                      {"class": "SIO_000501"},
+                      {"class": "polygon edge"},
                       {
-                        "class": "SIO_000521",
+                        "class": "directed line segment",
                         "subclasses": [
                           {
-                            "class": "SIO_000450",
+                            "class": "axis",
                             "subclasses": [
                               {
-                                "class": "SIO_000455",
+                                "class": "category axis",
                                 "subclasses": [
-                                  {"class": "SIO_000456"},
-                                  {"class": "SIO_000457"}
+                                  {"class": "primary category axis"},
+                                  {"class": "secondary category axis"}
                                 ]
                               },
                               {
-                                "class": "SIO_000458",
+                                "class": "value axis",
                                 "subclasses": [
                                   {
-                                    "class": "SIO_000461",
+                                    "class": "scaled value axis",
                                     "subclasses": [
-                                      {"class": "SIO_000463"},
-                                      {"class": "SIO_000462"}
+                                      {"class": "logarithmic value axis"},
+                                      {"class": "linear value axis"}
                                     ]
                                   },
-                                  {"class": "SIO_000902"},
-                                  {"class": "SIO_000903"},
-                                  {"class": "SIO_000459"},
-                                  {"class": "SIO_000460"},
+                                  {"class": "top value axis"},
+                                  {"class": "bottom value axis"},
+                                  {"class": "left value axis"},
+                                  {"class": "right value axis"},
                                   {
-                                    "class": "SIO_000451",
+                                    "class": "Cartesian coordinate axis",
                                     "subclasses": [
-                                      {"class": "SIO_000453"},
-                                      {"class": "SIO_000452"},
-                                      {"class": "SIO_000454"}
+                                      {"class": "y-axis"},
+                                      {"class": "x-axis"},
+                                      {"class": "z-axis"}
                                     ]
                                   }
                                 ]
@@ -319,33 +319,33 @@
                             ]
                           },
                           {
-                            "class": "SIO_000522",
+                            "class": "arrowed line segment",
                             "subclasses": [
-                              {"class": "SIO_000523"},
-                              {"class": "SIO_000524"}
+                              {"class": "single arrowed line segment"},
+                              {"class": "double arrowed line segment"}
                             ]
                           }
                         ]
                       },
                       {
-                        "class": "SIO_000513",
+                        "class": "tick mark",
                         "subclasses": [
-                          {"class": "SIO_000515"},
-                          {"class": "SIO_000514"}
+                          {"class": "minor tick mark"},
+                          {"class": "major tick mark"}
                         ]
                       }
                     ]
                   },
                   {
-                    "class": "SIO_000535",
+                    "class": "statistical graph line",
                     "subclasses": [
-                      {"class": "SIO_000531"},
+                      {"class": "drop line"},
                       {
-                        "class": "SIO_000527",
+                        "class": "trend line",
                         "subclasses": [
-                          {"class": "SIO_000529"},
-                          {"class": "SIO_000530"},
-                          {"class": "SIO_000528"}
+                          {"class": "decreasing line"},
+                          {"class": "plateau line"},
+                          {"class": "increasing line"}
                         ]
                       }
                     ]
@@ -354,53 +354,53 @@
               }
             ]
           },
-          {"class": "SIO_000546"}
+          {"class": "collection of points"}
         ]
       },
       {
-        "class": "SIO_000009",
+        "class": "social entity",
         "subclasses": [
           {
-            "class": "SIO_000287",
-            "subclasses": [{"class": "SIO_000173"}]
+            "class": "social relation",
+            "subclasses": [{"class": "affiliation"}]
           },
           {
-            "class": "SIO_000010",
+            "class": "social structure",
             "subclasses": [{
-              "class": "SIO_000620",
+              "class": "collective",
               "subclasses": [
                 {
-                  "class": "SIO_000012",
+                  "class": "organization",
                   "subclasses": [
-                    {"class": "SIO_000688"},
+                    {"class": "institute"},
                     {
-                      "class": "SIO_000619",
-                      "subclasses": [{"class": "SIO_010383"}]
+                      "class": "regulatory authority",
+                      "subclasses": [{"class": "drug regulatory authority"}]
                     },
-                    {"class": "SIO_000693"},
+                    {"class": "corporation"},
                     {
-                      "class": "SIO_000285",
+                      "class": "academic organization",
                       "subclasses": [
-                        {"class": "SIO_000290"},
-                        {"class": "SIO_000686"}
+                        {"class": "university"},
+                        {"class": "academic department"}
                       ]
                     }
                   ]
                 },
                 {
-                  "class": "SIO_001061",
+                  "class": "population",
                   "subclasses": [{
-                    "class": "SIO_001062",
-                    "subclasses": [{"class": "SIO_001016"}]
+                    "class": "human population",
+                    "subclasses": [{"class": "ethnic group"}]
                   }]
                 },
-                {"class": "SIO_001063"},
-                {"class": "SIO_001064"},
+                {"class": "family"},
+                {"class": "community"},
                 {
-                  "class": "SIO_000403",
+                  "class": "study group",
                   "subclasses": [
-                    {"class": "SIO_001069"},
-                    {"class": "SIO_001068"}
+                    {"class": "intervention group"},
+                    {"class": "control group"}
                   ]
                 }
               ]
@@ -409,46 +409,46 @@
         ]
       },
       {
-        "class": "SIO_000602",
+        "class": "computational entity",
         "subclasses": [
-          {"class": "SIO_000756"},
-          {"class": "SIO_000067"},
+          {"class": "database entry"},
+          {"class": "namespace"},
           {
-            "class": "SIO_001300",
+            "class": "ovopub",
             "subclasses": [
-              {"class": "SIO_001301"},
-              {"class": "SIO_001302"}
+              {"class": "collection ovopub"},
+              {"class": "assertion ovopub"}
             ]
           },
           {
-            "class": "SIO_000069",
+            "class": "data item",
             "subclasses": [
               {
-                "class": "SIO_000472",
+                "class": "scientific data",
                 "subclasses": [
                   {
-                    "class": "SIO_010019",
+                    "class": "biological data",
                     "subclasses": [
-                      {"class": "SIO_010028"},
-                      {"class": "SIO_010298"},
-                      {"class": "SIO_010065"}
+                      {"class": "genetic data"},
+                      {"class": "medical data"},
+                      {"class": "bioinformatic data"}
                     ]
                   },
-                  {"class": "SIO_011123"}
+                  {"class": "chemical data"}
                 ]
               },
-              {"class": "object_record"},
-              {"class": "SIO_001330"},
+              {"class": "Object Record"},
+              {"class": "metadata"},
               {
-                "class": "SIO_000089",
-                "subclasses": [{"class": "SIO_001377"}]
+                "class": "dataset",
+                "subclasses": [{"class": "versioned dataset"}]
               }
             ]
           },
-          {"class": "SIO_001165"},
+          {"class": "user account"},
           {
-            "class": "SIO_000753",
-            "subclasses": [{"class": "SIO_000757"}]
+            "class": "column",
+            "subclasses": [{"class": "database column"}]
           },
           {
             "instances": [
@@ -463,37 +463,37 @@
             "class": "Explanation",
             "subclasses": [
               {
-                "class": "EverydayExplanation",
-                "subclasses": [{"class": "ClinicalPearl"}]
+                "class": "Everyday Explanation",
+                "subclasses": [{"class": "Clinical Pearls"}]
               },
-              {"class": "StatisticalExplanation"},
-              {"class": "SimulationBasedExplanation"},
-              {"class": "ContextualExplanation"},
+              {"class": "Statistical Explanation"},
+              {"class": "Simulation Based Explanation"},
+              {"class": "Contextual Explanation"},
               {
-                "class": "scientificExplanation",
+                "class": "Scientific Explanation",
                 "subclasses": [
-                  {"class": "Mechanistic_Explanation"},
-                  {"class": "Evidence_Based_Explanation"}
+                  {"class": "Mechanistic Explanation"},
+                  {"class": "Evidence Based Explanation"}
                 ]
               },
-              {"class": "TraceBasedExplanation"},
-              {"class": "CaseBasedExplanation"},
-              {"class": "ContrastiveExplanation"},
+              {"class": "Trace Based Explanation"},
+              {"class": "Case Based Explanation"},
+              {"class": "Contrastive Explanation"},
               {
                 "instances": [
                   "CounterfactualProbable2",
                   "CounterfactualProbable1"
                 ],
-                "class": "CounterfactualExplanation"
+                "class": "Counterfactual Explanation"
               }
             ]
           },
           {
-            "class": "SIO_000755",
+            "class": "cell (informational)",
             "subclasses": [
-              {"class": "SIO_000760"},
-              {"class": "SIO_000759"},
-              {"class": "SIO_000761"}
+              {"class": "referencing cell"},
+              {"class": "unique cell"},
+              {"class": "referent cell"}
             ]
           },
           {
@@ -501,427 +501,427 @@
               "SystemRecExampleForContrastiveExpA",
               "SystemRecExampleForContrastiveExpB"
             ],
-            "class": "SystemRecommendation"
+            "class": "System Recommendation"
           },
           {
-            "class": "SIO_000762",
+            "class": "database key",
             "subclasses": [
-              {"class": "SIO_000764"},
-              {"class": "SIO_000763"}
+              {"class": "foreign database key"},
+              {"class": "primary database key"}
             ]
           },
           {
-            "class": "SIO_000752",
-            "subclasses": [{"class": "SIO_001187"}]
+            "class": "row",
+            "subclasses": [{"class": "database row"}]
           },
-          {"class": "SIO_000750"},
+          {"class": "database"},
           {
-            "class": "SIO_000097",
+            "class": "software entity",
             "subclasses": [
               {
-                "class": "SIO_000101",
+                "class": "software application",
                 "subclasses": [
-                  {"class": "SIO_000102"},
+                  {"class": "software interpreter"},
                   {
-                    "class": "SIO_000140",
+                    "class": "web service",
                     "subclasses": [
-                      {"class": "SIO_001191"},
+                      {"class": "SOAP web service"},
                       {
-                        "class": "SIO_001189",
-                        "subclasses": [{"class": "SIO_001188"}]
+                        "class": "semantic web service",
+                        "subclasses": [{"class": "SADI semantic web service"}]
                       },
-                      {"class": "SIO_001190"}
+                      {"class": "REST web service"}
                     ]
                   }
                 ]
               },
-              {"class": "SIO_000098"},
-              {"class": "SIO_000103"},
-              {"class": "Reasoning_Mode"},
-              {"class": "SystemTrace"},
-              {"class": "SIO_000100"},
-              {"class": "SIO_000099"}
+              {"class": "software method"},
+              {"class": "software script"},
+              {"class": "Reasoning Mode"},
+              {"class": "System Trace"},
+              {"class": "software library"},
+              {"class": "software module"}
             ]
           },
-          {"class": "SIO_000754"}
+          {"class": "database table"}
         ]
       },
       {
-        "class": "SIO_001194",
+        "class": "media",
         "subclasses": [
-          {"class": "SIO_001370"},
-          {"class": "SIO_000924"},
-          {"class": "SIO_001170"},
+          {"class": "slide"},
+          {"class": "television program"},
+          {"class": "slideshow"},
           {
-            "class": "SIO_000448",
+            "class": "figure part",
             "subclasses": [
-              {"class": "SIO_000449"},
-              {"class": "SIO_000468"}
+              {"class": "plot"},
+              {"class": "legend"}
             ]
           },
           {
-            "class": "SIO_000396",
+            "class": "file",
             "subclasses": [{
-              "class": "SIO_011120",
-              "subclasses": [{"class": "SIO_011130"}]
+              "class": "molecular structure file",
+              "subclasses": [{"class": "PDB file"}]
             }]
           },
-          {"class": "SIO_000297"},
+          {"class": "movie"},
           {
-            "class": "SIO_000080",
+            "class": "figure",
             "subclasses": [
               {
-                "class": "SIO_000904",
+                "class": "chart",
                 "subclasses": [
                   {
-                    "class": "SIO_000083",
+                    "class": "statistical graph",
                     "subclasses": [
                       {
-                        "class": "SIO_000443",
+                        "class": "bar graph",
                         "subclasses": [
-                          {"class": "SIO_000444"},
-                          {"class": "SIO_000446"},
-                          {"class": "SIO_000445"}
+                          {"class": "horizontal bar graph"},
+                          {"class": "stacked bar graph"},
+                          {"class": "vertical bar graph"}
                         ]
                       },
-                      {"class": "SIO_000442"},
-                      {"class": "SIO_000423"},
+                      {"class": "line graph"},
+                      {"class": "scatterplot"},
                       {
-                        "class": "SIO_000934",
-                        "subclasses": [{"class": "SIO_000908"}]
+                        "class": "stack graph",
+                        "subclasses": [{"class": "streamgraph"}]
                       },
                       {
-                        "class": "SIO_000447",
-                        "subclasses": [{"class": "SIO_000909"}]
+                        "class": "line-bar graph",
+                        "subclasses": [{"class": "boxplot"}]
                       }
                     ]
                   },
                   {
-                    "class": "SIO_000931",
+                    "class": "network diagram",
                     "subclasses": [{
-                      "class": "SIO_001332",
+                      "class": "directed acyclic graph",
                       "subclasses": [{
-                        "class": "SIO_000945",
-                        "subclasses": [{"class": "SIO_000948"}]
+                        "class": "tree diagram",
+                        "subclasses": [{"class": "dendrogram"}]
                       }]
                     }]
                   },
                   {
-                    "class": "SIO_000907",
-                    "subclasses": [{"class": "SIO_000910"}]
+                    "class": "heatmap",
+                    "subclasses": [{"class": "geographic heatmap"}]
                   },
-                  {"class": "SIO_000933"},
-                  {"class": "SIO_000906"},
+                  {"class": "bubble chart"},
+                  {"class": "map"},
                   {
-                    "class": "SIO_000911",
-                    "subclasses": [{"class": "SIO_000932"}]
+                    "class": "histogram",
+                    "subclasses": [{"class": "block histogram"}]
                   },
                   {
-                    "class": "SIO_000937",
+                    "class": "textual chart",
                     "subclasses": [
-                      {"class": "SIO_000939"},
-                      {"class": "SIO_000936"},
-                      {"class": "SIO_000938"}
+                      {"class": "phrase net diagram"},
+                      {"class": "word tree"},
+                      {"class": "tag cloud"}
                     ]
                   },
-                  {"class": "SIO_000947"},
-                  {"class": "SIO_000930"},
-                  {"class": "SIO_000922"},
-                  {"class": "SIO_000946"},
+                  {"class": "venn diagram"},
+                  {"class": "matrix chart"},
+                  {"class": "Gantt chart"},
+                  {"class": "flowchart"},
                   {
-                    "class": "SIO_000940",
+                    "class": "mereological chart",
                     "subclasses": [
-                      {"class": "SIO_000929"},
-                      {"class": "SIO_000935"}
+                      {"class": "pie chart"},
+                      {"class": "treemap"}
                     ]
                   }
                 ]
               },
-              {"class": "SIO_000419"},
+              {"class": "table"},
               {
-                "class": "SIO_000081",
+                "class": "image",
                 "subclasses": [{
-                  "class": "SIO_000082",
-                  "subclasses": [{"class": "SIO_000301"}]
+                  "class": "photograph",
+                  "subclasses": [{"class": "geographic image"}]
                 }]
               }
             ]
           },
-          {"class": "SIO_001168"}
+          {"class": "audio recording"}
         ]
       },
       {
-        "class": "SIO_000075",
+        "class": "mathematical entity",
         "subclasses": [
           {
-            "class": "SIO_000238",
+            "class": "logical operator",
             "subclasses": [
+              {"class": "implies (->)"},
+              {"class": "conjunction (and)"},
+              {"class": "negation (not)"},
               {
-                "class": "SIO_000280",
-                "subclasses": [{"class": "SIO_000282"}]
-              },
-              {"class": "SIO_000220"},
-              {"class": "SIO_000239"},
-              {"class": "SIO_000281"}
+                "class": "disjunction (or)",
+                "subclasses": [{"class": "exclusive disjunction (xor)"}]
+              }
             ]
           },
           {
-            "class": "SIO_001429",
+            "class": "tensor",
             "subclasses": [
               {
-                "class": "SIO_001434",
+                "class": "rank nonzero tensor",
                 "subclasses": [
-                  {"class": "SIO_001433"},
-                  {"class": "SIO_001430"}
+                  {"class": "matrix"},
+                  {"class": "vector"}
                 ]
               },
               {
-                "class": "SIO_001431",
+                "class": "scalar",
                 "subclasses": [{
-                  "class": "SIO_000366",
+                  "class": "number",
                   "subclasses": [{
-                    "class": "SIO_000070",
+                    "class": "measurement value",
                     "subclasses": [
                       {
-                        "class": "SIO_000052",
+                        "class": "quantity",
                         "subclasses": [
                           {
-                            "class": "SIO_000257",
+                            "class": "dimensionless quantity",
                             "subclasses": [
                               {
-                                "class": "SIO_000638",
+                                "class": "probability measure",
                                 "subclasses": [
-                                  {"class": "SIO_001021"},
-                                  {"class": "SIO_000765"},
-                                  {"class": "SIO_001245"}
+                                  {"class": "expected value"},
+                                  {"class": "probability value"},
+                                  {"class": "standard score"}
                                 ]
                               },
                               {
-                                "class": "SIO_001018",
+                                "class": "ratio",
                                 "subclasses": [
-                                  {"class": "SIO_001351"},
-                                  {"class": "SIO_001355"},
-                                  {"class": "SIO_001074"},
-                                  {"class": "SIO_001352"},
+                                  {"class": "DisGeNET disease specificity"},
+                                  {"class": "specific gravity"},
+                                  {"class": "t-statistic"},
+                                  {"class": "DisGeNET Pleiotropy Index"},
                                   {
-                                    "class": "SIO_001078",
+                                    "class": "differential gene expression ratio",
                                     "subclasses": [
-                                      {"class": "SIO_001081"},
-                                      {"class": "SIO_001082"}
+                                      {"class": "t-statistic based increased differential gene expression"},
+                                      {"class": "t-statistic based decreased differential gene expression"}
                                     ]
                                   },
-                                  {"class": "SIO_001408"},
-                                  {"class": "SIO_001413"},
-                                  {"class": "SIO_001184"}
+                                  {"class": "aspect ratio"},
+                                  {"class": "percentage"},
+                                  {"class": "slope"}
                                 ]
                               },
                               {
-                                "class": "SIO_000794",
+                                "class": "count",
                                 "subclasses": [
-                                  {"class": "SIO_010061"},
-                                  {"class": "SIO_001161"},
-                                  {"class": "SIO_000178"},
-                                  {"class": "SIO_001160"},
+                                  {"class": "generation number"},
+                                  {"class": "number of objects consumed"},
+                                  {"class": "page total"},
+                                  {"class": "number of objects produced"},
                                   {
-                                    "class": "SIO_001162",
+                                    "class": "difference in number of objects produced",
                                     "subclasses": [
-                                      {"class": "SIO_001164"},
-                                      {"class": "SIO_001163"}
+                                      {"class": "decrease in number of objects produced"},
+                                      {"class": "increase in number of objects produced"}
                                     ]
                                   },
-                                  {"class": "SIO_001328"},
-                                  {"class": "SIO_000309"},
-                                  {"class": "SIO_000308"},
-                                  {"class": "SIO_000787"},
-                                  {"class": "SIO_001115"}
+                                  {"class": "copy number variation"},
+                                  {"class": "volume number"},
+                                  {"class": "edition number"},
+                                  {"class": "page number"},
+                                  {"class": "member count"}
                                 ]
                               },
                               {
-                                "class": "SIO_001414",
-                                "subclasses": [{"class": "SIO_001415"}]
+                                "class": "quantile",
+                                "subclasses": [{"class": "percentile"}]
                               },
-                              {"class": "SIO_001089"}
+                              {"class": "pH"}
                             ]
                           },
-                          {"class": "SIO_001112"},
-                          {"class": "SIO_001114"},
-                          {"class": "SIO_000074"},
+                          {"class": "sum"},
+                          {"class": "maximal value"},
+                          {"class": "unit of measurement"},
                           {
-                            "class": "SIO_001108",
+                            "class": "centrality measure",
                             "subclasses": [
-                              {"class": "SIO_001111"},
-                              {"class": "SIO_001109"},
-                              {"class": "SIO_001110"}
+                              {"class": "mode"},
+                              {"class": "mean"},
+                              {"class": "median"}
                             ]
                           },
                           {
-                            "class": "SIO_000258",
+                            "class": "dimensional quantity",
                             "subclasses": [
-                              {"class": "SIO_001013"},
+                              {"class": "age"},
                               {
-                                "class": "SIO_001365",
+                                "class": "rate of change",
                                 "subclasses": [
                                   {
-                                    "class": "SIO_001368",
-                                    "subclasses": [{"class": "SIO_001369"}]
+                                    "class": "speed",
+                                    "subclasses": [{"class": "velocity"}]
                                   },
-                                  {"class": "SIO_001367"}
+                                  {"class": "frequency"}
                                 ]
                               },
                               {
-                                "class": "SIO_000391",
+                                "class": "time measurement",
                                 "subclasses": [
                                   {
-                                    "class": "SIO_000417",
+                                    "class": "time interval",
                                     "subclasses": [
-                                      {"class": "SIO_000432"},
-                                      {"class": "SIO_000434"},
-                                      {"class": "SIO_000428"},
-                                      {"class": "SIO_000431"},
-                                      {"class": "SIO_000433"},
-                                      {"class": "SIO_001354"},
-                                      {"class": "SIO_000435"},
-                                      {"class": "SIO_000429"},
-                                      {"class": "SIO_000430"}
+                                      {"class": "millennium"},
+                                      {"class": "minute"},
+                                      {"class": "year"},
+                                      {"class": "century"},
+                                      {"class": "hour"},
+                                      {"class": "week"},
+                                      {"class": "second"},
+                                      {"class": "month"},
+                                      {"class": "day"}
                                     ]
                                   },
                                   {
-                                    "class": "SIO_000418",
+                                    "class": "time instant",
                                     "subclasses": [
-                                      {"class": "SIO_000669"},
-                                      {"class": "SIO_001314"},
-                                      {"class": "SIO_000032"},
-                                      {"class": "SIO_000031"},
-                                      {"class": "SIO_000670"},
-                                      {"class": "SIO_001083"}
+                                      {"class": "start time"},
+                                      {"class": "date of issue"},
+                                      {"class": "end date"},
+                                      {"class": "start date"},
+                                      {"class": "end time"},
+                                      {"class": "date of database submission"}
                                     ]
                                   }
                                 ]
                               },
-                              {"class": "SIO_001077"},
+                              {"class": "gene expression value"},
                               {
-                                "class": "SIO_000037",
+                                "class": "spatial quantity",
                                 "subclasses": [
                                   {
-                                    "class": "SIO_000044",
+                                    "class": "2D extent quantity",
                                     "subclasses": [
                                       {
-                                        "class": "SIO_000046",
-                                        "subclasses": [{"class": "SIO_000047"}]
+                                        "class": "length of perimeter",
+                                        "subclasses": [{"class": "circumference"}]
                                       },
                                       {
-                                        "class": "SIO_000045",
-                                        "subclasses": [{"class": "SIO_001407"}]
+                                        "class": "area",
+                                        "subclasses": [{"class": "surface area"}]
                                       }
                                     ]
                                   },
-                                  {"class": "SIO_000279"},
+                                  {"class": "mass"},
                                   {
-                                    "class": "SIO_000038",
+                                    "class": "1D extent quantity",
                                     "subclasses": [
-                                      {"class": "SIO_000042"},
+                                      {"class": "width"},
                                       {
-                                        "class": "SIO_000039",
-                                        "subclasses": [{"class": "SIO_000043"}]
+                                        "class": "depth",
+                                        "subclasses": [{"class": "thickness"}]
                                       },
-                                      {"class": "SIO_000041"},
-                                      {"class": "SIO_000040"}
+                                      {"class": "length"},
+                                      {"class": "height"}
                                     ]
                                   },
                                   {
-                                    "class": "SIO_000048",
+                                    "class": "3D extent quantity",
                                     "subclasses": [
-                                      {"class": "SIO_001088"},
-                                      {"class": "SIO_001406"},
-                                      {"class": "SIO_000049"}
+                                      {"class": "concentration"},
+                                      {"class": "density"},
+                                      {"class": "volume"}
                                     ]
                                   }
                                 ]
                               },
                               {
-                                "class": "SIO_001019",
-                                "subclasses": [{"class": "SIO_001020"}]
+                                "class": "dose",
+                                "subclasses": [{"class": "effective dose"}]
                               },
-                              {"class": "SIO_001327"}
+                              {"class": "protein expression value"}
                             ]
                           },
                           {
-                            "class": "SIO_001243",
-                            "subclasses": [{"class": "SIO_001244"}]
+                            "class": "likelihood",
+                            "subclasses": [{"class": "log likelihood"}]
                           },
-                          {"class": "SIO_000769"},
-                          {"class": "SIO_001113"},
-                          {"class": "SIO_000770"}
+                          {"class": "uncertainty value"},
+                          {"class": "minimal value"},
+                          {"class": "standard deviation"}
                         ]
                       },
                       {
-                        "class": "SIO_000056",
+                        "class": "position",
                         "subclasses": [
-                          {"class": "SIO_000439"},
-                          {"class": "SIO_000057"},
+                          {"class": "center of mass"},
+                          {"class": "orientation"},
                           {
-                            "class": "SIO_000788",
+                            "class": "linear position",
                             "subclasses": [
                               {
-                                "class": "SIO_000943",
+                                "class": "start position",
                                 "subclasses": [
                                   {
-                                    "class": "SIO_001071",
-                                    "subclasses": [{"class": "SIO_001057"}]
+                                    "class": "text span start position",
+                                    "subclasses": [{"class": "word start position"}]
                                   },
-                                  {"class": "SIO_000791"}
+                                  {"class": "sequence start position"}
                                 ]
                               },
                               {
-                                "class": "SIO_000789",
+                                "class": "sequence element position",
                                 "subclasses": [
-                                  {"class": "SIO_000792"},
-                                  {"class": "SIO_000791"}
+                                  {"class": "sequence end position"},
+                                  {"class": "sequence start position"}
                                 ]
                               },
                               {
-                                "class": "SIO_000953",
+                                "class": "end position",
                                 "subclasses": [
-                                  {"class": "SIO_000792"},
+                                  {"class": "sequence end position"},
                                   {
-                                    "class": "SIO_001072",
-                                    "subclasses": [{"class": "SIO_001058"}]
+                                    "class": "text span end position",
+                                    "subclasses": [{"class": "word end position"}]
                                   }
                                 ]
                               },
                               {
-                                "class": "SIO_000613",
+                                "class": "ordinal position",
                                 "subclasses": [
-                                  {"class": "SIO_000305"},
-                                  {"class": "SIO_001056"}
+                                  {"class": "process number"},
+                                  {"class": "character position"}
                                 ]
                               }
                             ]
                           },
                           {
-                            "class": "SIO_000013",
+                            "class": "geographic position",
                             "subclasses": [
-                              {"class": "SIO_000318"},
-                              {"class": "SIO_000767"},
-                              {"class": "SIO_000319"}
+                              {"class": "longitude"},
+                              {"class": "postal code"},
+                              {"class": "latitude"}
                             ]
                           },
                           {
-                            "class": "SIO_000071",
+                            "class": "coordinate",
                             "subclasses": [
-                              {"class": "SIO_000073"},
+                              {"class": "polar coordinate"},
                               {
-                                "class": "SIO_000072",
+                                "class": "cartesian coordinate",
                                 "subclasses": [
-                                  {"class": "SIO_000400"},
-                                  {"class": "SIO_000402"},
-                                  {"class": "SIO_000333"},
-                                  {"class": "SIO_000401"}
+                                  {"class": "x cartesian coordinate"},
+                                  {"class": "z cartesian coordinate"},
+                                  {"class": "3D cartesian coordinate"},
+                                  {"class": "y cartesian coordinate"}
                                 ]
                               }
                             ]
                           },
-                          {"class": "SIO_000438"}
+                          {"class": "altitude"}
                         ]
                       }
                     ]
@@ -930,528 +930,528 @@
               }
             ]
           },
-          {"class": "SIO_001432"},
+          {"class": "vector space"},
           {
-            "class": "SIO_000944",
-            "subclasses": [{"class": "SIO_000177"}]
+            "class": "interval",
+            "subclasses": [{"class": "page range"}]
           },
           {
-            "class": "SIO_000367",
+            "class": "variable",
             "subclasses": [
               {
-                "class": "SIO_000920",
+                "class": "independent variable",
                 "subclasses": [{
-                  "class": "SIO_000144",
-                  "subclasses": [{"class": "SIO_000952"}]
+                  "class": "parameter",
+                  "subclasses": [{"class": "default parameter"}]
                 }]
               },
-              {"class": "SIO_001070"},
-              {"class": "SIO_000921"}
+              {"class": "control variable"},
+              {"class": "dependent variable"}
             ]
           },
           {
-            "class": "SIO_000094",
-            "subclasses": [{"class": "SIO_000127"}]
-          },
-          {
-            "class": "SIO_000289",
+            "class": "association",
             "subclasses": [
-              {"class": "SIO_000138"},
+              {"class": "chemical-gene assocation"},
               {
-                "class": "SIO_000150",
-                "subclasses": [
-                  {"class": "SIO_001116"},
-                  {"class": "SIO_001117"},
-                  {"class": "SIO_001118"},
-                  {
-                    "class": "SIO_001316",
-                    "subclasses": [{"class": "SIO_001315"}]
-                  },
-                  {"class": "SIO_000464"}
-                ]
+                "class": "statistical association",
+                "subclasses": [{"class": "correlation"}]
               },
+              {"class": "chemical-pathway association"},
               {
-                "class": "SIO_000616",
+                "class": "database cross-reference",
+                "subclasses": [{"class": "exact cross-reference"}]
+              },
+              {"class": "chemical-disease association"},
+              {"class": "epimer association"},
+              {
+                "class": "gene-disease association",
                 "subclasses": [
-                  {"class": "SIO_001241"},
-                  {"class": "SIO_001419"},
-                  {"class": "SIO_000546"},
-                  {"class": "SIO_001380"},
                   {
-                    "class": "SIO_000295",
+                    "class": "gene-disease biomarker association",
                     "subclasses": [
-                      {"class": "SIO_000296"},
+                      {"class": "gene-disease association linked with post-translational modification"},
                       {
-                        "class": "SIO_000162",
+                        "class": "gene-disease association linked with genomic alterations",
                         "subclasses": [
-                          {"class": "SIO_000121"},
-                          {"class": "SIO_000163"},
-                          {"class": "SIO_000160"}
-                        ]
-                      },
-                      {"class": "SIO_000158"}
-                    ]
-                  },
-                  {
-                    "class": "SIO_010066",
-                    "subclasses": [
-                      {"class": "SIO_010067"},
-                      {"class": "SIO_010068"}
-                    ]
-                  },
-                  {"class": "SIO_001382"},
-                  {"class": "SIO_001421"},
-                  {"class": "SIO_011131"}
-                ]
-              },
-              {"class": "SIO_000617"},
-              {
-                "class": "SIO_001246",
-                "subclasses": [
-                  {
-                    "class": "SIO_001251",
-                    "subclasses": [{"class": "SIO_001248"}]
-                  },
-                  {
-                    "class": "SIO_001253",
-                    "subclasses": [{"class": "SIO_001249"}]
-                  },
-                  {
-                    "class": "SIO_001252",
-                    "subclasses": [{"class": "SIO_001248"}]
-                  },
-                  {
-                    "class": "SIO_001254",
-                    "subclasses": [{"class": "SIO_001249"}]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "class": "SIO_000368",
-            "subclasses": [
-              {
-                "class": "SIO_000569",
-                "subclasses": [
-                  {"class": "SIO_000568"},
-                  {"class": "SIO_000567"}
-                ]
-              },
-              {
-                "class": "SIO_000566",
-                "subclasses": [{"class": "SIO_000565"}]
-              }
-            ]
-          },
-          {
-            "class": "SIO_000897",
-            "subclasses": [
-              {"class": "SIO_001257"},
-              {
-                "class": "SIO_000898",
-                "subclasses": [{"class": "SIO_000923"}]
-              },
-              {"class": "SIO_001250"},
-              {
-                "class": "SIO_001171",
-                "subclasses": [{"class": "SIO_001172"}]
-              },
-              {"class": "SIO_000993"},
-              {"class": "SIO_001337"},
-              {
-                "class": "SIO_000983",
-                "subclasses": [
-                  {
-                    "class": "SIO_001121",
-                    "subclasses": [
-                      {"class": "SIO_001124"},
-                      {
-                        "class": "SIO_001350",
-                        "subclasses": [
-                          {"class": "SIO_001349"},
-                          {"class": "SIO_001348"},
+                          {"class": "gene-disease association linked with chromosomal rearrangement"},
+                          {"class": "fusion gene-disease association"},
                           {
-                            "class": "SIO_001122",
+                            "class": "gene-disease association linked with genetic variation",
                             "subclasses": [
                               {
-                                "class": "SIO_001119",
+                                "class": "gene-disease association linked with causal mutation",
                                 "subclasses": [
-                                  {"class": "SIO_001344"},
-                                  {"class": "SIO_001345"}
+                                  {"class": "gene-disease association linked with germline causal mutation"},
+                                  {"class": "gene-disease association linked with somatic causal mutation"}
                                 ]
                               },
-                              {"class": "SIO_001343"},
+                              {"class": "gene-disease association linked with susceptibility mutation"},
                               {
-                                "class": "SIO_001342",
+                                "class": "gene-disease association linked with modifying mutation",
                                 "subclasses": [
-                                  {"class": "SIO_001347"},
-                                  {"class": "SIO_001346"}
+                                  {"class": "gene-disease association linked with germline modifying mutation"},
+                                  {"class": "gene-disease association linked with somatic modifying mutation"}
                                 ]
                               }
                             ]
                           }
                         ]
                       },
-                      {"class": "SIO_001123"}
+                      {"class": "gene-disease association linked with altered gene expression"}
                     ]
                   },
-                  {"class": "SIO_001120"}
+                  {"class": "therapeutic gene-disease association"}
                 ]
               }
             ]
           },
           {
-            "class": "SIO_001258",
+            "class": "algorithm",
+            "subclasses": [{"class": "workflow"}]
+          },
+          {
+            "class": "set",
             "subclasses": [
+              {"class": "class"},
               {
-                "class": "SIO_001259",
+                "class": "list",
                 "subclasses": [
-                  {"class": "SIO_001418"},
-                  {"class": "SIO_001420"}
+                  {"class": "union"},
+                  {"class": "intersection"},
+                  {"class": "sequence"},
+                  {
+                    "class": "ordered list",
+                    "subclasses": [{"class": "author list"}]
+                  },
+                  {"class": "data series"}
                 ]
               },
               {
-                "class": "SIO_001260",
-                "subclasses": [{"class": "SIO_001261"}]
+                "class": "collection",
+                "subclasses": [
+                  {"class": "catalog"},
+                  {"class": "a collection of replicates"},
+                  {"class": "collection of points"},
+                  {"class": "protein family"},
+                  {
+                    "class": "collection of documents",
+                    "subclasses": [
+                      {"class": "website"},
+                      {
+                        "class": "periodical",
+                        "subclasses": [
+                          {"class": "magazine"},
+                          {"class": "newspaper"},
+                          {"class": "journal"}
+                        ]
+                      },
+                      {"class": "book series"}
+                    ]
+                  },
+                  {
+                    "class": "sequence alignment",
+                    "subclasses": [
+                      {"class": "multiple sequence alignment"},
+                      {"class": "pairwise sequence alignment"}
+                    ]
+                  },
+                  {"class": "unigene cluster"},
+                  {"class": "a collection of duplicates"},
+                  {"class": "collection of 3d molecular structure models"}
+                ]
+              },
+              {"class": "empty set"},
+              {
+                "class": "interval",
+                "subclasses": [
+                  {
+                    "class": "left open interval",
+                    "subclasses": [{"class": "open interval"}]
+                  },
+                  {
+                    "class": "right closed interval",
+                    "subclasses": [{"class": "closed interval"}]
+                  },
+                  {
+                    "class": "right open interval",
+                    "subclasses": [{"class": "open interval"}]
+                  },
+                  {
+                    "class": "left closed interval",
+                    "subclasses": [{"class": "closed interval"}]
+                  }
+                ]
               }
             ]
           },
           {
-            "class": "SIO_000130",
+            "class": "equation",
             "subclasses": [
-              {"class": "SIO_000131"},
-              {"class": "SIO_010531"},
-              {"class": "SIO_001197"}
+              {
+                "class": "differential equation",
+                "subclasses": [
+                  {"class": "partial differential equation"},
+                  {"class": "ordinary differential equation"}
+                ]
+              },
+              {
+                "class": "movement equation",
+                "subclasses": [{"class": "diffusion equation"}]
+              }
+            ]
+          },
+          {
+            "class": "set item",
+            "subclasses": [
+              {
+                "class": "collection item",
+                "subclasses": [
+                  {"class": "replicate"},
+                  {"class": "duplicate"}
+                ]
+              },
+              {
+                "class": "list item",
+                "subclasses": [{"class": "ordered list item"}]
+              }
+            ]
+          },
+          {
+            "class": "pattern",
+            "subclasses": [
+              {"class": "sequence motif"},
+              {"class": "sequence profile"},
+              {"class": "structural motif"}
             ]
           }
         ]
       },
       {
-        "class": "SIO_000078",
+        "class": "language entity",
         "subclasses": [
-          {"class": "SIO_000108"},
+          {"class": "character"},
           {
-            "class": "SIO_000136",
+            "class": "description",
             "subclasses": [
               {
-                "class": "SIO_001196",
+                "class": "history",
                 "subclasses": [
-                  {"class": "SIO_010053"},
-                  {"class": "SIO_010673"},
-                  {"class": "SIO_010060"}
+                  {"class": "evolutionary lineage"},
+                  {"class": "medical history"},
+                  {"class": "family history"}
                 ]
               },
               {
-                "class": "SIO_000090",
+                "class": "specification",
                 "subclasses": [
                   {
-                    "class": "SIO_001385",
+                    "class": "notation",
                     "subclasses": [
                       {
-                        "class": "SIO_001386",
-                        "subclasses": [{"class": "SIO_001387"}]
+                        "class": "chemical notation",
+                        "subclasses": [{"class": "InCHI notation"}]
                       },
                       {
-                        "class": "SIO_001388",
-                        "subclasses": [{"class": "SIO_001389"}]
+                        "class": "sequence variation notation",
+                        "subclasses": [{"class": "hgvs notation"}]
                       }
                     ]
                   },
                   {
-                    "class": "SIO_000315",
+                    "class": "functional specification",
                     "subclasses": [
                       {
-                        "class": "SIO_000621",
+                        "class": "formal specification",
                         "subclasses": [
-                          {"class": "SIO_001391"},
+                          {"class": "ontology"},
                           {
-                            "class": "SIO_001080",
-                            "subclasses": [{"class": "SIO_001396"}]
+                            "class": "vocabulary",
+                            "subclasses": [{"class": "terminology"}]
                           }
                         ]
                       },
                       {
-                        "class": "SIO_000912",
+                        "class": "measurement scale",
                         "subclasses": [
-                          {"class": "SIO_000914"},
-                          {"class": "SIO_000913"},
+                          {"class": "binary scale"},
+                          {"class": "nomimal scale"},
                           {
-                            "class": "SIO_000915",
+                            "class": "numeric scale",
                             "subclasses": [
-                              {"class": "SIO_000916"},
-                              {"class": "SIO_000917"}
+                              {"class": "decimal scale"},
+                              {"class": "integer scale"}
                             ]
                           }
                         ]
                       },
                       {
-                        "class": "SIO_000316",
+                        "class": "design specification",
                         "subclasses": [{
-                          "class": "SIO_000141",
+                          "class": "criterion",
                           "subclasses": [
-                            {"class": "SIO_000143"},
-                            {"class": "SIO_000142"}
+                            {"class": "exclusion criterion"},
+                            {"class": "inclusion criterion"}
                           ]
                         }]
                       },
                       {
-                        "class": "SIO_000600",
+                        "class": "structure",
                         "subclasses": [{
-                          "class": "SIO_000625",
+                          "class": "chemical structure",
                           "subclasses": [
                             {
-                              "class": "SIO_000626",
-                              "subclasses": [{"class": "SIO_001100"}]
+                              "class": "molecular structure",
+                              "subclasses": [{"class": "crystal structure"}]
                             },
-                            {"class": "SIO_001099"}
+                            {"class": "electronic structure"}
                           ]
                         }]
                       },
                       {
-                        "class": "SIO_000317",
+                        "class": "spatial specification",
                         "subclasses": [{
-                          "class": "SIO_000320",
+                          "class": "coordinate system",
                           "subclasses": [
-                            {"class": "SIO_000321"},
-                            {"class": "SIO_000327"},
-                            {"class": "SIO_000329"},
-                            {"class": "SIO_000330"}
+                            {"class": "cartesian coordinate system"},
+                            {"class": "polar coordinate system"},
+                            {"class": "cylindrical coordinate system"},
+                            {"class": "spherical coordinate system"}
                           ]
                         }]
                       },
-                      {"class": "SIO_001079"},
-                      {"class": "SIO_000705"},
+                      {"class": "genotype"},
+                      {"class": "design"},
                       {
-                        "class": "SIO_001080",
-                        "subclasses": [{"class": "SIO_001396"}]
+                        "class": "vocabulary",
+                        "subclasses": [{"class": "terminology"}]
                       }
                     ]
                   },
                   {
-                    "class": "SIO_000091",
+                    "class": "action specification",
                     "subclasses": [
                       {
-                        "class": "SIO_001043",
+                        "class": "experimental protocol",
                         "subclasses": [
-                          {"class": "SIO_001041"},
-                          {"class": "SIO_000964"}
+                          {"class": "study design"},
+                          {"class": "standard operating procedure"}
                         ]
                       },
-                      {"class": "SIO_000076"},
+                      {"class": "plan"},
                       {
-                        "class": "SIO_001107",
+                        "class": "pathway",
                         "subclasses": [{
-                          "class": "SIO_010526",
+                          "class": "chemical reaction pathway",
                           "subclasses": [
-                            {"class": "SIO_010528"},
+                            {"class": "chemical degradation pathway"},
                             {
-                              "class": "SIO_010525",
+                              "class": "biochemical pathway",
                               "subclasses": [
                                 {
-                                  "class": "SIO_010533",
-                                  "subclasses": [{"class": "SIO_001256"}]
+                                  "class": "regulatory pathway",
+                                  "subclasses": [{"class": "pharmacodynamic pathway"}]
                                 },
                                 {
-                                  "class": "SIO_010532",
-                                  "subclasses": [{"class": "SIO_001255"}]
+                                  "class": "metabolic pathway",
+                                  "subclasses": [{"class": "pharmacokinetic pathway"}]
                                 }
                               ]
                             },
-                            {"class": "SIO_010527"}
+                            {"class": "chemical synthesis pathway"}
                           ]
                         }]
                       },
-                      {"class": "SIO_001042"}
+                      {"class": "recipe"}
                     ]
                   },
-                  {"class": "SIO_000618"}
+                  {"class": "standard"}
                 ]
               },
-              {"class": "SIO_001017"},
-              {"class": "SIO_000135"},
-              {"class": "SIO_000785"},
+              {"class": "syndrome"},
+              {"class": "definition"},
+              {"class": "answer"},
               {
-                "class": "SIO_000256",
+                "class": "proposition",
                 "subclasses": [
                   {
-                    "class": "SIO_000337",
+                    "class": "objective",
                     "subclasses": [
-                      {"class": "ExplanationGoal"},
-                      {"class": "AITakGoal"}
+                      {"class": "Explanation Goal"},
+                      {"class": "AI Task Goal"}
                     ]
                   },
                   {
-                    "class": "SIO_001183",
-                    "subclasses": [{"class": "SIO_001384"}]
+                    "class": "statement",
+                    "subclasses": [{"class": "statement of consequence"}]
                   },
-                  {"class": "SIO_001167"},
-                  {"class": "SIO_001025"},
-                  {"class": "SIO_000284"},
+                  {"class": "comment"},
+                  {"class": "prognosis"},
+                  {"class": "hypothesis"},
                   {
-                    "class": "SIO_000259",
+                    "class": "argument",
                     "subclasses": [
-                      {"class": "SIO_000264"},
-                      {"class": "SIO_000263"},
+                      {"class": "inductive argument"},
+                      {"class": "deductive argument"},
                       {
-                        "class": "SIO_000266",
-                        "subclasses": [{"class": "SIO_000265"}]
+                        "class": "valid argument",
+                        "subclasses": [{"class": "sound argument"}]
                       },
-                      {"class": "SIO_000267"}
+                      {"class": "invalid argument"}
                     ]
                   },
                   {
-                    "class": "SIO_000262",
-                    "subclasses": [{"class": "SIO_001331"}]
+                    "class": "conclusion",
+                    "subclasses": [{"class": "diagnosis"}]
                   },
-                  {"class": "SIO_000585"},
-                  {"class": "SIO_001394"},
-                  {"class": "SIO_000261"},
+                  {"class": "idea"},
+                  {"class": "evidence"},
+                  {"class": "premise"},
                   {
-                    "class": "SIO_000360",
+                    "class": "belief",
                     "subclasses": [{
-                      "class": "SIO_001004",
+                      "class": "opinion",
                       "subclasses": [
-                        {"class": "SIO_001003"},
-                        {"class": "SIO_001065"}
+                        {"class": "diagnostic opinion"},
+                        {"class": "speculation"}
                       ]
                     }]
                   },
                   {
-                    "class": "SIO_000683",
+                    "class": "justification",
                     "subclasses": [{
-                      "class": "SIO_001053",
-                      "subclasses": [{"class": "SIO_000359"}]
+                      "class": "reason",
+                      "subclasses": [{"class": "purpose"}]
                     }]
                   }
                 ]
               },
-              {"class": "SIO_001166"}
+              {"class": "annotation"}
             ]
           },
-          {"class": "SIO_001040"},
+          {"class": "morpheme"},
           {
-            "class": "SIO_000275",
+            "class": "term",
             "subclasses": [
               {
-                "class": "SIO_000133",
-                "subclasses": [{"class": "SIO_000147"}]
+                "class": "descriptor",
+                "subclasses": [{"class": "keyword"}]
               },
               {
-                "class": "SIO_000342",
+                "class": "term variant",
                 "subclasses": [
-                  {"class": "SIO_000123"},
-                  {"class": "SIO_000124"},
-                  {"class": "SIO_000122"},
-                  {"class": "SIO_000125"},
-                  {"class": "SIO_000126"}
+                  {"class": "antonym"},
+                  {"class": "hypernym"},
+                  {"class": "synonym"},
+                  {"class": "hyponym"},
+                  {"class": "homonym"}
                 ]
               },
               {
-                "class": "SIO_000326",
-                "subclasses": [{"class": "SIO_000137"}]
+                "class": "concept",
+                "subclasses": [{"class": "category"}]
               },
               {
-                "class": "SIO_000179",
+                "class": "label",
                 "subclasses": [
                   {
-                    "class": "SIO_000116",
+                    "class": "name",
                     "subclasses": [
-                      {"class": "SIO_000077"},
-                      {"class": "SIO_000117"},
-                      {"class": "SIO_000182"},
-                      {"class": "SIO_000119"},
-                      {"class": "SIO_000181"},
+                      {"class": "generic name"},
+                      {"class": "preferred name"},
+                      {"class": "last name"},
+                      {"class": "brand name"},
+                      {"class": "first name"},
                       {
-                        "class": "SIO_001317",
-                        "subclasses": [{"class": "SIO_001318"}]
+                        "class": "middle name",
+                        "subclasses": [{"class": "middle initial"}]
                       },
                       {
-                        "class": "SIO_000183",
-                        "subclasses": [{"class": "SIO_000184"}]
+                        "class": "personal name",
+                        "subclasses": [{"class": "legal name"}]
                       },
                       {
-                        "class": "SIO_000120",
-                        "subclasses": [{"class": "SIO_001383"}]
+                        "class": "scientific name",
+                        "subclasses": [{"class": "gene symbol"}]
                       },
-                      {"class": "SIO_000118"}
+                      {"class": "common name"}
                     ]
                   },
                   {
-                    "class": "SIO_000185",
+                    "class": "title",
                     "subclasses": [
-                      {"class": "SIO_000471"},
+                      {"class": "secondary title"},
                       {
-                        "class": "SIO_000470",
+                        "class": "primary title",
                         "subclasses": [
-                          {"class": "SIO_000474"},
-                          {"class": "SIO_000473"}
+                          {"class": "secondary graph title"},
+                          {"class": "primary graph title"}
                         ]
                       },
-                      {"class": "SIO_000469"},
-                      {"class": "SIO_000175"}
+                      {"class": "graph title"},
+                      {"class": "document title"}
                     ]
                   },
-                  {"class": "SIO_000942"},
-                  {"class": "SIO_000237"},
-                  {"class": "SIO_000180"},
+                  {"class": "numeric label"},
+                  {"class": "namespace label"},
+                  {"class": "language label"},
                   {
-                    "class": "SIO_000115",
+                    "class": "identifier",
                     "subclasses": [
                       {
-                        "class": "SIO_000731",
+                        "class": "informational entity identifier",
                         "subclasses": [
-                          {"class": "SIO_001323"},
+                          {"class": "email address"},
                           {
-                            "class": "SIO_001319",
+                            "class": "telephone number",
                             "subclasses": [
-                              {"class": "SIO_001320"},
-                              {"class": "SIO_001324"},
-                              {"class": "SIO_001325"},
-                              {"class": "SIO_001321"}
+                              {"class": "cellular phone number"},
+                              {"class": "work phone number"},
+                              {"class": "home phone number"},
+                              {"class": "fax number"}
                             ]
                           },
-                          {"class": "SIO_001322"},
+                          {"class": "IP number"},
                           {
-                            "class": "SIO_000729",
-                            "subclasses": [{"class": "SIO_010032"}]
+                            "class": "record identifier",
+                            "subclasses": [{"class": "PDB record identifier"}]
                           },
-                          {"class": "SIO_000811"},
-                          {"class": "SIO_001185"}
+                          {"class": "URL"},
+                          {"class": "software process identifier"}
                         ]
                       },
-                      {"class": "SIO_000675"},
+                      {"class": "unique identifier"},
                       {
-                        "class": "SIO_000653",
+                        "class": "version label",
                         "subclasses": [
-                          {"class": "SIO_000186"},
+                          {"class": "document version"},
                           {
-                            "class": "SIO_000654",
+                            "class": "software version label",
                             "subclasses": [
-                              {"class": "SIO_001031"},
-                              {"class": "SIO_001032"},
-                              {"class": "SIO_001030"}
+                              {"class": "minor version number"},
+                              {"class": "revision number"},
+                              {"class": "major version number"}
                             ]
                           }
                         ]
                       },
                       {
-                        "class": "SIO_000328",
+                        "class": "positional identifier",
                         "subclasses": [
-                          {"class": "SIO_000172"},
-                          {"class": "SIO_000766"},
-                          {"class": "SIO_000768"}
+                          {"class": "address"},
+                          {"class": "street name"},
+                          {"class": "apartment number"}
                         ]
                       },
                       {
-                        "class": "SIO_000730",
+                        "class": "physical entity identifier",
                         "subclasses": [{
-                          "class": "SIO_000728",
+                          "class": "chemical identifier",
                           "subclasses": [{
-                            "class": "SIO_000732",
+                            "class": "molecular identifier",
                             "subclasses": [
-                              {"class": "SIO_001075"},
-                              {"class": "SIO_010031"}
+                              {"class": "microarray probe set identifier"},
+                              {"class": "PDB chain identifier"}
                             ]
                           }]
                         }]
@@ -1463,9 +1463,9 @@
             ]
           },
           {
-            "class": "SIO_000483",
+            "class": "phrase",
             "subclasses": [{
-              "class": "SIO_000113",
+              "class": "sentence",
               "subclasses": [
                 {
                   "instances": [
@@ -1473,7 +1473,7 @@
                     "ContrastiveQuestion",
                     "QuestionFromUserStudy2"
                   ],
-                  "class": "SIO_000085",
+                  "class": "question",
                   "subclasses": [{
                     "class": "UserQuestion",
                     "subclasses": [
@@ -1487,269 +1487,269 @@
                     ]
                   }]
                 },
-                {"class": "SIO_000493"}
+                {"class": "clause"}
               ]
             }]
           },
           {
-            "class": "SIO_000651",
+            "class": "textual entity",
             "subclasses": [
               {
-                "class": "SIO_000298",
-                "subclasses": [{"class": "SIO_000299"}]
+                "class": "excerpt",
+                "subclasses": [{"class": "quote"}]
               },
-              {"class": "SIO_000110"},
-              {"class": "SIO_001073"},
+              {"class": "paragraph"},
+              {"class": "text span"},
               {
-                "class": "SIO_000148",
+                "class": "document",
                 "subclasses": [
                   {
-                    "class": "SIO_001373",
+                    "class": "legal document",
                     "subclasses": [
-                      {"class": "SIO_000153"},
-                      {"class": "SIO_001374"},
-                      {"class": "SIO_001371"},
-                      {"class": "SIO_001376"},
-                      {"class": "SIO_001372"}
+                      {"class": "patent"},
+                      {"class": "brief"},
+                      {"class": "statute"},
+                      {"class": "bill"},
+                      {"class": "legislation"}
                     ]
                   },
                   {
-                    "class": "SIO_000129",
+                    "class": "ontology document",
                     "subclasses": [
-                      {"class": "SIO_000623"},
-                      {"class": "SIO_000331"},
-                      {"class": "SIO_000622"}
+                      {"class": "OBO ontology"},
+                      {"class": "OWL ontology"},
+                      {"class": "RDFS ontology"}
                     ]
                   },
-                  {"class": "SIO_000302"},
-                  {"class": "SIO_000304"},
-                  {"class": "SIO_000151"},
-                  {"class": "SIO_000306"},
-                  {"class": "SIO_000169"},
+                  {"class": "web page"},
+                  {"class": "email"},
+                  {"class": "manuscript"},
+                  {"class": "letter"},
+                  {"class": "booklet"},
                   {
-                    "class": "SIO_000087",
+                    "class": "publication",
                     "subclasses": [
-                      {"class": "SIO_000155"},
+                      {"class": "blog"},
                       {
-                        "class": "SIO_000159",
-                        "subclasses": [{"class": "SIO_001169"}]
+                        "class": "edited publication",
+                        "subclasses": [{"class": "issue"}]
                       },
-                      {"class": "SIO_000109"},
-                      {"class": "SIO_000161"},
-                      {"class": "SIO_000164"},
+                      {"class": "novel"},
+                      {"class": "manual"},
+                      {"class": "technical report"},
                       {
-                        "class": "SIO_000165",
+                        "class": "thesis document",
                         "subclasses": [
-                          {"class": "SIO_000166"},
-                          {"class": "SIO_000168"},
-                          {"class": "SIO_000167"}
+                          {"class": "honor's thesis"},
+                          {"class": "phd thesis"},
+                          {"class": "master's thesis"}
                         ]
                       },
                       {
-                        "class": "SIO_000106",
+                        "class": "book",
                         "subclasses": [
-                          {"class": "SIO_000156"},
-                          {"class": "SIO_000157"}
+                          {"class": "book volume"},
+                          {"class": "conference proceedings"}
                         ]
                       },
                       {
-                        "class": "SIO_000154",
-                        "subclasses": [{"class": "SIO_001029"}]
+                        "class": "article",
+                        "subclasses": [{"class": "peer reviewed article"}]
                       }
                     ]
                   },
                   {
-                    "class": "SIO_000088",
+                    "class": "record",
                     "subclasses": [
-                      {"class": "SIO_000771"},
-                      {"class": "SIO_001027"}
+                      {"class": "versioned record"},
+                      {"class": "medical health record"}
                     ]
                   },
-                  {"class": "SIO_000170"},
-                  {"class": "SIO_000152"},
+                  {"class": "diary"},
+                  {"class": "note"},
                   {
-                    "class": "SIO_001026",
-                    "subclasses": [{"class": "SIO_001028"}]
+                    "class": "report",
+                    "subclasses": [{"class": "medical report"}]
                   }
                 ]
               },
               {
-                "class": "SIO_000171",
+                "class": "document component",
                 "subclasses": [
                   {
-                    "class": "SIO_000111",
+                    "class": "document section",
                     "subclasses": [
-                      {"class": "SIO_000192"},
-                      {"class": "SIO_000107"},
-                      {"class": "SIO_000194"},
-                      {"class": "SIO_000196"},
-                      {"class": "SIO_000188"},
-                      {"class": "SIO_000201"},
-                      {"class": "SIO_000198"},
-                      {"class": "SIO_000200"},
-                      {"class": "SIO_001375"},
-                      {"class": "SIO_000199"},
-                      {"class": "SIO_000191"},
-                      {"class": "SIO_000193"},
-                      {"class": "SIO_000195"},
-                      {"class": "SIO_000197"},
-                      {"class": "SIO_000189"},
-                      {"class": "SIO_000190"}
+                      {"class": "bibliography section"},
+                      {"class": "chapter"},
+                      {"class": "correspondence section"},
+                      {"class": "introduction section"},
+                      {"class": "abstract section"},
+                      {"class": "table of contents"},
+                      {"class": "materials section"},
+                      {"class": "results section"},
+                      {"class": "book section"},
+                      {"class": "methods section"},
+                      {"class": "author section"},
+                      {"class": "copyright section"},
+                      {"class": "discussion section"},
+                      {"class": "materials and methods section"},
+                      {"class": "acknowledgements section"},
+                      {"class": "author contribution section"}
                     ]
                   },
-                  {"class": "SIO_000174"},
-                  {"class": "SIO_000176"}
+                  {"class": "citation"},
+                  {"class": "reference"}
                 ]
               }
             ]
           },
-          {"class": "SIO_000079"},
+          {"class": "visual language entity"},
           {
-            "class": "SIO_000786",
+            "class": "verbal language entity",
             "subclasses": [
-              {"class": "SIO_000977"},
-              {"class": "SIO_000979"},
-              {"class": "SIO_000978"}
+              {"class": "syllable"},
+              {"class": "vowel"},
+              {"class": "consonant"}
             ]
           },
           {
-            "class": "SIO_000104",
+            "class": "language",
             "subclasses": [
-              {"class": "SIO_000980"},
-              {"class": "SIO_000982"},
-              {"class": "SIO_000981"}
+              {"class": "sign language"},
+              {"class": "written language"},
+              {"class": "verbal language"}
             ]
           },
-          {"class": "SIO_000114"}
+          {"class": "word"}
         ]
       },
       {
-        "class": "SIO_000612",
+        "class": "representation",
         "subclasses": [
           {
             "instances": ["YoloImage"],
-            "class": "ExplanationModality"
+            "class": "Explanation Modality"
           },
           {
-            "class": "SIO_000510",
+            "class": "model",
             "subclasses": [
-              {"class": "SIO_000647"},
-              {"class": "SIO_000648"}
+              {"class": "process model"},
+              {"class": "object model"}
             ]
           },
-          {"class": "SIO_000105"}
+          {"class": "symbol"}
         ]
       }
     ]
   },
   {
     "applicableSimilarityStrategy": "HierarchyDistance",
-    "class": "SIO_000006",
+    "class": "process",
     "subclasses": [
       {
-        "class": "SIO_001195",
+        "class": "behaviour",
         "subclasses": [{
-          "class": "SIO_000276",
+          "class": "emotion",
           "subclasses": [
             {
-              "class": "SIO_000832",
+              "class": "negative emotion",
               "subclasses": [
                 {
-                  "class": "SIO_000863",
+                  "class": "sadness",
                   "subclasses": [
-                    {"class": "SIO_000868"},
-                    {"class": "SIO_000842"},
-                    {"class": "SIO_000824"},
-                    {"class": "SIO_000826"},
-                    {"class": "SIO_000854"}
+                    {"class": "sorrow"},
+                    {"class": "grief"},
+                    {"class": "depression"},
+                    {"class": "despair"},
+                    {"class": "misery"}
                   ]
                 },
-                {"class": "SIO_000866"},
+                {"class": "shock"},
                 {
-                  "class": "SIO_000949",
+                  "class": "apprehension",
                   "subclasses": [
                     {
-                      "class": "SIO_000815",
-                      "subclasses": [{"class": "SIO_000813"}]
+                      "class": "anxiety",
+                      "subclasses": [{"class": "angst"}]
                     },
                     {
-                      "class": "SIO_000837",
+                      "class": "fear",
                       "subclasses": [
                         {
-                          "class": "SIO_000829",
-                          "subclasses": [{"class": "SIO_000871"}]
+                          "class": "dread",
+                          "subclasses": [{"class": "terror"}]
                         },
-                        {"class": "SIO_000855"}
+                        {"class": "panic"}
                       ]
                     },
                     {
-                      "class": "SIO_000873",
+                      "class": "worry",
                       "subclasses": [{
-                        "class": "SIO_000861",
-                        "subclasses": [{"class": "SIO_000862"}]
+                        "class": "regret",
+                        "subclasses": [{"class": "remorse"}]
                       }]
                     }
                   ]
                 },
-                {"class": "SIO_000841"},
-                {"class": "SIO_000833"},
-                {"class": "SIO_000827"},
+                {"class": "guilt"},
+                {"class": "embarassment"},
+                {"class": "disappointment"},
                 {
-                  "class": "SIO_000845",
+                  "class": "hurt",
                   "subclasses": [
-                    {"class": "SIO_000869"},
-                    {"class": "SIO_000951"},
-                    {"class": "SIO_001281"}
+                    {"class": "suffering"},
+                    {"class": "pain"},
+                    {"class": "humiliation"}
                   ]
                 },
-                {"class": "SIO_001283"},
-                {"class": "SIO_001286"},
-                {"class": "SIO_000820"},
-                {"class": "SIO_001285"},
-                {"class": "SIO_000857"},
+                {"class": "discouragement"},
+                {"class": "irritability"},
+                {"class": "boredom"},
+                {"class": "suicidal"},
+                {"class": "pity"},
                 {
-                  "class": "SIO_000814",
-                  "subclasses": [{"class": "SIO_000838"}]
+                  "class": "annoyance",
+                  "subclasses": [{"class": "frustration"}]
                 },
-                {"class": "SIO_001287"},
-                {"class": "SIO_000865"},
-                {"class": "SIO_000867"},
+                {"class": "indecision"},
+                {"class": "shame"},
+                {"class": "shyness"},
                 {
-                  "class": "SIO_000834",
-                  "subclasses": [{"class": "SIO_000849"}]
+                  "class": "envy",
+                  "subclasses": [{"class": "jealousy"}]
                 },
-                {"class": "SIO_000852"},
+                {"class": "loneliness"},
                 {
-                  "class": "SIO_000844",
+                  "class": "hostility",
                   "subclasses": [{
-                    "class": "SIO_000828",
+                    "class": "disgust",
                     "subclasses": [
-                      {"class": "SIO_000950"},
-                      {"class": "SIO_000411"},
-                      {"class": "SIO_000821"},
-                      {"class": "SIO_000851"},
+                      {"class": "resentment"},
+                      {"class": "hate"},
+                      {"class": "contempt"},
+                      {"class": "loathing"},
                       {
-                        "class": "SIO_000410",
-                        "subclasses": [{"class": "SIO_000860"}]
+                        "class": "anger",
+                        "subclasses": [{"class": "rage"}]
                       }
                     ]
                   }]
                 },
-                {"class": "SIO_001282"},
-                {"class": "SIO_000846"}
+                {"class": "hunger"},
+                {"class": "hysteria"}
               ]
             },
             {
-              "class": "SIO_000831",
+              "class": "positive emotion",
               "subclasses": [
                 {
-                  "class": "SIO_000848",
+                  "class": "interest",
                   "subclasses": [{
-                    "class": "SIO_000825",
+                    "class": "desire",
                     "subclasses": [
-                      {"class": "SIO_000853"},
-                      {"class": "SIO_000823"},
-                      {"class": "SIO_000856"},
+                      {"class": "lust"},
+                      {"class": "curiosity"},
+                      {"class": "passion"},
                       {
                         "instances": [
                           "Debugging",
@@ -1762,196 +1762,196 @@
                           "Satisfaction",
                           "Effectiveness"
                         ],
-                        "class": "SIO_000358"
+                        "class": "intent"
                       }
                     ]
                   }]
                 },
                 {
-                  "class": "SIO_000840",
+                  "class": "happiness",
                   "subclasses": [
-                    {"class": "SIO_000835"},
+                    {"class": "euphoria"},
                     {
-                      "class": "SIO_000822",
+                      "class": "contentment",
                       "subclasses": [{
-                        "class": "SIO_000864",
-                        "subclasses": [{"class": "SIO_000859"}]
+                        "class": "satisfaction",
+                        "subclasses": [{"class": "pride"}]
                       }]
                     },
-                    {"class": "SIO_000850"},
-                    {"class": "SIO_000858"}
+                    {"class": "joy"},
+                    {"class": "pleasure"}
                   ]
                 },
-                {"class": "SIO_000817"},
-                {"class": "SIO_000818"},
-                {"class": "SIO_000843"},
-                {"class": "SIO_000819"},
-                {"class": "SIO_000412"},
-                {"class": "SIO_000812"},
-                {"class": "SIO_000839"},
-                {"class": "SIO_000830"},
-                {"class": "SIO_001284"},
-                {"class": "SIO_000836"},
+                {"class": "arousal"},
+                {"class": "awe"},
+                {"class": "hope"},
+                {"class": "boldness"},
+                {"class": "love"},
+                {"class": "affection"},
+                {"class": "gratitude"},
+                {"class": "ecstasy"},
+                {"class": "satisfaction"},
+                {"class": "excitement"},
                 {
-                  "class": "SIO_000870",
-                  "subclasses": [{"class": "SIO_000872"}]
+                  "class": "surprise",
+                  "subclasses": [{"class": "wonder"}]
                 }
               ]
             },
             {
-              "class": "SIO_000847",
-              "subclasses": [{"class": "SIO_000816"}]
+              "class": "indifference",
+              "subclasses": [{"class": "apathy"}]
             }
           ]
         }]
       },
       {
-        "class": "SIO_000593",
+        "class": "interacting",
         "subclasses": [
           {
-            "class": "SIO_001055",
-            "subclasses": [{"class": "SIO_000379"}]
+            "class": "observing",
+            "subclasses": [{"class": "perception"}]
           },
-          {"class": "SIO_001049"},
+          {"class": "sampling"},
           {
-            "class": "SIO_000589",
+            "class": "regulating",
             "subclasses": [
               {
-                "class": "SIO_000609",
+                "class": "regulation of process",
                 "subclasses": [
-                  {"class": "SIO_010296"},
+                  {"class": "process down-regulation"},
                   {
-                    "class": "SIO_001145",
+                    "class": "regulation of object quantity",
                     "subclasses": [
                       {
-                        "class": "SIO_001151",
+                        "class": "regulation of object production",
                         "subclasses": [
-                          {"class": "SIO_001147"},
-                          {"class": "SIO_001146"},
-                          {"class": "SIO_001152"}
+                          {"class": "decreased object production from increased regulation"},
+                          {"class": "increased object production from increased regulation"},
+                          {"class": "maintenance of quantity of object production"}
                         ]
                       },
                       {
-                        "class": "SIO_001127",
+                        "class": "regulation of molecular quantity",
                         "subclasses": [
                           {
-                            "class": "SIO_001129",
+                            "class": "regulation of molecular degradation",
                             "subclasses": [
-                              {"class": "SIO_001201"},
-                              {"class": "SIO_001199"},
-                              {"class": "SIO_001200"},
-                              {"class": "SIO_001202"}
+                              {"class": "increased molecular degradation from decreased regulation"},
+                              {"class": "increased molecular degradation from increased regulation"},
+                              {"class": "decreased molecular degradation from decreased regulation"},
+                              {"class": "decreased molecular degradation from increased regulation"}
                             ]
                           },
                           {
-                            "class": "SIO_001128",
+                            "class": "regulation of molecular production",
                             "subclasses": [
-                              {"class": "SIO_001203"},
-                              {"class": "SIO_001206"},
-                              {"class": "SIO_001205"},
-                              {"class": "SIO_001204"}
+                              {"class": "increased molecular production from increased regulation"},
+                              {"class": "decreased molecular production from decreased regulation"},
+                              {"class": "increased molecular production from decreased regulation"},
+                              {"class": "decreased molecular production from increased regulation"}
                             ]
                           }
                         ]
                       },
                       {
-                        "class": "SIO_001150",
+                        "class": "regulation of object consumption",
                         "subclasses": [
-                          {"class": "SIO_001153"},
-                          {"class": "SIO_001148"},
-                          {"class": "SIO_001149"}
+                          {"class": "maintenance of level of object consumption"},
+                          {"class": "increased object consumption from increased regulation"},
+                          {"class": "decreased object consumption from increased regulation"}
                         ]
                       }
                     ]
                   },
-                  {"class": "SIO_010295"},
+                  {"class": "process up-regulation"},
                   {
-                    "class": "SIO_001139",
+                    "class": "regulation of process spatial extent",
                     "subclasses": [
-                      {"class": "SIO_001142"},
-                      {"class": "SIO_001140"},
-                      {"class": "SIO_001141"}
+                      {"class": "maintenance of spatial extent of process"},
+                      {"class": "increased spatial extent of process from increased regulation"},
+                      {"class": "decreased spatial extent of process from decreased regulation"}
                     ]
                   },
                   {
-                    "class": "SIO_010287",
+                    "class": "regulation of biochemical process",
                     "subclasses": [
                       {
-                        "class": "SIO_001126",
+                        "class": "regulation of translation",
                         "subclasses": [
-                          {"class": "SIO_001130"},
-                          {"class": "SIO_001131"}
+                          {"class": "protein mediated regulation of translation"},
+                          {"class": "rna mediated regulation of translation"}
                         ]
                       },
-                      {"class": "SIO_001125"}
+                      {"class": "regulation of transcription"}
                     ]
                   },
                   {
-                    "class": "SIO_001132",
-                    "subclasses": [{"class": "SIO_001366"}]
+                    "class": "process maintenance",
+                    "subclasses": [{"class": "information maintenance"}]
                   },
                   {
-                    "class": "SIO_001135",
+                    "class": "regulation of process frequency",
                     "subclasses": [
-                      {"class": "SIO_001133"},
-                      {"class": "SIO_001134"},
-                      {"class": "SIO_001144"}
+                      {"class": "increased frequency of process from increased regulation"},
+                      {"class": "decreased frequency of process from increased regulation"},
+                      {"class": "maintenance of frequency of process"}
                     ]
                   },
                   {
-                    "class": "SIO_001136",
+                    "class": "regulation of process duration",
                     "subclasses": [
-                      {"class": "SIO_001138"},
-                      {"class": "SIO_001143"},
-                      {"class": "SIO_001137"}
+                      {"class": "decreased duration of process from increased regulation"},
+                      {"class": "maintenance of duration of process"},
+                      {"class": "increased duration of process from increased regulation"}
                     ]
                   }
                 ]
               },
               {
-                "class": "SIO_000610",
+                "class": "regulation of capability",
                 "subclasses": [{
-                  "class": "SIO_000611",
+                  "class": "regulation of catalytic capability",
                   "subclasses": [
-                    {"class": "SIO_010289"},
-                    {"class": "SIO_010288"}
+                    {"class": "biochemical inhibition"},
+                    {"class": "biochemical activation"}
                   ]
                 }]
               }
             ]
           },
           {
-            "class": "SIO_000591",
+            "class": "destroying",
             "subclasses": [
               {
-                "class": "SIO_000592",
+                "class": "chemical destruction",
                 "subclasses": [
-                  {"class": "SIO_001208"},
-                  {"class": "SIO_010286"},
-                  {"class": "SIO_001207"}
+                  {"class": "decreased chemical destruction"},
+                  {"class": "molecular complex dissociation"},
+                  {"class": "increased chemical destruction"}
                 ]
               },
-              {"class": "SIO_000583"}
+              {"class": "dying"}
             ]
           },
-          {"class": "SIO_000918"},
+          {"class": "modifying"},
           {
-            "class": "SIO_000575",
+            "class": "transporting",
             "subclasses": [{
-              "class": "SIO_010283",
+              "class": "chemical transport",
               "subclasses": [{
-                "class": "SIO_000576",
+                "class": "membrane transport",
                 "subclasses": [
-                  {"class": "SIO_000562"},
+                  {"class": "passive transport"},
                   {
-                    "class": "SIO_010284",
+                    "class": "active transport",
                     "subclasses": [
-                      {"class": "SIO_000577"},
+                      {"class": "primary active transport"},
                       {
-                        "class": "SIO_000578",
+                        "class": "secondary active transport",
                         "subclasses": [
-                          {"class": "SIO_000579"},
-                          {"class": "SIO_000580"}
+                          {"class": "symport enabled secondary active transport"},
+                          {"class": "antiport enabled secondary active transport"}
                         ]
                       }
                     ]
@@ -1961,122 +1961,122 @@
             }]
           },
           {
-            "class": "SIO_010013",
+            "class": "chemical interaction",
             "subclasses": [
               {
-                "class": "SIO_010345",
+                "class": "chemical reaction",
                 "subclasses": [
-                  {"class": "SIO_010509"},
                   {
-                    "class": "SIO_010516",
+                    "class": "organic reaction",
                     "subclasses": [{
-                      "class": "SIO_010518",
+                      "class": "addition reaction",
                       "subclasses": [
                         {
-                          "class": "SIO_010519",
+                          "class": "polar addition reaction",
                           "subclasses": [
-                            {"class": "SIO_010522"},
-                            {"class": "SIO_010523"}
+                            {"class": "nucleophilic addition reaction"},
+                            {"class": "electrophilic addition reaction"}
                           ]
                         },
                         {
-                          "class": "SIO_010520",
-                          "subclasses": [{"class": "SIO_010521"}]
+                          "class": "non-polar addition reaction",
+                          "subclasses": [{"class": "free radical addition"}]
                         }
                       ]
                     }]
                   },
+                  {"class": "redox reaction"},
                   {
-                    "class": "SIO_010508",
-                    "subclasses": [{"class": "SIO_010036"}]
-                  },
-                  {
-                    "class": "SIO_010510",
+                    "class": "inorganic reaction",
                     "subclasses": [
                       {
-                        "class": "SIO_010512",
+                        "class": "displacement reaction",
                         "subclasses": [
-                          {"class": "SIO_010514"},
-                          {"class": "SIO_010513"}
+                          {"class": "single displacement reaction"},
+                          {"class": "double displacement reaction"}
                         ]
                       },
-                      {"class": "SIO_010511"},
-                      {"class": "SIO_010515"}
+                      {"class": "decomposition reaction"},
+                      {"class": "synthesis reaction"}
                     ]
                   },
-                  {"class": "SIO_010307"},
-                  {"class": "SIO_010507"},
-                  {"class": "SIO_010517"}
+                  {"class": "molecular modification"},
+                  {"class": "acid-base reaction"},
+                  {
+                    "class": "catalyzed reaction",
+                    "subclasses": [{"class": "biochemical reaction"}]
+                  },
+                  {"class": "isomerization reaction"}
                 ]
               },
               {
-                "class": "SIO_010308",
+                "class": "metabolism",
                 "subclasses": [
-                  {"class": "SIO_010309"},
-                  {"class": "SIO_010310"}
+                  {"class": "catabolism"},
+                  {"class": "anabolism"}
                 ]
               },
-              {"class": "SIO_001399"},
+              {"class": "chemical exposure"},
               {
-                "class": "SIO_001005",
-                "subclasses": [{"class": "SIO_001006"}]
+                "class": "chemical effect",
+                "subclasses": [{"class": "drug drug interaction"}]
               }
             ]
           },
           {
-            "class": "SIO_000588",
+            "class": "creating",
             "subclasses": [
-              {"class": "SIO_000739"},
+              {"class": "planning"},
               {
-                "class": "SIO_000919",
-                "subclasses": [{"class": "SIO_000587"}]
+                "class": "reproducing",
+                "subclasses": [{"class": "biological reproduction"}]
               },
               {
-                "class": "SIO_000559",
+                "class": "chemical synthesis",
                 "subclasses": [
-                  {"class": "SIO_010285"},
+                  {"class": "molecular complex formation"},
                   {
-                    "class": "SIO_000590",
+                    "class": "biosynthesis",
                     "subclasses": [
-                      {"class": "SIO_010301"},
-                      {"class": "SIO_010300"}
+                      {"class": "translation"},
+                      {"class": "transcription"}
                     ]
                   }
                 ]
               },
-              {"class": "SIO_000582"},
-              {"class": "SIO_000744"},
-              {"class": "SIO_000746"},
-              {"class": "SIO_000703"},
-              {"class": "SIO_000748"}
+              {"class": "birthing"},
+              {"class": "learning"},
+              {"class": "reasoning"},
+              {"class": "evolving"},
+              {"class": "predicting"}
             ]
           },
-          {"class": "SIO_001054"},
-          {"class": "SIO_000745"},
+          {"class": "measuring"},
+          {"class": "comparing"},
           {
-            "class": "SIO_000969",
+            "class": "communicating",
             "subclasses": [
-              {"class": "SIO_001357"},
-              {"class": "SIO_001059"},
-              {"class": "SIO_000941"}
+              {"class": "speech"},
+              {"class": "gesturing"},
+              {"class": "conversing"}
             ]
           }
         ]
       },
       {
-        "class": "SIO_000570",
+        "class": "movement",
         "subclasses": [
           {
-            "class": "SIO_000574",
-            "subclasses": [{"class": "SIO_000581"}]
+            "class": "active movement",
+            "subclasses": [{"class": "locomotion"}]
           },
           {
-            "class": "SIO_000573",
+            "class": "passive movement",
             "subclasses": [{
-              "class": "SIO_000564",
+              "class": "diffusion",
               "subclasses": [
-                {"class": "SIO_000572"},
-                {"class": "SIO_000571"}
+                {"class": "osmosis"},
+                {"class": "brownian motion"}
               ]
             }]
           }
@@ -2084,38 +2084,38 @@
       },
       {
         "instances": ["ProductManufacturing"],
-        "class": "SIO_000999",
+        "class": "procedure",
         "subclasses": [
           {
-            "class": "SIO_000747",
+            "class": "investigation",
             "subclasses": [
               {
-                "class": "SIO_000994",
+                "class": "experiment",
                 "subclasses": [
-                  {"class": "SIO_001076"},
+                  {"class": "microarray experiment"},
                   {
-                    "class": "SIO_001048",
-                    "subclasses": [{"class": "SIO_001000"}]
+                    "class": "intervention study",
+                    "subclasses": [{"class": "clinical trial"}]
                   },
                   {
-                    "class": "SIO_000976",
-                    "subclasses": [{"class": "SIO_001067"}]
+                    "class": "observational study",
+                    "subclasses": [{"class": "controlled observational cohort study"}]
                   },
-                  {"class": "SIO_001180"}
+                  {"class": "mass spectrometry experiment"}
                 ]
               },
-              {"class": "SIO_001066"},
-              {"class": "ScientificMethod"}
+              {"class": "study"},
+              {"class": "Scientific Method"}
             ]
           },
           {
-            "class": "SIO_000649",
+            "class": "information processing",
             "subclasses": [
               {
-                "class": "AITask",
+                "class": "AI Task",
                 "subclasses": [
-                  {"class": "AbductiveTask"},
-                  {"class": "InductiveTask"},
+                  {"class": "Abductive Task"},
+                  {"class": "Inductive Task"},
                   {
                     "class": "Classification",
                     "subclasses": [{
@@ -2126,96 +2126,96 @@
                   {"class": "Forecasting"},
                   {
                     "instances": ["AITaskExample"],
-                    "class": "DeductiveTask"
+                    "class": "Deductive Task"
                   }
                 ]
               },
-              {"class": "SIO_000998"},
-              {"class": "SIO_001051"},
+              {"class": "literature curation"},
+              {"class": "data analysis"},
               {
-                "class": "SIO_000667",
+                "class": "sofware execution",
                 "subclasses": [
                   {
-                    "class": "SIO_001192",
-                    "subclasses": [{"class": "SIO_001193"}]
+                    "class": "web service invocation",
+                    "subclasses": [{"class": "SADI web service invocation"}]
                   },
                   {
-                    "class": "ArtificialIntelligenceMethod",
+                    "class": "AI Method",
                     "subclasses": [
-                      {"class": "OMIT_0001177"},
+                      {"class": "Computer Heuristics"},
                       {
-                        "class": "OMIT_0024712",
+                        "class": "Knowledge Bases",
                         "subclasses": [{
-                          "class": "OMIT_0028401",
-                          "subclasses": [{"class": "OMIT_0028314"}]
+                          "class": "Biological Ontologies",
+                          "subclasses": [{"class": "Gene Ontology"}]
                         }]
                       },
-                      {"class": "OMIT_0013278"},
+                      {"class": "Robotics"},
                       {
                         "instances": [
                           "YoloNeuralNetwork",
                           "BoschAnomalyDeepNeuralNetwork"
                         ],
-                        "class": "OMIT_0017046"
+                        "class": "Neural Networks (Computer)"
                       },
-                      {"class": "OMIT_0010354"},
+                      {"class": "Natural Language Processing"},
                       {
-                        "class": "OMIT_0001480",
+                        "class": "Machine Learning",
                         "subclasses": [
-                          {"class": "OMIT_0001486"},
+                          {"class": "Unsupervised Machine Learning"},
                           {
-                            "class": "OMIT_0001483",
+                            "class": "Supervised Machine Learning",
                             "subclasses": [
-                              {"class": "OMIT_0027764"},
-                              {"class": "DecisionTree"}
+                              {"class": "Support Vector Machine"},
+                              {"class": "Decision Tree"}
                             ]
                           }
                         ]
                       },
                       {
-                        "class": "KnowledgeBasedSystems",
-                        "subclasses": [{"class": "OMIT_0006327"}]
+                        "class": "Knowledge based Systems",
+                        "subclasses": [{"class": "Expert Systems"}]
                       },
-                      {"class": "OMIT_0017538"}
+                      {"class": "Fuzzy Logic"}
                     ]
                   }
                 ]
               },
-              {"class": "SIO_001052"},
+              {"class": "data collection"},
               {
-                "class": "SIO_000594",
-                "subclasses": [{"class": "SIO_000595"}]
+                "class": "data transformation",
+                "subclasses": [{"class": "parameterized data transformation"}]
               },
               {
-                "class": "SIO_001359",
+                "class": "information translation",
                 "subclasses": [
-                  {"class": "SIO_001356"},
-                  {"class": "SIO_001360"}
+                  {"class": "information encoding"},
+                  {"class": "information decoding"}
                 ]
               }
             ]
           },
           {
-            "class": "SIO_001024",
+            "class": "medical procedure",
             "subclasses": [
-              {"class": "SIO_001023"},
-              {"class": "SIO_001002"},
-              {"class": "SIO_001022"},
-              {"class": "SIO_001001"},
-              {"class": "SIO_001398"}
+              {"class": "medical screening"},
+              {"class": "differential diagnosis"},
+              {"class": "diagnostic test"},
+              {"class": "medical diagnosis"},
+              {"class": "medical intervention"}
             ]
           },
-          {"class": "SIO_001007"}
+          {"class": "assay"}
         ]
       }
     ]
   },
   {
     "applicableSimilarityStrategy": "SameTypeMatch",
-    "class": "AITask",
+    "class": "AI Task",
     "subclasses": [
-      {"class": "AbductiveTask"},
-      {"class": "InductiveTask"},
+      {"class": "Abductive Task"},
+      {"class": "Inductive Task"},
       {
         "class": "Classification",
         "subclasses": [{
@@ -2226,7 +2226,7 @@
       {"class": "Forecasting"},
       {
         "instances": ["AITaskExample"],
-        "class": "DeductiveTask"
+        "class": "Deductive Task"
       }
     ]
   },
@@ -2237,6 +2237,6 @@
       "local",
       "cohort"
     ],
-    "class": "ExplanationScope"
+    "class": "Explanation Scope"
   }
 ]}
