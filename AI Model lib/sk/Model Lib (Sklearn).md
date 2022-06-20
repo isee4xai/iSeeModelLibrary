@@ -35,7 +35,7 @@ The function will return a message confirming the upload of the dataset.
 
 ### Retrieve a dataset
 
-In order to upload a model to the API the function `dataset` must be called in `GET` mode using the following parameters in the **URL parameter** section:
+In order to obtain the dataset used to train a model from the API the function `dataset` must be called in `GET` mode using the following parameters in the **URL parameter** section:
 - `id`: this field must contain the id of the model whose dataset we wish to retrieve.
 
 The function will return the dataset associated with the id.
