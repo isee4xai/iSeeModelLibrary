@@ -62,6 +62,7 @@ def upload_model():
         if parameters is None:
             flash('No params part')
             return redirect(request.url)
+        parameters = json.loads(parameters)
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
@@ -100,7 +101,7 @@ def upload_model():
             flash('No params part')
             return 'A param field is needed in order to update the model'
         file = request.files['file']
-
+        parameters = json.loads(parameters)
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
