@@ -25,10 +25,19 @@ cli = sys.modules['flask.cli']
 cli.show_server_banner = lambda *x: None
 app = Flask(__name__)
 api = Api(app)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
+
+#We check the number of arguments passed to through the console
+
+if len(sys.argv) > 2 :
+    raise Exception("Too many arguments passed to the program")
+else:
+    if len(sys.argv) == 2 :
+        UPLOAD_FOLDER = sys.argv[1]
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @api.representation('image/png')
