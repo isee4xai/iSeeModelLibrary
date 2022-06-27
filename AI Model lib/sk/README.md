@@ -14,6 +14,10 @@ In order to upload a model to the API the function `upload_model` must be called
 
 The function will return the **id** assigned to the model.
 
+*Here we have an example using Postman:*
+
+![Uploading a model](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/upload_model.PNG?raw=true)
+
 ### Updating a model
 
 In order to update an existing model to the API the function `upload_model` must be called in `PUT` mode using the following parameters in the Body **form-data** section:
@@ -24,6 +28,10 @@ In order to update an existing model to the API the function `upload_model` must
 
 The function will return a message confirming the update of the model.
 
+*Here we have an example using Postman:*
+
+![Updating a model](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/Update.PNG?raw=true)
+
 ### Uploading a dataset
 
 In order to upload a model to the API the function `dataset` must be called in `POST` mode using the following parameters in the Body **form-data** section:
@@ -33,12 +41,20 @@ In order to upload a model to the API the function `dataset` must be called in `
 
 The function will return a message confirming the upload of the dataset.
 
+*Here we have an example using Postman:*
+
+![Uploading a dataset](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/add_dataset.PNG?raw=true)
+
 ### Retrieve a dataset
 
 In order to obtain the dataset used to train a model from the API the function `dataset` must be called in `GET` mode using the following parameters in the **URL parameter** section:
 - `id`: this field must contain the id of the model whose dataset we wish to retrieve.
 
 The function will return the dataset associated with the id.
+
+*Here we have an example using Postman:*
+
+![Downloading a dataset](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/return_dataset.PNG?raw=true)
 
 ### Deleting a model
 
@@ -48,6 +64,11 @@ In order to delete an uploaded model from the API the function `delete` must be 
 
 The function will return a message confirming the deletion.
 
+
+*Here we have an example using Postman:*
+
+![Deleting a model](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/delete_model.PNG?raw=true)
+
 ### Retrieving a model's parameters
 
 In order to retrieve the parameters provided when uploading a model to the API the function `info` must be called in `GET` mode using the following parameters in the **URL parameter** section:
@@ -55,6 +76,10 @@ In order to retrieve the parameters provided when uploading a model to the API t
 - `id`: this field must contain the id of the model whose parameters we wish to retrieve.
 
 The function will return a json with the parameters.
+
+*Here we have an example using Postman:*
+
+![Retrieving a model's parameters](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/get_model_params.PNG?raw=true)
 
 ### Predicting with an image
 
@@ -65,6 +90,11 @@ In order to make a prediction based on an image using a model uploaded to the AP
 
 The function will return a message with the model prediction.
 
+
+*Here we have an example using Postman:*
+
+![Predicting an image](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/predict_img.PNG?raw=true)
+
 ### Predicting with a tabular set
 
 In order to make a prediction based on a dataset using a model uploaded to the API the function `/Tabular/run` must be called in `POST` mode using the following parameters in the Body **form-data** section:
@@ -73,3 +103,8 @@ In order to make a prediction based on a dataset using a model uploaded to the A
 - `id`: this field must contain the id of the model that we want to use to make the prediction.
 
 The function will return a message with the model prediction.
+
+
+*Here we have an example using Postman:*
+
+![Predicting an image](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/predict_tab_1.PNG?raw=true)
