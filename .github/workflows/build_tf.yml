@@ -1,0 +1,29 @@
+name: Tensorflow models build & deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'AI Model lib/tf/**'
+    
+jobs:
+
+  build-sk-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to DockerHub 
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Build and push  the Docker image
+      uses: docker/build-push-action@v3
+      with:
+          push: true
+          file: './AI Model lib/tf/Dockerfile'
+          context: './AI Model lib/tf'
+          tags: isee4xai/models-tf:dev
