@@ -10,6 +10,9 @@ jobs:
 
   build-sk-image:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'AI Model lib/sk/'
     steps:
     - name: Login to DockerHub 
       uses: docker/login-action@v1 
