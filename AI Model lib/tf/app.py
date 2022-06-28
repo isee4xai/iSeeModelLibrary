@@ -34,8 +34,11 @@ app.config['SESSION_TYPE'] = 'filesystem'
 if len(sys.argv) > 2 :
     raise Exception("Too many arguments passed to the program")
 else:
-    if len(sys.argv) == 2 :
-        UPLOAD_FOLDER = sys.argv[1]
+    if len(sys.argv) == 2:
+        if os.path.exists(sys.argv[1]):
+            UPLOAD_FOLDER = sys.argv[1]
+        else:
+            raise Exception("The provided path does not exist")
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
