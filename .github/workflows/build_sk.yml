@@ -21,5 +21,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
           push: true
-          file: 'AI Model lib/sk/Dockerfile'
+          context: 'AI Model lib/sk/'
+          file: Dockerfile
           tags: isee4xai/models-sk:dev
