@@ -1,4 +1,4 @@
-name: scikit-learn model build & deploy
+name: scikit-learn models build & deploy
 
 on:
   push:
