@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: scikit-learn model build & deploy
 
 on:
   push:
