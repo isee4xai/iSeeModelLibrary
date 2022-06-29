@@ -11,7 +11,7 @@ WORKDIR /app
 COPY --from=builder /tmp/build/ /usr/local/lib/python3.8/site-packages/
 COPY . .
 
-CMD ["python", "app", ${UPLOAD_FOLDER}]
+CMD ["python", "app.py", "${UPLOAD_FOLDER}"]
 
 
 
