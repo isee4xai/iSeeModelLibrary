@@ -2,6 +2,45 @@
 
 The following document will explain how to call the various functions implemented in the model library API for the iSee project, in particular we will describe the behaviour for the sklearn version.
 
+
+## Launching the API
+
+The API can be executed in two ways depending if an storage path for the models is passed as a parameter or not:
+
+### Without an storage path
+
+#### Requirements
+
+- The directory containing the app.py file **must** also contain a **folder named Models**.
+- The libraries in the requirements.txt must be installed.
+
+#### Running the API
+
+1. A console must be opened in the directory containing the app.py file.
+2. Run the following command `python app.py`.
+3. The API should be running in a localhost and request can now be send.
+
+Here's an example:
+
+![Run no path](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/run_no_path.PNG?raw=true)
+
+### With an storage path
+
+#### Requirements
+
+- The directory passed as an argument must exists.
+- The libraries in the requirements.txt must be installed.
+
+#### Running the API
+
+1. A console must be opened in the directory containing the app.py file.
+2. Run the following command `python app.py "path"`. **REMINDER**: If the path contains spaces it must be written between quotation marks.
+3. The API should be running in a localhost and request can now be send.
+
+Here's an example:
+
+![Run with path](https://github.com/isee4xai/iSeeBackend/blob/main/AI%20Model%20lib/sk/img/run_with_path.PNG?raw=true)
+
 ## Basic functions
 
 ### Uploading a model
