@@ -42,9 +42,14 @@ if len(sys.argv) > 2 :
 else:
     if len(sys.argv) == 2:
         if os.path.exists(sys.argv[1]):
-            UPLOAD_FOLDER = sys.argv[1]
+            if os.path.isdir(sys.argv[1]):
+                print("Using existing directory '" +sys.argv[1]+ "'")
+            else:
+                raise Exception("A non-directory file named '" + sys.argv[1]+ "' already exists. Please use another name.")
         else:
-            raise Exception("The provided path does not exist")
+            os.mkdir(sys.argv[1])
+            print("The '" +sys.argv[1]+ "' directory was created.")
+            UPLOAD_FOLDER = sys.argv[1]
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
