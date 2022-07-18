@@ -1,0 +1,183 @@
+{
+  "instance": "ShoprExplanationExperience",
+  "classes": ["Explanation Experience"],
+  "property": [{
+    "instance": "ShoprDescription",
+    "classes": ["Description"],
+    "name": "hasDescription",
+    "property": [
+      {
+        "instance": "ShoprRecommenderSystem",
+        "classes": ["Artificial Intelligence Model"],
+        "name": "hasAIModel",
+        "property": [
+          {
+            "instance": "ShoprClothingItemRecommendation",
+            "classes": ["RecommendationTask"],
+            "name": "solves"
+          },
+          {
+            "instance": "ShoprCBR",
+            "classes": ["Case-based Reasoning"],
+            "name": "utilises"
+          },
+          {
+            "instance": "ShoprDataset",
+            "classes": ["Dataset"],
+            "name": "trainedOn",
+            "property": [{
+              "instance": "categorical",
+              "classes": ["Data Type"],
+              "name": "hasDataType",
+              "property": [{"applicableSimilarityStrategy": "SameTypeMatch"}]
+            }]
+          }
+        ]
+      },
+      {
+        "instance": "ShoprExplainer",
+        "classes": ["Explainer"],
+        "name": "hasExplainer",
+        "property": [{
+          "instance": "ShoprContentBasedTechnique",
+          "classes": ["Explainability Technique"],
+          "name": "utilises",
+          "property": [
+            {
+              "instance": "post-hoc",
+              "classes": ["Explainer Concurrentness"],
+              "name": "hasConcurrentness",
+              "property": [{"applicableSimilarityStrategy": "ExactMatch"}]
+            },
+            {
+              "instance": "text",
+              "classes": ["textual entity"],
+              "name": "hasOutputType"
+            },
+            {
+              "instance": "modelSpecific",
+              "classes": ["Portability"],
+              "name": "hasPortability"
+            },
+            {
+              "instance": "local",
+              "classes": ["Explanation Scope"],
+              "name": "hasExplanationScope",
+              "property": [{"applicableSimilarityStrategy": "ExactMatch"}]
+            },
+            {
+              "instance": "text",
+              "classes": ["textual entity"],
+              "name": "hasPresentation"
+            },
+            {
+              "instance": "image",
+              "classes": ["Data Type"],
+              "name": "hasPresentation",
+              "property": [{"applicableSimilarityStrategy": "SameTypeMatch"}]
+            },
+            {
+              "instance": "prediction",
+              "classes": ["Explanation Target"],
+              "name": "targetType",
+              "property": [{"applicableSimilarityStrategy": "ExactMatch"}]
+            }
+          ]
+        }]
+      },
+      {
+        "instance": "ShoprClient",
+        "classes": ["User"],
+        "name": "hasUser",
+        "property": [
+          {
+            "instance": "TouchScreen",
+            "classes": ["Touch Facilities"],
+            "name": "hasResources",
+            "property": [{
+              "instance": "touch",
+              "classes": ["touch entity"],
+              "name": "canHandle"
+            }]
+          },
+          {
+            "instance": "ShoprUserDomain",
+            "classes": ["Domain Knowledge"],
+            "name": "possess",
+            "property": [{
+              "instance": "low",
+              "classes": ["Knowledge Level"],
+              "name": "levelOfKnowledge",
+              "property": [{"applicableSimilarityStrategy": "ExactMatch"}]
+            }]
+          },
+          {
+            "instance": "MobileDevice",
+            "classes": ["Visual Facilities"],
+            "name": "hasResources",
+            "property": [
+              {
+                "instance": "text",
+                "classes": ["textual entity"],
+                "name": "canHandle"
+              },
+              {
+                "instance": "touch",
+                "classes": ["touch entity"],
+                "name": "canHandle"
+              },
+              {
+                "instance": "image",
+                "classes": ["Data Type"],
+                "name": "canHandle",
+                "property": [{"applicableSimilarityStrategy": "SameTypeMatch"}]
+              }
+            ]
+          },
+          {
+            "instance": "Trust",
+            "classes": ["intent"],
+            "name": "hasIntent",
+            "property": [{"applicableSimilarityStrategy": "ExactMatch"}]
+          },
+          {
+            "instance": "Scruitablity",
+            "classes": ["intent"],
+            "name": "hasIntent",
+            "property": [{"applicableSimilarityStrategy": "ExactMatch"}]
+          },
+          {
+            "instance": "ScreenDisplay",
+            "classes": ["Visual Facilities"],
+            "name": "hasResources",
+            "property": [
+              {
+                "instance": "text",
+                "classes": ["textual entity"],
+                "name": "canHandle"
+              },
+              {
+                "instance": "YoloImage",
+                "classes": ["Explanation Modality"],
+                "name": "canHandle",
+                "property": [{"applicableSimilarityStrategy": "SameTypeMatch"}]
+              },
+              {
+                "instance": "image",
+                "classes": ["Data Type"],
+                "name": "canHandle",
+                "property": [{"applicableSimilarityStrategy": "SameTypeMatch"}]
+              }
+            ]
+          },
+          {
+            "instance": "ExplanationCases#Why_was_this_item_recommended?",
+            "classes": ["Why Question"],
+            "name": "asks"
+          }
+        ]
+      }
+    ]
+  }],
+  "class": "Explanation Experience"
+}
