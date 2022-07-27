@@ -2,7 +2,7 @@ name: scikit-learn models build & deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
     paths: 
       - 'AI Model lib/sk/**'
     
