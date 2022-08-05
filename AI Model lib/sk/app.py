@@ -12,6 +12,7 @@ import joblib
 from skimage.io import imread
 from skimage.transform import resize
 from sklearn.base import is_classifier, is_regressor
+from pathlib import Path
 import sklearn
 
 
