@@ -14,6 +14,7 @@ from skimage.transform import resize
 from sklearn.base import is_classifier, is_regressor
 from pathlib import Path
 import sklearn
+from flask_cors import CORS, cross_origin
 
 
 from PIL import Image
@@ -32,6 +33,9 @@ cli = sys.modules['flask.cli']
 cli.show_server_banner = lambda *x: None
 app = Flask(__name__)
 api = Api(app)
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Ty'
 
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -289,15 +293,21 @@ def query_control():
             flash('No params part')
             return "The model id is missing"
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-            if 'query' not in request.form:
-                flash('No query')
-                return "The query field is missing"
-            query = request.form.get('query')
-            auxjson = {"query" : query}
+            if 'query' not in request.form and 'image' not in request.files:
+                flash('No query or image')
+                return "The query and image field are missing"
             filename = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 10))
-            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,filename + '.json'), 'w') as f:
-                json.dump(auxjson, f)
-            return "Query saved with id: " + filename
+            if 'image' in request.files:
+                image = request.files['image']
+                extension = (image.filename).rsplit('.', 1)[1].lower()
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, filename + '.' + extension))
+                return "Image saved with id: " + filename
+            else:    
+                query = request.form.get('query')
+                auxjson = {"query" : query}
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,filename + '.json'), 'w') as f:
+                    json.dump(auxjson, f)
+                return "Query saved with id: " + filename
      elif request.method == 'GET':
         iden = request.args.get('id')
         query_id = request.args.get('query_id')
@@ -308,11 +318,12 @@ def query_control():
             flash('No params part')
             return "The query id is missing"
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-           query_file = Path(os.path.join(app.config['UPLOAD_FOLDER'], iden, query_id + '.json'))
-           if query_file.exists:
-               return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), query_id + '.json', as_attachment=True)
-           else:
-               return "No query exists with the provided id"
+            for root, dirs, files in os.walk(os.path.join(app.config['UPLOAD_FOLDER'], iden)):
+                for name in files:
+                    if query_id in name:
+                        return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), name, as_attachment=True)
+            return "No query exists for with the provided id"
+
      elif request.method == 'DELETE':
         iden = request.args.get('id')
         query_id = request.args.get('query_id')
@@ -323,12 +334,12 @@ def query_control():
             flash('No params part')
             return "The query id is missing"
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-           query_file = Path(os.path.join(app.config['UPLOAD_FOLDER'], iden, query_id + '.json'))
-           if query_file.exists:
-               os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, query_id + '.json'))
-               return "Query removed successfully"
-           else:
-               return "No query exists with the provided id"
+           for root, dirs, files in os.walk(os.path.join(app.config['UPLOAD_FOLDER'], iden)):
+                for name in files:
+                    if query_id in name:
+                        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, name))
+                        return "Query removed successfully"
+           return "No query exists with the provided id"
      else:
         return "The only supported actions for this request are POST, GET and DELETE"
      return "The model with the provided id doesn't exist"
