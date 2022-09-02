@@ -14,7 +14,8 @@ from skimage.transform import resize
 from sklearn.base import is_classifier, is_regressor
 from pathlib import Path
 import sklearn
-
+import markdown
+import markdown.extensions.fenced_code
 
 from PIL import Image
 
@@ -32,6 +33,7 @@ cli = sys.modules['flask.cli']
 cli.show_server_banner = lambda *x: None
 app = Flask(__name__)
 api = Api(app)
+app_path = pathlib.Path(__file__).parent.absolute()
 
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -53,6 +55,13 @@ else:
             UPLOAD_FOLDER = sys.argv[1]
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route("/")
+def index():
+    readme_file = open(str(app_path)+'/README.md', 'r')
+    md_template_string = markdown.markdown(readme_file.read(), extensions=["fenced_code"])
+
+    return md_template_string
 
 @api.representation('image/png')
 def output_file_png(data, code, headers):
