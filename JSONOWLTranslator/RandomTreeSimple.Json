@@ -1,0 +1,119 @@
+{
+    "name": "Generar aleatoriamente un arbole simple",
+    "description": "",
+    "data": {
+        "version": "0.1.0",
+        "scope": "project",
+        "selectedTree": "f208a1b0-3cc8-44fd-b99d-116cd460fda3",
+        "trees": [{
+            "version": "0.1.0",
+            "scope": "tree",
+            "id": "f208a1b0-3cc8-44fd-b99d-116cd460fda3",
+            "Instance": "Explanation Experience",
+            "description": "",
+            "root": "40e340a3-de90-4c82-8fa7-78cb191e8914",
+            "properties": {},
+            "nodes": {
+                "40e340a3-de90-4c82-8fa7-78cb191e8914": {
+                    "id": "40e340a3-de90-4c82-8fa7-78cb191e8914",
+                    "Concept": "Sequence",
+                    "Instance": "Sequence",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": 0,
+                        "y": 120
+                    },
+                    "firstChild": {
+                        "Id": "ccea6e25-15c9-4100-8b95-3cec2f01a0e6",
+                        "Next": {
+                            "Id": "9bfae850-51c1-47f7-8379-506df9cfc0b9",
+                            "Next": null
+                        }
+                    },
+					"children": ["ccea6e25-15c9-4100-8b95-3cec2f01a0e6","9bfae850-51c1-47f7-8379-506df9cfc0b9"]
+                },
+                "ccea6e25-15c9-4100-8b95-3cec2f01a0e6": {
+                    "id": "ccea6e25-15c9-4100-8b95-3cec2f01a0e6",
+                    "Concept": "Explanation Method",
+                    "Instance": "Image/Counterfactuals",
+                    "description": "Description Explanation method 2",
+                    "properties": {},
+                    "display": {
+                        "x": -156,
+                        "y": 252
+                    },
+                    "DataType": "Image",
+                    "TrainingData": "No",
+                    "ModelBackend": "Any",
+                    "AITask": [
+                        "Classification"
+                    ],
+                    "ModelType": "Any",
+                    "Black&White": "Yes",
+                    "ExplanationScope": "Local"
+                },
+                "9bfae850-51c1-47f7-8379-506df9cfc0b9": {
+                    "id": "9bfae850-51c1-47f7-8379-506df9cfc0b9",
+                    "Concept": "Sequence",
+                    "Instance": "Sequence",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": 156,
+                        "y": 252
+                    },
+                    "firstChild": {
+                        "Id": "b24c6302-0031-4158-bcb1-8bb228687fd6",
+                        "Next": {
+                            "Id": "4ee1f7ca-f94e-4828-8adb-19603167f4ef",
+                            "Next": null
+                        }
+                    }
+                },
+                "b24c6302-0031-4158-bcb1-8bb228687fd6": {
+                    "id": "b24c6302-0031-4158-bcb1-8bb228687fd6",
+                    "Concept": "Explanation Method",
+                    "Instance": "Tabular/SHAP",
+                    "description": "Description Explanation method 2",
+                    "properties": {},
+                    "display": {
+                        "x": 48,
+                        "y": 384
+                    },
+                    "DataType": "Tabular",
+                    "TrainingData": "Yes",
+                    "ModelBackend": "Any",
+                    "AITask": [
+                        "Regression",
+                        "Classification"
+                    ],
+                    "ModelType": "Any",
+                    "ExplanationScope": "Local"
+                },
+                "4ee1f7ca-f94e-4828-8adb-19603167f4ef": {
+                    "id": "4ee1f7ca-f94e-4828-8adb-19603167f4ef",
+                    "Concept": "Evaluation Method",
+                    "Instance": "Evaluation method 2",
+                    "description": "Description Evaluation method 2",
+                    "properties": {},
+                    "display": {
+                        "x": 252,
+                        "y": 384
+                    }
+                }
+            },
+            "display": {
+                "camera_x": 588.2999999970198,
+                "camera_y": 181.5,
+                "camera_z": 1,
+                "x": 0,
+                "y": 0
+            }
+        }],
+        "custom_nodes": []
+    },
+    "path": "b3projects-b3909d41-4fec-4655-892d-313dbc5a564e",
+    "date": "2022-7-13 18:44:35",
+    "id": 11
+}

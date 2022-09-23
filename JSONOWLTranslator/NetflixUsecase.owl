@@ -1,0 +1,502 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.isee4xai.com/iseeontov2/cases#"
+     xml:base="http://www.isee4xai.com/iseeontov2/cases"
+     xmlns:bt="https://www.w3id.org/iSeeOnto/BehaviourTree#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:eo="https://purl.org/heals/eo#"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:cito="http://purl.org/spar/cito/"
+     xmlns:core="http://purl.org/vocab/frbr/core#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:user="http://www.w3id.org/iSeeOnto/user#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:void="http://rdfs.org/ns/void#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:Qual-O="http://sensornet.abdn.ac.uk/onts/Qual-O#"
+     xmlns:prov-o="http://www.w3.org/TR/prov-o/"
+     xmlns:schema="http://schema.org/"
+     xmlns:aimodel="http://www.w3id.org/iSeeOnto/aimodel#"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:resource="http://semanticscience.org/resource/"
+     xmlns:explainer="http://www.w3id.org/iSeeOnto/explainer#"
+     xmlns:evaluation="http://www.w3id.org/iSeeOnto/evaluation#"
+     xmlns:cpannotationschema="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#"
+     xmlns:SimilarityKnowledge="http://www.w3id.org/iSeeOnto/SimilarityKnowledge#"
+     xmlns:explanationexperience="http://www.w3id.org/iSeeOnto/explanationexperience#">
+    <owl:Ontology rdf:about="http://www.isee4xai.com/iseeontov2/cases">
+        <owl:imports rdf:resource="http://sensornet.abdn.ac.uk/onts/Qual-O"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/aimodel"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/aimodelevaluation"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/evaluation"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/explainer"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/user"/>
+        <owl:imports rdf:resource="http://www.w3id.org/iSeeOnto/userevaluation"/>
+        <owl:imports rdf:resource="https://www.w3id.org/iSeeOnto/BehaviourTree"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://semanticscience.org/resource/SIO_000244 -->
+
+    <owl:AnnotationProperty rdf:about="http://semanticscience.org/resource/SIO_000244"/>
+    
+
+
+    <!-- http://sensornet.abdn.ac.uk/onts/Qual-O#annotates -->
+
+    <owl:AnnotationProperty rdf:about="http://sensornet.abdn.ac.uk/onts/Qual-O#annotates"/>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases#hasAIModel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.isee4xai.com/iseeontov2/cases#hasAIModel"/>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases#hasDescription -->
+
+    <owl:AnnotationProperty rdf:about="http://www.isee4xai.com/iseeontov2/cases#hasDescription"/>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases#hasExplanationCriteria -->
+
+    <owl:AnnotationProperty rdf:about="http://www.isee4xai.com/iseeontov2/cases#hasExplanationCriteria"/>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases#requiredObjectValue -->
+
+    <owl:AnnotationProperty rdf:about="http://www.isee4xai.com/iseeontov2/cases#requiredObjectValue"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/user#hasIntent -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3id.org/iSeeOnto/user#hasIntent"/>
+    
+
+
+    <!-- https://purl.org/heals/eo#asks -->
+
+    <owl:AnnotationProperty rdf:about="https://purl.org/heals/eo#asks"/>
+    
+
+
+    <!-- https://purl.org/heals/eo#possess -->
+
+    <owl:AnnotationProperty rdf:about="https://purl.org/heals/eo#possess"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/user#hasQuestionTarget -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3id.org/iSeeOnto/user#hasQuestionTarget"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/aimodel#Binary_Classification -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/aimodel#Binary_Classification"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/aimodel#Multi-layer_Perceptron -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/aimodel#Multi-layer_Perceptron"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/aimodel#Transformers -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/aimodel#Transformers"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/aimodelevaluation#AIModelAssessmentResult -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/aimodelevaluation#AIModelAssessmentResult"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/user#AIMethodKnowledge -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/user#AIMethodKnowledge"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/user#DomainKnowledge -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/user#DomainKnowledge"/>
+    
+
+
+    <!-- http://www.w3id.org/iSeeOnto/user#UserQuestion -->
+
+    <owl:Class rdf:about="http://www.w3id.org/iSeeOnto/user#UserQuestion"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#FlickerCaptionGenerationDataset -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#FlickerCaptionGenerationDataset">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodel#Dataset"/>
+        <aimodel:hasDatasetType rdf:resource="http://www.w3id.org/iSeeOnto/explainer#image"/>
+        <aimodel:hasDatasetType rdf:resource="http://www.w3id.org/iSeeOnto/explainer#text"/>
+        <aimodel:hasFeatureType rdf:resource="http://www.w3id.org/iSeeOnto/explainer#numerical"/>
+        <aimodel:numberOfFeatures rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</aimodel:numberOfFeatures>
+        <aimodel:numberOfInstances rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8091</aimodel:numberOfInstances>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixAIModelAccuracy -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixAIModelAccuracy">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodelevaluation#AIModelAssessmentResult"/>
+        <Qual-O:basedOn rdf:resource="http://www.w3id.org/iSeeOnto/aimodelevaluation#Accuracy"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">80%</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixAIModelInferenceTime -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixAIModelInferenceTime">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodelevaluation#AIModelAssessmentResult"/>
+        <Qual-O:basedOn rdf:resource="http://www.w3id.org/iSeeOnto/aimodelevaluation#Accuracy"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.2 milliseconds</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixBehaviourTree -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixBehaviourTree">
+        <rdf:type rdf:resource="https://www.w3id.org/iSeeOnto/BehaviourTree#BehaviourTree"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;scope&quot;: &quot;tree&quot;,
+  &quot;id&quot;: &quot;746258ff-4884-4f4d-a789-a2de151b872f&quot;,
+  &quot;Instance&quot;: &quot;Explanation Experience&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;root&quot;: &quot;fd5b284f-59f2-4521-890d-31a71ccbe724&quot;,
+  &quot;properties&quot;: {},
+  &quot;nodes&quot;: {
+    &quot;fd5b284f-59f2-4521-890d-31a71ccbe724&quot;: {
+      &quot;id&quot;: &quot;fd5b284f-59f2-4521-890d-31a71ccbe724&quot;,
+      &quot;Concept&quot;: &quot;Explanation Method&quot;,
+      &quot;Instance&quot;: &quot;Netflix Explanation Method&quot;,
+      &quot;description&quot;: &quot;&quot;,
+      &quot;properties&quot;: {},
+      &quot;display&quot;: {
+        &quot;x&quot;: -96,
+        &quot;y&quot;: 144
+      }
+    }
+  },
+  &quot;display&quot;: {
+    &quot;camera_x&quot;: 872.5,
+    &quot;camera_y&quot;: 440,
+    &quot;camera_z&quot;: 1,
+    &quot;x&quot;: -84,
+    &quot;y&quot;: -48
+  },
+  &quot;custom_nodes&quot;: []
+}</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixBinaryClassification -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixBinaryClassification">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodel#Binary_Classification"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixConcurrentnessCriteria -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixConcurrentnessCriteria">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationCriteria"/>
+        <explanationexperience:requiredObjectValue rdf:resource="http://www.w3id.org/iSeeOnto/explainer#post-hoc"/>
+        <explanationexperience:onProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3id.org/iSeeOnto/explainer#hasConcurrentness</explanationexperience:onProperty>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixDescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixDescription">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#Description"/>
+        <explanationexperience:hasAIModel rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixModel"/>
+        <explanationexperience:hasExplanationRequirements rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixRequirements"/>
+        <explanationexperience:hasUser rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUser"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">determines if a Netflix user is addicted or not</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationExperience -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationExperience">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationExperience"/>
+        <explanationexperience:hasDescription rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixDescription"/>
+        <explanationexperience:hasOutcome rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixOutcome"/>
+        <explanationexperience:hasSolution rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixBehaviourTree"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationScopeCriteria -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationScopeCriteria">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationCriteria"/>
+        <explanationexperience:requiredObjectValue rdf:resource="http://www.w3id.org/iSeeOnto/explainer#local"/>
+        <explanationexperience:onProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3id.org/iSeeOnto/explainer#hasExplanationScope</explanationexperience:onProperty>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationTargetCriteria -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationTargetCriteria">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationCriteria"/>
+        <explanationexperience:requiredObjectValue rdf:resource="http://www.w3id.org/iSeeOnto/explainer#prediction"/>
+        <explanationexperience:onProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3id.org/iSeeOnto/explainer#targetType</explanationexperience:onProperty>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixModel -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixModel">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodel#AIModel"/>
+        <aimodel:solves rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixBinaryClassification"/>
+        <aimodel:trainedOn rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#FlickerCaptionGenerationDataset"/>
+        <aimodel:trainedOn rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#WikipediaDataset"/>
+        <evaluation:annotatedBy rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixAIModelAccuracy"/>
+        <evaluation:annotatedBy rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixAIModelInferenceTime"/>
+        <explainer:utilises rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixTransformer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixOutcome -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixOutcome">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#Outcome"/>
+        <resource:SIO_000244 rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalResult01"/>
+        <resource:SIO_000244 rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalResult02"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This is not a good solution.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixPortabilityCriteria -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixPortabilityCriteria">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationCriteria"/>
+        <explanationexperience:requiredObjectValue rdf:resource="http://www.w3id.org/iSeeOnto/explainer#modelSpecific"/>
+        <explanationexperience:onProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3id.org/iSeeOnto/explainer#hasPortability</explanationexperience:onProperty>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixPresentationCriteria -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixPresentationCriteria">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationCriteria"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#requiredValueType"/>
+                <owl:someValuesFrom rdf:resource="http://semanticscience.org/resource/SIO_000904"/>
+            </owl:Restriction>
+        </rdf:type>
+        <explanationexperience:onProperty rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.w3id.org/iSeeOnto/explainer#hasPresentation</explanationexperience:onProperty>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixRequirements -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixRequirements">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/explanationexperience#ExplanationRequirements"/>
+        <explanationexperience:hasExplanationCriteria rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixConcurrentnessCriteria"/>
+        <explanationexperience:hasExplanationCriteria rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationScopeCriteria"/>
+        <explanationexperience:hasExplanationCriteria rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixExplanationTargetCriteria"/>
+        <explanationexperience:hasExplanationCriteria rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixPortabilityCriteria"/>
+        <explanationexperience:hasExplanationCriteria rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixPresentationCriteria"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixSystemRecommendation -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixSystemRecommendation">
+        <rdf:type rdf:resource="https://purl.org/heals/eo#SystemRecommendation"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Adictive User</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixTransformer -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixTransformer">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodel#Multi-layer_Perceptron"/>
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodel#Transformers"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUser -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUser">
+        <rdf:type rdf:resource="https://purl.org/heals/eo#user"/>
+        <user:hasResources rdf:resource="http://www.w3id.org/iSeeOnto/user#ScreenDisplay"/>
+        <user:hasResources rdf:resource="http://www.w3id.org/iSeeOnto/user#Speaker"/>
+        <user:hasIntent rdf:resource="http://www.w3id.org/iSeeOnto/user#Trust"/>
+        <eo:asks rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserQuestion"/>
+        <eo:possess rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserAIKnowledge"/>
+        <eo:possess rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserDomainKnowledge"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserAIKnowledge -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserAIKnowledge">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/user#AIMethodKnowledge"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserDomainKnowledge -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserDomainKnowledge">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/user#DomainKnowledge"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalQuestion01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalQuestion01">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/userevaluation#Question"/>
+        <Qual-O:measures rdf:resource="http://www.w3id.org/iSeeOnto/userevaluation#Goodness"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do you think the explanation was accurate?</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalQuestion02 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalQuestion02">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/userevaluation#Question"/>
+        <Qual-O:measures rdf:resource="http://www.w3id.org/iSeeOnto/user#Satisfaction"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Do you think the explanation contains enough information?</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalResult01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalResult01">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/userevaluation#UserEvaluationResult"/>
+        <Qual-O:basedOn rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalQuestion01"/>
+        <prov:wasAssociatedWith rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUser"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Somewhat Agree</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalResult02 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalResult02">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/userevaluation#UserEvaluationResult"/>
+        <Qual-O:basedOn rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserEvalQuestion02"/>
+        <prov:wasAssociatedWith rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUser"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Disagree</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserQuestion -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixUserQuestion">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/user#UserQuestion"/>
+        <user:hasQuestionTarget rdf:resource="http://www.isee4xai.com/iseeontov2/cases.owl#NetflixSystemRecommendation"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Why do I see an &quot;get addiction help&quot; notification on my Netflix account?</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isee4xai.com/iseeontov2/cases.owl#WikipediaDataset -->
+
+    <owl:NamedIndividual rdf:about="http://www.isee4xai.com/iseeontov2/cases.owl#WikipediaDataset">
+        <rdf:type rdf:resource="http://www.w3id.org/iSeeOnto/aimodel#Dataset"/>
+        <aimodel:hasDatasetType rdf:resource="http://www.w3id.org/iSeeOnto/explainer#text"/>
+        <aimodel:hasFeatureType rdf:resource="http://www.w3id.org/iSeeOnto/explainer#numerical"/>
+        <aimodel:numberOfFeatures rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</aimodel:numberOfFeatures>
+        <aimodel:numberOfInstances rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6458670</aimodel:numberOfInstances>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

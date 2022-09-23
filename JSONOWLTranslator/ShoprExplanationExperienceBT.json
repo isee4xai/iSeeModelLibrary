@@ -1,0 +1,46 @@
+{
+  "version": "0.1.0",
+  "scope": "tree",
+  "id": "03013211-8bb8-442b-87bf-d5c2ffdfc4c8",
+  "title": "Shopr",
+  "description": "",
+  "root": "1d9c458c-7158-4ed1-8189-527b002404fb",
+  "properties": {},
+  "nodes": {
+    "1d9c458c-7158-4ed1-8189-527b002404fb": {
+      "id": "1d9c458c-7158-4ed1-8189-527b002404fb",
+      "name": "Sequence",
+      "title": "Sequence",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": -60,
+        "y": -48
+      },
+      "children": [
+        "55723285-0871-4953-8b55-caed68272270"
+      ]
+    },
+    "55723285-0871-4953-8b55-caed68272270": {
+      "id": "55723285-0871-4953-8b55-caed68272270",
+      "name": "Explanation Method",
+      "title": "ShoprContentBasedTechnique",
+      "description": "",
+      "properties": {
+        "URL": "https://localhost:5000/Tabular/ShoprContentBasedTechnique"
+      },
+      "display": {
+        "x": -60,
+        "y": 72
+      }
+    }
+  },
+  "display": {
+    "camera_x": 720,
+    "camera_y": 394.5,
+    "camera_z": 1,
+    "x": -60,
+    "y": -168
+  },
+  "custom_nodes": []
+}
