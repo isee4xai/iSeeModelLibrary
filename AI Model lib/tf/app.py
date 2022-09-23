@@ -42,6 +42,7 @@ else:
         if os.path.exists(sys.argv[1]):
             if os.path.isdir(sys.argv[1]):
                 print("Using existing directory '" +sys.argv[1]+ "'")
+                UPLOAD_FOLDER = sys.argv[1]
             else:
                 raise Exception("A non-directory file named '" + sys.argv[1]+ "' already exists. Please use another name.")
         else:
