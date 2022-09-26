@@ -1,4 +1,4 @@
-name: scikit-learn models build & deploy
+name: query_server build & deploy
 
 on:
   push:
