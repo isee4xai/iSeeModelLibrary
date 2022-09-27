@@ -80,6 +80,12 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def allowed_id(iden):
+    for c in NOT_ALLOWED_SYMBOLS:
+        if c in iden:
+            return False
+    return True
+
 @app.route('/upload_model', methods=['POST', 'PUT'])
 def upload_model():
     #Add a new model to the server
@@ -106,6 +112,8 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        return 'A model with the id: ' + userid + ' already exists'
                 else:
                     return 'The provided id is invalid'
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)

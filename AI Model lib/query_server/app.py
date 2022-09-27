@@ -71,6 +71,12 @@ def output_file_html(data, code, headers):
     data["filename"],mimetype="text/html",as_attachment=True)
     return response
 
+def allowed_id(iden):
+    for c in NOT_ALLOWED_SYMBOLS:
+        if c in iden:
+            return False
+    return True
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -88,6 +94,9 @@ def upload_model():
             flash('No params part')
             return redirect(request.url)
         parameters = json.loads(parameters)
+        if "alias" not in parameters:
+            flash('No alias part')
+            return("No alias param was provided")
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
@@ -101,6 +110,8 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        return 'A model with the id: ' + userid + ' already exists'
                 else:
                     return 'The provided id is invalid'
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
