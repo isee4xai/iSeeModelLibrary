@@ -1,0 +1,29 @@
+name: query_server build & deploy
+
+on:
+  push:
+    branches: [ dev ]
+    paths: 
+      - 'AI Model lib/query_server/**'
+    
+jobs:
+
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to DockerHub 
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Build and push  the Docker image
+      uses: docker/build-push-action@v3
+      with:
+          push: true
+          file: './AI Model lib/query_server/Dockerfile'
+          context: './AI Model lib/query_server'
+          tags: isee4xai/query_server:dev
