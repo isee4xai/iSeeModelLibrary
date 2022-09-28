@@ -24,8 +24,7 @@ from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'Models'
-ALLOWED_EXTENSIONS = {'pkl'}
-EXTENSION = '.pkl'
+ALLOWED_EXTENSIONS = {'pkl', 'h5'}
 NOT_ALLOWED_SYMBOLS = {'<', '>', ':', '\"', '/', '\\', '|', '\?', '*'}
 
 
@@ -97,6 +96,15 @@ def upload_model():
         if "alias" not in parameters:
             flash('No alias part')
             return("No alias param was provided")
+        if "backend" not in parameters:
+            flash('No backend part')
+            return("No backend param was provided (tf or sklearn)")
+        if parameters['backend'] in {"tf", "TF"}:
+            EXTENSION = ".h5"
+        elif parameters["backend"] in {"sk", "SK", "sklearn"}:
+            EXTENSION = ".pkl"
+        else:
+            return "The backend passed is not valid"
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
@@ -121,6 +129,8 @@ def upload_model():
             return jsonify(
                 modelid = filename
             )
+        else:
+            return "The type of file passed is not supported"
     #Update an existing model
     elif request.method == 'PUT':
         if 'file' not in request.files:
@@ -138,6 +148,19 @@ def upload_model():
             return 'A param field is needed in order to update the model'
         file = request.files['file']
         parameters = json.loads(parameters)
+        if "alias" not in parameters:
+            flash('No alias part')
+            return("No alias param was provided")
+        if "backend" not in parameters:
+            flash('No backend part')
+            return("No backend param was provided (tf or sklearn)")
+        if parameters['backend'] in {"tf", "TF"}:
+            EXTENSION = ".h5"
+        elif parameters["backend"] in {"sk", "SK", "sklearn"}:
+            EXTENSION = ".pkl"
+        else:
+            return "The backend passed is not valid"
+        
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
@@ -146,9 +169,7 @@ def upload_model():
         else:
             return "No model found with this id"
 
-    return '''
-    The only supported actions for this request are POST and PUT
-    '''
+    return "The only supported actions for this request are POST and PUT"
 
 @app.route('/dataset', methods=['POST', 'GET'])
 def dataset():   
@@ -184,7 +205,10 @@ def delete_model():
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if request.method == 'DELETE':
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
+            try:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".pkl"))
+            except:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"))
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.pkl'))):
                 os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.pkl'))
@@ -203,98 +227,6 @@ def model_info():
         if request.method == 'GET':
             return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '.json', as_attachment=True)
         return "The only supported action for this request is GET"
-    return "The model does not exist"
-
-@app.route('/Image/run', methods=['POST'])
-def run_img_model():
-    iden = request.form.get('id')
-    if iden is None:
-        flash('No params part')
-        return "The model id is missing"
-    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        if request.method == 'POST':
-            model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
-            if 'image' not in request.files:
-                flash('No file part')
-                return "No image was provided"
-            image = request.files['image']
-            image = np.asarray(Image.open(image))
-            try:
-                #if it's a classification model we try to launch predict_proba
-                if is_classifier(model):
-                    try: 
-                        predictions = model.predict_proba(image[None,:,:])
-                        return jsonify({'predictions' : predictions.tolist()})
-                    except Exception as e:
-                        predictions = model.predict(image[None,:,:])
-                        return jsonify({'predictions' : predictions.tolist()})
-                else:
-                    predictions = model.predict(image[None,:,:])
-                    return jsonify({'predictions' : predictions.tolist()})
-            except Exception as e:
-                print(e)
-                return "Something went wrong"
-        return "The only supported action for this request is POST"
-    return "The model does not exist"
-
-
-@app.route('/Tabular/run', methods=['POST'])
-def run_tab_model():
-    iden = request.form.get('id')
-    if iden is None:
-        flash('No params part')
-        return "The model id is missing"
-    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        data = request.form.get('data')
-        if request.method == 'POST':
-            model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
-            if data is None:
-                flash('No file part')
-                return "No parameters were provided"
-            data = json.loads(data)
-            data = data['instance']
-            data = np.asarray(data)
-            X = pd.DataFrame(data).T
-            try:
-                 #if it's a classification model we try to launch predict_proba
-                if is_classifier(model):
-                    try:
-                        predictions = model.predict_proba(X)
-                        return jsonify({'predictions' : predictions.tolist()})
-                    except Exception as e:
-                        predictions = model.predict(X)
-                        return jsonify({'predictions' : predictions.tolist()})
-                predictions = model.predict(X)
-                return jsonify({'predictions' : predictions.tolist()})
-            except Exception as e:
-                print(e)
-                return "Something went wrong"
-        return "The only supported action for this request is POST"
-    return "The model does not exist"
-
-@app.route('/Text/run', methods=['POST'])
-def run_text_model():
-    iden = request.form.get('id')
-    if iden is None:
-        flash('No params part')
-        return "The model id is missing"
-    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        data = request.form.get('data')
-        if request.method == 'POST':
-            model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
-            if data is None:
-                flash('No file part')
-                return "No parameters were provided"
-            data = json.loads(data)
-            data = data['instance']
-            X = tf.convert_to_tensor(instance)
-            try:
-                predictions = model.predict(X)
-                return jsonify({'predictions' : predictions.tolist()})
-            except Exception as e:
-                print(e)
-                return "Something went wrong"
-        return "The only supported action for this request is POST"
     return "The model does not exist"
 
 @app.route('/query', methods=['POST', 'GET', 'DELETE'])
