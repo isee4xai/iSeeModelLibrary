@@ -99,7 +99,7 @@ def upload_model():
         if "backend" not in parameters:
             flash('No backend part')
             return("No backend param was provided (tf or sklearn)")
-        if parameters['backend'] in {"tf", "TF"}:
+        if parameters['backend'] in {"tf", "TF","tf1","tf2","TF1","TF2"}:
             EXTENSION = ".h5"
         elif parameters["backend"] in {"sk", "SK", "sklearn"}:
             EXTENSION = ".pkl"
