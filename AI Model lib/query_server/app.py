@@ -188,7 +188,11 @@ def dataset():
                 flash('No file part')
                 return "A file is missing"
             file = request.files['file']
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl'))
+            try:
+                df=pd.read_csv(file)
+            except:
+                raise Exception("Could not convert csv file.")
+            joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl'))
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
             return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '_data.pkl', as_attachment=True)
