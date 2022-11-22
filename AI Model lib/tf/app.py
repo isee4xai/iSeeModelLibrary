@@ -241,7 +241,6 @@ def run_tab_model():
                 flash('No file part')
                 return "No parameters were provided"
             instance = json.loads(instance)
-            instance = instance['instance']
             X = tf.convert_to_tensor(instance)
             try:
                 predictions = model.predict(X)
