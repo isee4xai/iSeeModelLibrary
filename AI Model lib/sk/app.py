@@ -247,14 +247,13 @@ def run_tab_model():
         flash('No params part')
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        data = request.form.get('data')
+        data = request.form.get('instance')
         if request.method == 'POST':
             model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
             if data is None:
                 flash('No file part')
                 return "No parameters were provided"
             data = json.loads(data)
-            data = data['instance']
             data = np.asarray(data)
             X = pd.DataFrame(data).T
             try:
