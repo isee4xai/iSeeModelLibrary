@@ -2,29 +2,20 @@ import sys
 import pathlib
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
-from flask_restful import Resource,reqparse
-import matplotlib.pyplot
 import random
 import string
-import numpy as np
 import pandas as pd
 import joblib
-from skimage.io import imread
-from skimage.transform import resize
-from sklearn.base import is_classifier, is_regressor
 from pathlib import Path
 import sklearn
 from flask_cors import CORS, cross_origin
-
-
-from PIL import Image
-
 import os
-from flask import Flask, flash, request, redirect, url_for
-from werkzeug.utils import secure_filename
+import shutil
+from flask import Flask, flash, request
+
 
 UPLOAD_FOLDER = 'Models'
-ALLOWED_EXTENSIONS = {'pkl', 'h5'}
+ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}
 NOT_ALLOWED_SYMBOLS = {'<', '>', ':', '\"', '/', '\\', '|', '\?', '*'}
 
 
@@ -87,30 +78,33 @@ def upload_model():
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return redirect(request.url)
-        parameters = request.form.get('params')
+            return 'No file part'
+        parameters = request.form.get('info')
         if parameters is None:
-            flash('No params part')
-            return redirect(request.url)
+            flash('No info part')
+            return 'No info part'
         parameters = json.loads(parameters)
         if "alias" not in parameters:
             flash('No alias part')
-            return("No alias param was provided")
+            return("The alias of the model was not specified.")
         if "backend" not in parameters:
-            flash('No backend part')
-            return("No backend param was provided (tf or sklearn)")
-        if parameters['backend'] in {"tf", "TF","tf1","tf2","TF1","TF2"}:
-            EXTENSION = ".h5"
-        elif parameters["backend"] in {"sk", "SK", "sklearn"}:
-            EXTENSION = ".pkl"
-        else:
-            return "The backend passed is not valid"
+            flash('The model backend was not specified.')
+            return("The backend was not specified.")
+        if "model_task" not in parameters:
+            flash('The model task was not specified.')
+            return 'The model task was not specified.'
+        if "dataset_type" not in parameters:
+            flash('The dataset type was not specified.')
+            return 'The dataset type was not specified.'
+        if "attributes" not in parameters:
+            flash('The attributes for this model were not specified.')
+            return 'The attributes for this model were not specified.'
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             flash('No selected file')   
-            return redirect(request.url)
+            return "No selected file"
         if file and allowed_file(file.filename):
             userid = request.form.get('id')
             if userid is None or userid == '':
@@ -123,7 +117,7 @@ def upload_model():
                 else:
                     return 'The provided id is invalid'
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename, filename + EXTENSION))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename, filename + "."+file.filename.rsplit('.', 1)[1].lower()))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'w') as f:
                 json.dump(parameters, f, ensure_ascii = False)
             return jsonify(
@@ -135,36 +129,39 @@ def upload_model():
     elif request.method == 'PUT':
         if 'file' not in request.files:
             flash('No file part')
-            return 'A file hasnt been provided'
+            return 'A file has not been provided'
 
         iden = request.form.get('id')
         if iden is None:
             flash('No id provided')
             return "An id field is needed in order to update the model"
 
-        parameters = request.form.get('params')
+        parameters = request.form.get('info')
         if parameters is None:
-            flash('No params part')
-            return 'A param field is needed in order to update the model'
+            flash('No info part')
+            return 'A info field is needed in order to update the model'
         file = request.files['file']
         parameters = json.loads(parameters)
         if "alias" not in parameters:
             flash('No alias part')
-            return("No alias param was provided")
+            return("The alias of the model was not specified.")
         if "backend" not in parameters:
-            flash('No backend part')
-            return("No backend param was provided (tf or sklearn)")
-        if parameters['backend'] in {"tf", "TF"}:
-            EXTENSION = ".h5"
-        elif parameters["backend"] in {"sk", "SK", "sklearn"}:
-            EXTENSION = ".pkl"
-        else:
-            return "The backend passed is not valid"
+            flash('The model backend was not specified.')
+            return("The backend was not specified.")
+        if "model_task" not in parameters:
+            flash('The model task was not specified.')
+            return 'The model task was not specified.'
+        if "dataset_type" not in parameters:
+            flash('The dataset type was not specified.')
+            return 'The dataset type was not specified.'
+        if "attributes" not in parameters:
+            flash('The attributes for this model were not specified.')
+            return 'The attributes for this model were not specified.'
         
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "."+file.filename.rsplit('.', 1)[1].lower()))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
-                json.dump(parameters, f)
+                json.dump(parameters, f,ensure_ascii = False)
             return "Model updated successfully"
         else:
             return "No model found with this id"
@@ -180,7 +177,7 @@ def dataset():
      else:
         return "The only supported actions for this request are POST and GET" 
      if iden is None:
-        flash('No params part')
+        flash('No id part')
         return "The model id is missing"
      if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
          if request.method == 'POST' :
@@ -191,7 +188,7 @@ def dataset():
             try:
                 df=pd.read_csv(file)
             except:
-                raise Exception("Could not convert csv file.")
+                return "Could not convert csv file."
             joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl'))
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
@@ -205,21 +202,17 @@ def dataset():
 def delete_model():
     iden = request.form.get('id')
     if iden is None:
-        flash('No params part')
+        flash('No id part')
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if request.method == 'DELETE':
             try:
-                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".pkl"))
+                shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'], iden))
             except:
-                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"))
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
-            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.pkl'))):
-                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.pkl'))
-            os.rmdir(os.path.join(app.config['UPLOAD_FOLDER'], iden))
-            return "Model deleted successfully"
-        return "The only supported action for this request is DELETE"
-    return "The model does not exist"
+                return "Model folder could not be deleted."
+            return "Model folder deleted successfully"
+        return "The only supported action for this request is DELETE."
+    return "The id does not exist."
 
 @app.route('/info', methods=['GET'])
 def model_info():
