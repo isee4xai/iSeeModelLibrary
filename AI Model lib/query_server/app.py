@@ -30,11 +30,11 @@ app.config['CORS_HEADERS'] = 'Content-Ty'
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-URLS={"sklearn":"https://models-sk-dev.isee4xai.com",
-      "xgboost":"https://models-sk-dev.isee4xai.com",
-      "TF1":"https://models-tf-dev.isee4xai.com",
-      "TF2":"https://models-tf-dev.isee4xai.com",
-      "TF":"https://models-tf-dev.isee4xai.com"}
+URLS={"sklearn":"https://models-sk-dev.isee4xai.com/",
+      "xgboost":"https://models-sk-dev.isee4xai.com/",
+      "TF1":"https://models-tf-dev.isee4xai.com/",
+      "TF2":"https://models-tf-dev.isee4xai.com/",
+      "TF":"https://models-tf-dev.isee4xai.com/"}
 
 DATASET_TYPES=["Tabular", "Text", "Image"]
 
