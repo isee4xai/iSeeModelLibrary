@@ -12,7 +12,7 @@ import os
 import shutil
 from flask import Flask, flash, request
 import requests
-
+from urllib3.exceptions import InsecureRequestWarning
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}
@@ -38,6 +38,7 @@ URLS={"sklearn":"https://models-sk-dev.isee4xai.com/",
 
 DATASET_TYPES=["Tabular", "Text", "Image"]
 
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 #We check the number of arguments passed to through the console
 
 if len(sys.argv) > 2 :
@@ -342,7 +343,7 @@ def predict():
     print("data:" + str(payload))
     print("headers: " +str(response.request.headers))
 
-    return json.loads(response.text)
+    return response.text
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)
