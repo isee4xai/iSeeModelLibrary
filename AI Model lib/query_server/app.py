@@ -341,8 +341,6 @@ def predict():
     print("URL: " +url)
     print("data:" + str(payload))
     print("headers: " +str(response.request.headers))
-    if not response.ok:
-        return "There was a problem with the POST request: " + response.text
 
     return json.loads(response.text)
 
