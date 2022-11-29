@@ -337,7 +337,7 @@ def predict():
     else:
         payload["instance"]=instance
 
-    response = requests.request("POST", url, data=payload, files=files)
+    response = requests.request("POST", url, data=payload, files=files, verify=False)
     
     if not response.ok:
         return "There was a problem with the POST request."
