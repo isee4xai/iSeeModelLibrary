@@ -338,9 +338,9 @@ def predict():
         payload["instance"]=instance
 
     response = requests.request("POST", url, data=payload, files=files, verify=False)
-    print("URL":url)
-    print("data":payload)
-    print("headers":response.request.headers)
+    print("URL: " +url)
+    print("data:" + str(payload))
+    print("headers: " +str(response.request.headers))
     if not response.ok:
         return "There was a problem with the POST request: " + response.text
 
