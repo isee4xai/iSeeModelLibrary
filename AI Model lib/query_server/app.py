@@ -7,11 +7,11 @@ import string
 import pandas as pd
 import joblib
 from pathlib import Path
-import sklearn
 from flask_cors import CORS, cross_origin
 import os
 import shutil
 from flask import Flask, flash, request
+import requests
 
 
 UPLOAD_FOLDER = 'Models'
@@ -29,6 +29,14 @@ app.config['CORS_HEADERS'] = 'Content-Ty'
 
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
+
+URLS={"sklearn":"https://models-sk-dev.isee4xai.com",
+      "xgboost":"https://models-sk-dev.isee4xai.com",
+      "TF1":"https://models-tf-dev.isee4xai.com",
+      "TF2":"https://models-tf-dev.isee4xai.com",
+      "TF":"https://models-tf-dev.isee4xai.com"}
+
+DATASET_TYPES=["Tabular", "Text", "Image"]
 
 #We check the number of arguments passed to through the console
 
@@ -294,6 +302,47 @@ def model_list():
         model_list.update({iden : params['alias']})
     return jsonify(model_list)
 
+@app.route('/predict', methods=['POST'])
+def predict():
+    iden = request.form.get('id')
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing"
+    if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        return "The id does not exists."
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
+        model_info=json.load(f)
+    
+    url=""
+    if model_info["backend"] in URLS:
+        url=url+URLS[model_info["backend"]]
+    else:
+        return "The prediction resource currently does not support " +model_info["backend"]+ " models."
+    if model_info["dataset_type"] in DATASET_TYPES:
+        url=url+model_info["dataset_type"]+"/"
+    else:
+        return "The prediction resource currently does not support " +model_info["dataset_type"]+ " dataset types."
+    url=url+"run"
+
+    payload={"id": iden}
+    files={}
+    instance=request.form.get('instance')
+    image = request.files.get('image', None)
+    
+    if instance==None:
+        if model_info["dataset_type"]=="Image" and image!=None:
+            files["image"]=image
+        else:
+            return "No instance or image was provided."
+    else:
+        payload["instance"]=instance
+
+    response = requests.request("POST", url, data=payload, files=files)
+    
+    if not response.ok:
+        return "There was a problem with the POST request."
+
+    return json.loads(response.text)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)
