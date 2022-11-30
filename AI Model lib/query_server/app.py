@@ -342,7 +342,7 @@ def predict():
     response = requests.post("https://models-sk-dev.isee4xai.com/Tabular/run",data=payload,files={}, verify=False)
     #response = requests.request("POST", url, data=payload, files=files, verify=False)  
     if not response.ok:
-      return "URL: " + url +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status) + " " + + str(response.reason)
+      return "URL: " + url +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + + str(response.reason)
 
     return response.text
 
