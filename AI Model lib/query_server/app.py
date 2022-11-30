@@ -677,11 +677,11 @@ def predict():
     
     url=""
     if model_info["backend"] in URLS:
-        url=url+URLS[model_info["backend"]]+"/"
+        url=url+URLS[model_info["backend"]]
     else:
         return "The prediction resource currently does not support " +model_info["backend"]+ " models."
     if model_info["dataset_type"] in DATASET_TYPES:
-        url=url+model_info["dataset_type"]+"/"
+        url=url+"/"+model_info["dataset_type"]+"/"
     else:
         return "The prediction resource currently does not support " +model_info["dataset_type"]+ " dataset types."
     url=url+"run"
