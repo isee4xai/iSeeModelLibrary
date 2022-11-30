@@ -25,8 +25,6 @@ app = Flask(__name__)
 api = Api(app)
 
 cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Ty'
-
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
 
