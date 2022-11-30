@@ -337,8 +337,9 @@ def predict():
             return "No instance or image was provided."
     else:
         payload["instance"]=instance
-
-    response = requests.request("POST", url, data=payload, files=files, verify=False)  
+    payload=dict({"id":'PSYCHOLOGY',"instance":"[1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1 ]"})
+    response = requests.request("POST", "https://models-sk-dev.isee4xai.com/Tabular/run",data=payload,files={}, verify=False)
+    #response = requests.request("POST", url, data=payload, files=files, verify=False)  
     if not response.ok:
       return "URL: " + url +"\data:" + str(payload)+"\nheaders: " +str(response.request.headers)
 
