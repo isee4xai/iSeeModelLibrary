@@ -24,7 +24,8 @@ cli.show_server_banner = lambda *x: None
 app = Flask(__name__)
 api = Api(app)
 
-#cors = CORS(app)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Ty'
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -336,12 +337,12 @@ def predict():
     else:
         payload["instance"]=instance
    
-    response = requests.post(url,files=payload, headers={'Content-Type': 'multipart/form-data'},verify=False)
-    #response = requests.request("POST", url, data=payload, files=files, verify=False)  
+    response = requests.post(url,data=payload,files=files,verify=False)
+   
     if not response.ok:
-      return "URL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason)
+      return "REQUEST FAILED:\nURL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason)
 
-    return response.text
+    return json.loads(response.text)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)
