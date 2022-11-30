@@ -24,7 +24,7 @@ cli.show_server_banner = lambda *x: None
 app = Flask(__name__)
 api = Api(app)
 
-cors = CORS(app)
+#cors = CORS(app)
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -337,7 +337,7 @@ def predict():
         payload["instance"]=instance
     
     payload=dict({"id":'PSYCHOLOGY',"instance":"[1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1 ]"})
-    response = requests.post("https://models-sk-dev.isee4xai.com/Tabular/run",data=payload,files={}, verify=False)
+    response = requests.post("https://models-sk-dev.isee4xai.com/Tabular/run",data=payload,files={}, headers={'Content-Type': 'multipart/form-data'},verify=False)
     #response = requests.request("POST", url, data=payload, files=files, verify=False)  
     if not response.ok:
       return "URL: " + url +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason)
