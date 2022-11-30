@@ -338,10 +338,9 @@ def predict():
     else:
         payload["instance"]=instance
 
-    response = requests.request("POST", url, data=payload, files=files, verify=False)
-    print("URL: " +url)
-    print("data:" + str(payload))
-    print("headers: " +str(response.request.headers))
+    response = requests.request("POST", url, data=payload, files=files, verify=False)  
+    if not response.ok:
+      return "URL: " + url +"\data:" + str(payload)+"\nheaders: " +str(response.request.headers)
 
     return response.text
 
