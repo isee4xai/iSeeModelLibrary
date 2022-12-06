@@ -250,6 +250,38 @@ def dataset():
 
      return "The model with the provided id doesn't exist"
 
+@app.route('/dataset_cockpit', methods=['POST', 'GET'])
+def dataset():   
+     if request.method == 'POST' :
+        iden = request.form.get('id')
+     elif request.method == 'GET':
+        iden = request.args.get('id')
+     else:
+        return "The only supported actions for this request are POST and GET" 
+     if iden is None:
+        flash('No id part')
+        return "The model id is missing"
+     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+         if request.method == 'POST' :
+            if 'file' not in request.files:
+                flash('No file part')
+                return "A file is missing"
+            file = request.files['file']
+            try:
+                df=pd.read_csv(file)
+            except:
+                return "Could not convert csv file."
+	    file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden + '_data.csv'))
+
+            return "Dataset uploaded successfully"
+         elif request.method == 'GET' :
+            return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '_data.csv', as_attachment=True)
+         else:
+            return "The only supported actions for this request are POST and GET"
+
+     return "The model with the provided id doesn't exist"
+
+
 @app.route('/delete', methods=['DELETE'])
 def delete_model():
     iden = request.form.get('id')
