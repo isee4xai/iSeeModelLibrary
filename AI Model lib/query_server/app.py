@@ -1,5 +1,6 @@
 import sys
 import pathlib
+from this import s
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import random
@@ -122,6 +123,97 @@ def allowed_id(iden):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/num_instances/<string:iden>',methods=['GET'])
+def num_instances(iden):
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing."
+    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
+            try:
+                return str(len(df.index))
+            except:
+                return "Could not extract number of instances from the data."
+        else:
+            return "There is no training file for this model."
+    else:
+        return "The model does not exist"
+
+@app.route('/instance/<string:iden>/<int:index>',methods=['GET'])
+def instance(iden, index):
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing."
+    if index is None:
+        flash('No index part')
+        return "The index is missing."
+    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
+                    model_info=json.load(file)
+            else:
+                return "The model information file does not exist."
+            try:
+                target_names=model_info["attributes"]["target_names"]
+            except:
+                return "Could not extract target columns from model information. Please update the model attributes file."
+            try:
+                df.drop(target_names, axis=1,inplace=True)
+            except:
+                return "Could not drop target feature/s"
+            try:
+                instance=df.iloc[[index]].values.tolist()
+                return str(instance)
+
+            except Exception as e:
+                print(e)
+                return "Could not get the instance from the data."
+        else:
+            return "There is no training file for this model."
+    else:
+        return "The model does not exist"
+
+@app.route('/instanceJSON/<string:iden>/<int:index>',methods=['GET'])
+def instanceJSON(iden, index):
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing."
+    if index is None:
+        flash('No index part')
+        return "The index is missing."
+    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
+                    model_info=json.load(file)
+            else:
+                return "The model information file does not exist."
+            try:
+                target_names=model_info["attributes"]["target_names"]
+            except:
+                return "Could not extract target columns from model information. Please update the model attributes file."
+            try:
+                df.drop(target_names, axis=1,inplace=True)
+            except:
+                return "Could not drop target feature/s"
+            try:
+                instance=df.iloc[[index]]
+            except:
+                return "Could not get the instance from the data."
+            try:
+                return json.loads(instance.to_json(orient="table",index=False))["data"][0]
+            except Exception as e:
+                print(e)
+                return "Could not convert the instance to JSON. Make sure the provided model information contains the target names in the expected format and matches the given dataset."
+        else:
+            return "There is no training file for this model."
+    else:
+        return "The model does not exist"
 
 @app.route('/upload_model', methods=['POST', 'PUT'])
 def upload_model():
@@ -251,7 +343,7 @@ def dataset():
      return "The model with the provided id doesn't exist"
 
 @app.route('/dataset_cockpit', methods=['POST', 'GET'])
-def dataset():   
+def dataset_cockpit():   
      if request.method == 'POST' :
         iden = request.form.get('id')
      elif request.method == 'GET':
@@ -271,8 +363,7 @@ def dataset():
                 df=pd.read_csv(file)
             except:
                 return "Could not convert csv file."
-	    file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden + '_data.csv'))
-
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden + '_data.csv'))
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
             return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '_data.csv', as_attachment=True)
