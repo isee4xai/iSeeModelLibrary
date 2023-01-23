@@ -1,56 +1,22 @@
 import sys
 import pathlib
-from this import s
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import random
 import string
+import numpy as np
 import pandas as pd
 import joblib
 from pathlib import Path
 from flask_cors import CORS, cross_origin
 import os
 import shutil
+import zipfile
+import csv
 from flask import Flask, flash, request
 import requests
 from urllib3.exceptions import InsecureRequestWarning
-
-UPLOAD_FOLDER = 'Models'
-ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}
-NOT_ALLOWED_SYMBOLS = {'<', '>', ':', '\"', '/', '\\', '|', '\?', '*'}
-
-
-cli = sys.modules['flask.cli']
-cli.show_server_banner = lambda *x: None
-app = Flask(__name__)
-api = Api(app)
-
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Ty'
-app.secret_key = '^%huYtFd90;90jjj'
-app.config['SESSION_TYPE'] = 'filesystem'
-
-#URLS={"sklearn":"https://models-sk-dev.isee4xai.com/",
-#      "xgboost":"https://models-sk-dev.isee4xai.com/",
-#      "TF1":"https://models-tf-dev.isee4xai.com/",
-#      "TF2":"https://models-tf-dev.isee4xai.com/",
-#      "TF":"https://models-tf-dev.isee4xai.com/"}
-
-import sys
-import pathlib
-from flask import Flask, send_from_directory,request, json, jsonify
-from flask_restful import Api
-import random
-import string
-import pandas as pd
-import joblib
-from pathlib import Path
-from flask_cors import CORS, cross_origin
-import os
-import shutil
-from flask import Flask, flash, request
-import requests
-from urllib3.exceptions import InsecureRequestWarning
+from PIL import Image
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}
@@ -78,6 +44,13 @@ URLS={  "sklearn":"http://models-sk:5000",
 	"TF1":"http://models-tf:5000",
 	"TF2":"http://models-tf:5000",
 	"TF":"http://models-tf:5000"}
+
+#URLS={  "sklearn":"http://localhost:5000",
+#	"xgboost":"http://localhost:5000",
+#	"TF1":"http://localhost:5000",
+#	"TF2":"http://localhost:5000",
+#	"TF":"http://localhost:5000"}
+
 
 
 DATASET_TYPES=["Tabular", "Text", "Image"]
@@ -130,16 +103,34 @@ def num_instances(iden):
         flash('No id part')
         return "The model id is missing."
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
+                model_info=json.load(file)
+        else:
+             return "There is no configuration file for this model."
+
+        #For Images
+        if(model_info["dataset_type"].lower()=="image"):
+            #from image folder
+            folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
+            if(os.path.exists(folder_path)):
+                return str(len(os.listdir(folder_path)))
+            elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
+                    return str(sum(1 for line in f))
+            else:
+                return "No training data was uploaded for this model."
+        #for rest
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
             df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
             try:
-                return str(len(df.index))
+                return str(len(df.shape[0]))
             except:
                 return "Could not extract number of instances from the data."
         else:
-            return "There is no training file for this model."
+            return "No training data was uploaded for this model."
     else:
-        return "The model does not exist"
+        return "The model does not exist."
 
 @app.route('/instance/<string:iden>/<int:index>',methods=['GET'])
 def instance(iden, index):
@@ -150,13 +141,69 @@ def instance(iden, index):
         flash('No index part')
         return "The index is missing."
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
-            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
-            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
                     model_info=json.load(file)
+        else:
+             return "There is no configuration file for this model."
+
+        #For Images
+        if(model_info["dataset_type"].lower()=="image"):
+
+            #from image folder
+            folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
+            if(os.path.exists(folder_path)):  
+                if(index>=0 and index<len(os.listdir(folder_path))):
+                    try:
+                        #sending
+                        return send_from_directory(folder_path, os.listdir(folder_path)[index], as_attachment=True)
+                    except Exception as e:
+                        print(e)
+                        return "Could not send image file."
+                else:
+                    return "The index is invalid. The index must be between 0 and " + str(len(os.listdir("HANDWRITTN_data")-1))
+
+            #from csv
+            elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                instance=None
+                df=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=None)
+                instance=df.iloc[[index]].to_numpy()[0]
+                #reshaping
+                try:
+                    instance=instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape_raw"]))
+                    print(instance)
+                except Exception as e:
+                    print(e)
+                    return "Could not reshape instance."
+                #denormalizing
+                nmin=model_info["attributes"]["features"]["image"]["min"]
+                nmax=model_info["attributes"]["features"]["image"]["max"]
+                min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+                max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+                try:
+                    instance=(((instance-nmin)/(nmax-nmin))*(max_raw-min_raw)+min_raw).astype(np.uint8)
+                except:
+                    return "Could not denormalize instance."
+                #converting to image
+                im=None
+                try:
+                    im=Image.fromarray(instance)
+                except Exception as e:
+                    print(e)
+                    return "Could not convert instance to PNG file."
+                #sending
+                try:
+                    im.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + "_instance.png"))   
+                    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + "_instance.png", as_attachment=True)
+                except Exception as e:
+                    print(e)
+                    return "Could not send PNG file."
             else:
-                return "The model information file does not exist."
+                return "No training data was uploaded for this model."
+        
+        #For the rest
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
             try:
                 target_names=model_info["attributes"]["target_names"]
             except:
@@ -176,6 +223,8 @@ def instance(iden, index):
             return "There is no training file for this model."
     else:
         return "The model does not exist"
+
+
 
 @app.route('/instanceJSON/<string:iden>/<int:index>',methods=['GET'])
 def instanceJSON(iden, index):
@@ -329,17 +378,57 @@ def dataset():
                 flash('No file part')
                 return "A file is missing"
             file = request.files['file']
-            try:
-                df=pd.read_csv(file)
-            except:
-                return "Could not convert csv file."
-            joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl'))
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
+                model_info=json.load(f)
+            #For Images
+            if(model_info["dataset_type"].lower()=="image"):
+                #zip file with images
+                if(file.content_type=="application/zip"):
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
+                    folder_path_temp=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_datatemp")
+                    os.mkdir(folder_path_temp)
+                    with zipfile.ZipFile(file) as zip_ref:
+                        for zip_info in zip_ref.infolist():
+                            if zip_info.filename[-1] in ['/','\\']:
+                                continue
+                            zip_info.filename = os.path.basename(zip_info.filename)
+                            zip_ref.extract(zip_info, folder_path_temp)
+                    folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
+                    if os.path.exists(folder_path):
+                        shutil.rmtree(folder_path)
+                    os.rename(folder_path_temp,folder_path)
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv')):
+                        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv')) 
+                #csv with flattened images  
+                elif(file.content_type=="text/csv"):
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv'))  
+                    folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
+                    if os.path.exists(folder_path):
+                        shutil.rmtree(folder_path)
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip")):
+                        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
+                else:                               
+                    return "The training data must be a .zip or .csv file."
+                if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png')):
+                        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png'))  
+                return "Dataset uploaded successfully."
+            #rest
+            elif(1):
+                try:
+                    df=pd.read_csv(file,header=None)
+                except:
+                    return "Could not convert .csv file to Pandas Dataframe."
+                joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl'))           
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
-            return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '_data.pkl', as_attachment=True)
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'))):
+                return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '_data.csv', as_attachment=True)
+            elif (os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden+".zip"))):
+                return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '.zip', as_attachment=True)
+            else:
+                return "No training file has been uploaded."
          else:
             return "The only supported actions for this request are POST and GET"
-
      return "The model with the provided id doesn't exist"
 
 @app.route('/dataset_cockpit', methods=['POST', 'GET'])
@@ -495,21 +584,34 @@ def predict():
     files={}
     instance=request.form.get('instance')
     image = request.files.get('image', None)
+    top_classes=request.form.get('top_classes')
     
     if instance==None:
-        if model_info["dataset_type"]=="Image" and image!=None:
+        if model_info["dataset_type"].lower()=="image" and image!=None:
             files["image"]=image
         else:
             return "No instance or image was provided."
     else:
         payload["instance"]=instance
+
+    try:
+        top_classes=int(top_classes)
+    except:
+        top_classes='all'
+    payload["top_classes"]=top_classes
    
     response = requests.post(url,data=payload,files=files,verify=False)
    
     if not response.ok:
       return "REQUEST FAILED:\nURL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason)
-
-    return json.loads(response.text)
+    
+    res=response.text
+    try:
+        res=json.loads(response.text)
+    except:
+        #An error occurred
+        pass
+    return res
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)

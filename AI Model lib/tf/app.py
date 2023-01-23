@@ -208,26 +208,59 @@ def run_img_model():
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
                 model_info=json.load(f)
             instance=request.form.get('instance')
+            top_classes=request.form.get('top_classes')
+            #From Image file
             if instance==None:
                 if 'image' not in request.files:
                     flash('No image part')
                     return "No image was provided"
                 image = request.files['image']
-                instance = np.asarray(Image.open(image))
+                im=Image.open(image)
+                #cropping
+                shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
+                if(im.width<shape_raw[0] or im.height<shape_raw[1]):
+                    return "The image is too small."
+                im=im.crop(((im.width-shape_raw[0])/2,(im.height-shape_raw[1])/2,(im.width+shape_raw[0])/2,(im.height+shape_raw[1])/2))
+                instance=np.asarray(im)
+                #normalizing
+                nmin=model_info["attributes"]["features"]["image"]["min"]
+                nmax=model_info["attributes"]["features"]["image"]["max"]
+                min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+                max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+                try:
+                    instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
+                except:
+                    return "Could not normalize instance."
             else:
+                #From normalised array (can be flattened or have the expected shape)
                 instance=np.asarray(json.loads(instance))
             if instance.shape!=tuple(model_info["attributes"]["features"]["image"]["shape"]):
                 try:
                     instance = instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape"]))
-                except:
+                except Exception as e:
+                    print(e)
                     return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
             instance=instance.reshape((1,)+instance.shape)
-            print(instance.shape)
             try:
-                predictions = model.predict(instance)
-                return jsonify({'predictions' : predictions.tolist()})
+                predictions = model.predict(instance)[0].tolist()
+                preds_dict={}
+                if(top_classes.lower()!='all'):
+                    try:
+                        top_classes=min(int(top_classes),len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]))
+                    except Exception as e:
+                        print(e)
+                        return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                else:
+                    top_classes=len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"])
+                for i in range(top_classes):
+                    top_index=np.argmax(predictions)
+                    preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=predictions[top_index]
+                    predictions.pop(top_index)
+                    model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"].pop(top_index)
+                return jsonify(preds_dict)
             except Exception as e:
                 print(e)
+                print(instance.shape)
                 return "Something went wrong"
         return "The only supported action for this request is POST"
     return "The model does not exist"
