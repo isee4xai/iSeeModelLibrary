@@ -218,8 +218,6 @@ def run_img_model():
                 im=Image.open(image)
                 #cropping
                 shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
-                if(im.width<shape_raw[0] or im.height<shape_raw[1]):
-                    return "The image is too small."
                 im=im.crop(((im.width-shape_raw[0])/2,(im.height-shape_raw[1])/2,(im.width+shape_raw[0])/2,(im.height+shape_raw[1])/2))
                 instance=np.asarray(im)
                 #normalizing

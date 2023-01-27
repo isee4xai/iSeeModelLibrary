@@ -613,5 +613,87 @@ def predict():
         pass
     return res
 
+
+@app.route('/predict_url', methods=['POST'])
+def predict_url():
+    iden = request.form.get('id')
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing"
+    url= request.form.get('url')
+    if url is None:
+        flash('No url part')
+        return "The url for the prediction function is missing"
+    if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        return "The id does not exists."
+    if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
+        return "There is no configuration file for the id given."
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
+        model_info=json.load(f)
+
+    instance=request.form.get('instance')
+    top_classes=request.form.get('top_classes','all')
+    if (model_info["dataset_type"].lower()=="image"):
+        #From Image file
+        if instance==None:
+            if 'image' not in request.files:
+                flash('No image part')
+                return "No image was provided"
+            image = request.files['image']
+            im=Image.open(image)
+            #cropping
+            shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
+            im=im.crop(((im.width-shape_raw[0])/2,(im.height-shape_raw[1])/2,(im.width+shape_raw[0])/2,(im.height+shape_raw[1])/2))
+            instance=np.asarray(im)
+            #normalizing
+            nmin=model_info["attributes"]["features"]["image"]["min"]
+            nmax=model_info["attributes"]["features"]["image"]["max"]
+            min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+            max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+            try:
+                instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
+            except:
+                return "Could not normalize instance."
+        else:
+            #From normalised array (can be flattened or have the expected shape)
+            instance=np.asarray(json.loads(instance))
+        if instance.shape!=tuple(model_info["attributes"]["features"]["image"]["shape"]):
+            try:
+                instance = instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape"]))
+            except Exception as e:
+                print(e)
+                return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
+        instance=instance.reshape((1,)+instance.shape)
+        def predict(X):
+            try:
+                ret=np.array(json.loads(requests.post(url, data=dict(inputs=str(X.tolist()))).text))
+                return ret
+            except Exception as e:
+                print(e)
+                return "Call to prediction function failed."      
+        try:
+            predictions = predict(instance)[0].tolist()
+            preds_dict={}
+            if(top_classes.lower()!='all'):
+                try:
+                    top_classes=min(int(top_classes),len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]))
+                except Exception as e:
+                    print(e)
+                    return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+            else:
+                top_classes=len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"])
+            for i in range(top_classes):
+                top_index=np.argmax(predictions)
+                preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=predictions[top_index]
+                predictions.pop(top_index)
+                model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"].pop(top_index)
+            return jsonify(preds_dict)
+        except Exception as e:
+            print(e)
+            print(instance.shape)
+            return "Something went wrong"
+    else:
+        return "Datatype " + model_info["dataset_type"] + " is not yet supported for URL prediction"
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)
