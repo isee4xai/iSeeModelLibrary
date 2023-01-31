@@ -4,6 +4,7 @@ from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import tensorflow as tf
 import numpy as np
+import math
 import markdown
 import markdown.extensions.fenced_code
 from PIL import Image
@@ -218,7 +219,7 @@ def run_img_model():
                 im=Image.open(image)
                 #cropping
                 shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
-                im=im.crop(((im.width-shape_raw[0])/2,(im.height-shape_raw[1])/2,(im.width+shape_raw[0])/2,(im.height+shape_raw[1])/2))
+                im=im.crop((math.ceil((im.width-shape_raw[0])/2.0),math.ceil((im.height-shape_raw[1])/2.0),math.ceil((im.width+shape_raw[0])/2.0),math.ceil((im.height+shape_raw[1])/2.0)))
                 instance=np.asarray(im)
                 #normalizing
                 nmin=model_info["attributes"]["features"]["image"]["min"]
