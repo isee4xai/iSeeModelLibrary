@@ -117,7 +117,7 @@ def num_instances(iden):
                 return str(len(os.listdir(folder_path)))
             elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
-                    return str(sum(1 for line in f))
+                    return str(sum(1 for line in f)-1)
             else:
                 return "No training data was uploaded for this model."
         #for rest
@@ -166,7 +166,8 @@ def instance(iden, index):
             #from csv
             elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 instance=None
-                df=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=None)
+                df=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),index_col=0)
+                df.drop(model_info["attributes"]["target_names"], axis=1, inplace=True)
                 instance=df.iloc[[index]].to_numpy()[0]
                 #reshaping
                 try:
