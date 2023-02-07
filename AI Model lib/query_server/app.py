@@ -19,6 +19,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from PIL import Image
 
 from timeit import default_timer as timer
+from datetime import datetime
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}
@@ -249,12 +250,15 @@ def instance(iden, index):
                     return "Could not convert instance to PNG file."
                 #sending
                 try:
+                    now = datetime.now()
+                    current_time = now.strftime("%H_%M_%S")
                     start = timer()
-                    im.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + "_instance.png"))   
+                    im.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden+"_instance_" + str(current_time) + ".png"))   
                     end = timer()
                     print("Saving time: " + str(round(end - start,2)) + " s") 
+
                     ret={}
-                    ret["url"]=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance.png"
+                    ret["url"]=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance_" + str(current_time) + ".png"
                     return ret
                 except Exception as e:
                     print(e)
@@ -707,14 +711,23 @@ def predict_url():
             im=im.crop(((im.width-shape_raw[0])/2,(im.height-shape_raw[1])/2,(im.width+shape_raw[0])/2,(im.height+shape_raw[1])/2))
             instance=np.asarray(im)
             #normalizing
-            nmin=model_info["attributes"]["features"]["image"]["min"]
-            nmax=model_info["attributes"]["features"]["image"]["max"]
-            min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
-            max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
-            try:
-                instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
-            except:
-                return "Could not normalize instance."
+            if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
+                "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
+                nmin=model_info["attributes"]["features"]["image"]["min"]
+                nmax=model_info["attributes"]["features"]["image"]["max"]
+                min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+                max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+                try:
+                    instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
+                except:
+                    return "Could not normalize instance."
+            elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
+                mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
+                std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
+                try:
+                    instance=((instance-mean)/std).astype(np.uint8)
+                except:
+                    return "Could not normalize instance using mean and std dev."
         else:
             #From normalised array (can be flattened or have the expected shape)
             instance=np.asarray(json.loads(instance))
