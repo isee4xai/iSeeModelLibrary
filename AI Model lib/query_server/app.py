@@ -45,12 +45,16 @@ app.config['SESSION_TYPE'] = 'filesystem'
 URLS={  "Sklearn":"http://models-sk:5000",
       "sklearn":"http://models-sk:5000",
 	"XGBoost":"http://models-sk:5000",
+    "xgboost":"http://models-sk:5000",
 	"TF1":"http://models-tf:5000",
 	"TF2":"http://models-tf:5000",
 	"TF":"http://models-tf:5000",
     "TensorFlow1":"http://models-tf:5000",
     "TensorFlow2":"http://models-tf:5000",
-    "LightGBM":"http://models-sk:5000",
+    "tensorflow1":"http://models-tf:5000",
+    "tensorflow2":"http://models-tf:5000",
+    "lightGBM":"http://models-sk:5000",
+    "lightgbm":"http://models-sk:5000"
 }
 
 
