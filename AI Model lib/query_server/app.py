@@ -18,6 +18,8 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 from PIL import Image
 
+from timeit import default_timer as timer
+
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}
 NOT_ALLOWED_SYMBOLS = {'<', '>', ':', '\"', '/', '\\', '|', '\?', '*'}
@@ -166,16 +168,31 @@ def instance(iden, index):
             #from csv
             elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 instance=None
+                start = timer()
                 df=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),index_col=0)
+                end = timer()
+                print("read_csv time: " + str(round(end - start,2)) + " s") 
+
+                start = timer()
                 df.drop(model_info["attributes"]["target_names"], axis=1, inplace=True)
+                end = timer()
+                print("drop time: " + str(round(end - start,2)) + " s") 
+
+                start = timer()
                 instance=df.iloc[[index]].to_numpy()[0]
+                end = timer()
+                print("iloc and to_numpy time: " + str(round(end - start,2)) + " s") 
                 #reshaping
                 try:
+                    start = timer()
                     instance=instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape_raw"]))
+                    end = timer()
+                    print("reshape time: " + str(round(end - start,2)) + " s") 
                 except Exception as e:
                     print(e)
                     return "Could not reshape instance."
                 #denormalizing
+                start = timer()
                 if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
                    "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
                    nmin=model_info["attributes"]["features"]["image"]["min"]
@@ -191,19 +208,26 @@ def instance(iden, index):
                     std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
                     try:
                        instance=((instance*std)+mean).astype(np.uint8)
-                       print(instance)
                     except:
                        return "Could not denormalize instance using mean and std dev."
+                end=timer()
+                print("normalization time: " + str(round(end - start,2)) + " s") 
                 #converting to image
                 im=None
                 try:
+                    start = timer()
                     im=Image.fromarray(np.squeeze(instance))
+                    end = timer()
+                    print("PIL Image from array time: " + str(round(end - start,2)) + " s") 
                 except Exception as e:
                     print(e)
                     return "Could not convert instance to PNG file."
                 #sending
                 try:
+                    start = timer()
                     im.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + "_instance.png"))   
+                    end = timer()
+                    print("Saving time: " + str(round(end - start,2)) + " s") 
                     return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + "_instance.png", as_attachment=True)
                 except Exception as e:
                     print(e)
