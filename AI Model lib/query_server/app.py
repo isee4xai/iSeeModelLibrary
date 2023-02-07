@@ -169,19 +169,30 @@ def instance(iden, index):
             elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 instance=None
                 start = timer()
-                df=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),index_col=0)
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"), 'r') as f:
+                    header=next(f).split(',')
+                    header=[elem.strip() for elem in header]
+                    label_indexes=[]
+                    for target_name in model_info["attributes"]["target_names"]:
+                        label_indexes.append(header.index(target_name))
+                    for i in range(index):
+                        try:
+                            next(f)
+                        except Exception as e:
+                           print(e)
+                           return "Index out of bounds."       
+                    try:
+                        string=next(f)
+                    except Exception as e:
+                        print(e)
+                        return "Index out of bounds."
+                    array_str=string.split(',')
+                    for i in label_indexes:
+                        array_str.pop(i) #remove label column
+                    array_str.pop(0) ##remove row number column
+                    instance=np.asarray(array_str, dtype=float)
                 end = timer()
-                print("read_csv time: " + str(round(end - start,2)) + " s") 
-
-                start = timer()
-                df.drop(model_info["attributes"]["target_names"], axis=1, inplace=True)
-                end = timer()
-                print("drop time: " + str(round(end - start,2)) + " s") 
-
-                start = timer()
-                instance=df.iloc[[index]].to_numpy()[0]
-                end = timer()
-                print("iloc and to_numpy time: " + str(round(end - start,2)) + "s") 
+                print("Getting instance time: " + str(round(end - start,2)) + " s") 
                 #reshaping
                 try:
                     start = timer()
