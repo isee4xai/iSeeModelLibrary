@@ -134,6 +134,20 @@ def num_instances(iden):
     else:
         return "The model does not exist."
 
+
+@app.route('/view_image/<string:iden>/<string:filename>',methods=['GET'])
+def view_image(iden, filename):
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing."
+    if filename is None:
+        flash('No filename part')
+        return "The filename is missing."
+    if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, filename)):
+        return "The file does not exist"
+    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), filename)
+
+
 @app.route('/instance/<string:iden>/<int:index>',methods=['GET'])
 def instance(iden, index):
     if iden is None:
@@ -239,10 +253,12 @@ def instance(iden, index):
                     im.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + "_instance.png"))   
                     end = timer()
                     print("Saving time: " + str(round(end - start,2)) + " s") 
-                    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + "_instance.png", as_attachment=True)
+                    ret={}
+                    ret["url"]=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance.png"
+                    return ret
                 except Exception as e:
                     print(e)
-                    return "Could not send PNG file."
+                    return "Could not send response."
             else:
                 return "No training data was uploaded for this model."
         
