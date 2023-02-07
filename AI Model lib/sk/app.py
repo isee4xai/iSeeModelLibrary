@@ -2,21 +2,20 @@ import sys
 import pathlib
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
+import tensorflow as tf
 import numpy as np
-import joblib
-from sklearn.base import is_classifier
-from pathlib import Path
+import math
 import markdown
 import markdown.extensions.fenced_code
 from PIL import Image
 import os
 from flask import Flask, flash, request
 
-UPLOAD_FOLDER = 'Models'
-ALLOWED_EXTENSIONS = {'pkl'}
-EXTENSION = '.pkl'
-NOT_ALLOWED_SYMBOLS = {'<', '>', ':', '\"', '/', '\\', '|', '\?', '*'}
 
+UPLOAD_FOLDER = 'Models'
+ALLOWED_EXTENSIONS = {'h5'}
+EXTENSION = '.h5'
+NOT_ALLOWED_SYMBOLS = {'<', '>', ':', '\"', '/', '\\', '|', '\?', '*', '\''}
 
 cli = sys.modules['flask.cli']
 cli.show_server_banner = lambda *x: None
@@ -26,6 +25,7 @@ app_path = pathlib.Path(__file__).parent.absolute()
 
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
+
 
 #We check the number of arguments passed to through the console
 
@@ -53,6 +53,7 @@ def index():
 
     return md_template_string
 
+
 @api.representation('image/png')
 def output_file_png(data, code, headers):
     response = send_from_directory(UPLOAD_FOLDER,
@@ -65,15 +66,15 @@ def output_file_html(data, code, headers):
     data["filename"],mimetype="text/html",as_attachment=True)
     return response
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+#def allowed_file(filename):
+#    return '.' in filename and \
+#           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def allowed_id(iden):
-    for c in NOT_ALLOWED_SYMBOLS:
-        if c in iden:
-            return False
-    return True
+#def allowed_id(iden):
+#    for c in NOT_ALLOWED_SYMBOLS:
+#        if c in iden:
+#            return False
+#    return True
 
 #@app.route('/upload_model', methods=['POST', 'PUT'])
 #def upload_model():
@@ -108,7 +109,7 @@ def allowed_id(iden):
 #            pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
 #            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename, filename + EXTENSION))
 #            with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'w') as f:
-#                json.dump(parameters, f, ensure_ascii = False)
+#                json.dump(parameters, f)
 #            return jsonify(
 #                modelid = filename
 #            )
@@ -148,7 +149,7 @@ def allowed_id(iden):
 #     elif request.method == 'GET':
 #        iden = request.args.get('id')
 #     else:
-#        return "The only supported actions for this request are POST and GET" 
+#        return "The only supported actions for this request are POST and GET"      
 #     if iden is None:
 #        flash('No params part')
 #        return "The model id is missing"
@@ -200,66 +201,98 @@ def allowed_id(iden):
 def run_img_model():
     iden = request.form.get('id')
     if iden is None:
-        flash('No params part')
+        flash('No id part')
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if request.method == 'POST':
-            model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
+            model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
                 model_info=json.load(f)
             instance=request.form.get('instance')
+            top_classes=request.form.get('top_classes')
+            #From Image file
             if instance==None:
                 if 'image' not in request.files:
                     flash('No image part')
                     return "No image was provided"
                 image = request.files['image']
-                instance = np.asarray(Image.open(image))
+                im=Image.open(image)
+                #cropping
+                shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
+                im=im.crop((math.ceil((im.width-shape_raw[0])/2.0),math.ceil((im.height-shape_raw[1])/2.0),math.ceil((im.width+shape_raw[0])/2.0),math.ceil((im.height+shape_raw[1])/2.0)))
+                instance=np.asarray(im)
+                #normalizing
+                if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
+                    "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
+                    nmin=model_info["attributes"]["features"]["image"]["min"]
+                    nmax=model_info["attributes"]["features"]["image"]["max"]
+                    min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+                    max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+                    try:
+                        instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
+                    except:
+                        return "Could not normalize instance."
+                elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
+                    mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
+                    std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
+                    try:
+                        instance=((instance-mean)/std).astype(np.uint8)
+                    except:
+                        return "Could not normalize instance using mean and std dev."
             else:
+                #From normalised array (can be flattened or have the expected shape)
                 instance=np.asarray(json.loads(instance))
             if instance.shape!=tuple(model_info["attributes"]["features"]["image"]["shape"]):
                 try:
                     instance = instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape"]))
-                except:
+                except Exception as e:
+                    print(e)
                     return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
             instance=instance.reshape((1,)+instance.shape)
-            print(instance.shape)
             try:
-                predictions = model.predict(instance)
-                return jsonify({'predictions' : predictions.tolist()})
+                predictions = model.predict(instance)[0].tolist()
+                preds_dict={}
+                if(top_classes.lower()!='all'):
+                    try:
+                        top_classes=min(int(top_classes),len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]))
+                    except Exception as e:
+                        print(e)
+                        return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                else:
+                    top_classes=len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"])
+                for i in range(top_classes):
+                    top_index=np.argmax(predictions)
+                    preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=predictions[top_index]
+                    predictions.pop(top_index)
+                    model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"].pop(top_index)
+                return jsonify(preds_dict)
             except Exception as e:
                 print(e)
+                print(instance.shape)
                 return "Something went wrong"
         return "The only supported action for this request is POST"
     return "The model does not exist"
-
 
 
 @app.route('/Tabular/run', methods=['POST'])
 def run_tab_model():
     iden = request.form.get('id')
     if iden is None:
-        flash('No id part')
+        flash('No params part')
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        data = request.form.get('instance')
+        instance = request.form.get('instance')
         if request.method == 'POST':
-            model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
-            if data is None:
-                flash('No instances part')
+            model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
+            if instance is None:
+                flash('No instance part')
                 return "No instances were provided"
-            data = json.loads(data)
-            X = np.asarray(data)
-            if len(X.shape)==1:
-                 X=X.reshape(1, -1)
+            instance = json.loads(instance)
+            instance = np.asarray(instance)
+            if len(instance.shape)==1:
+                 instance=instance.reshape(1, -1)
+            X = tf.convert_to_tensor(instance)
             try:
-                 #if it's a classification model we try to launch predict_proba
-                if is_classifier(model):
-                    try:
-                        predictions = model.predict_proba(X)
-                        return jsonify({'predictions' : predictions.tolist()})
-                    except Exception as e:
-                        predictions = model.predict(X)
-                        return jsonify({'predictions' : predictions.tolist()})
                 predictions = model.predict(X)
                 return jsonify({'predictions' : predictions.tolist()})
             except Exception as e:
@@ -272,12 +305,12 @@ def run_tab_model():
 def run_text_model():
     iden = request.form.get('id')
     if iden is None:
-        flash('No id part')
+        flash('No params part')
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         data = request.form.get('instance')
         if request.method == 'POST':
-            model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
+            model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
             if data is None:
                 flash('No instances part')
                 return "No instances were provided"
@@ -290,15 +323,11 @@ def run_text_model():
             except:
                 X=[X]
             try:
-                predictions = model.predict_proba(X)
+                predictions = model.predict(X)
                 return jsonify({'predictions' : predictions.tolist()})
-            except:
-                try:
-                    predictions = model.predict(X)
-                    return jsonify({'predictions' : predictions.tolist()})
-                except Exception as e:
-                    print(e)
-                    return "Something went wrong"
+            except Exception as e:
+                print(e)
+                return "Something went wrong"
         return "The only supported action for this request is POST"
     return "The model does not exist"
 
