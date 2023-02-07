@@ -66,7 +66,21 @@ URLS={  "Sklearn":"http://models-sk:5000",
 
 
 
-DATASET_TYPES=["Tabular", "Text", "Image"]
+DATASET_TYPES={
+               "image":"Image",
+               "Image":"Image",
+               "Multivariate":"Tabular",
+               "Univariate":"Tabular",
+               "multivariate":"Tabular",
+               "univariate":"Tabular",
+               "TimeSeries":"Timeseries",
+               "timeseries":"Timeseries",
+               "Timeseries":"Timeseries",
+               "Text":"Text",
+               "text":"Text"
+               }
+
+
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 #We check the number of arguments passed to through the console
@@ -650,7 +664,7 @@ def predict():
     else:
         return "The prediction resource currently does not support " +model_info["backend"]+ " models."
     if model_info["dataset_type"] in DATASET_TYPES:
-        url=url+model_info["dataset_type"]+"/"
+        url=url+DATASET_TYPES[model_info["dataset_type"]]+"/"
     else:
         return "The prediction resource currently does not support " +model_info["dataset_type"]+ " dataset types."
     url=url+"run"
