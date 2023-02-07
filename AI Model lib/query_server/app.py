@@ -172,23 +172,32 @@ def instance(iden, index):
                 #reshaping
                 try:
                     instance=instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape_raw"]))
-                    print(instance)
                 except Exception as e:
                     print(e)
                     return "Could not reshape instance."
                 #denormalizing
-                nmin=model_info["attributes"]["features"]["image"]["min"]
-                nmax=model_info["attributes"]["features"]["image"]["max"]
-                min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
-                max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
-                try:
-                    instance=(((instance-nmin)/(nmax-nmin))*(max_raw-min_raw)+min_raw).astype(np.uint8)
-                except:
-                    return "Could not denormalize instance."
+                if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
+                   "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
+                   nmin=model_info["attributes"]["features"]["image"]["min"]
+                   nmax=model_info["attributes"]["features"]["image"]["max"]
+                   min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+                   max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+                   try:
+                       instance=(((instance-nmin)/(nmax-nmin))*(max_raw-min_raw)+min_raw).astype(np.uint8)
+                   except:
+                       return "Could not denormalize instance using min and max."
+                elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
+                    mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
+                    std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
+                    try:
+                       instance=((instance*std)+mean).astype(np.uint8)
+                       print(instance)
+                    except:
+                       return "Could not denormalize instance using mean and std dev."
                 #converting to image
                 im=None
                 try:
-                    im=Image.fromarray(instance)
+                    im=Image.fromarray(np.squeeze(instance))
                 except Exception as e:
                     print(e)
                     return "Could not convert instance to PNG file."
