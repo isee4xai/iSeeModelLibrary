@@ -181,7 +181,7 @@ def instance(iden, index):
                 start = timer()
                 instance=df.iloc[[index]].to_numpy()[0]
                 end = timer()
-                print("iloc and to_numpy time: " + str(round(end - start,2)) + " s") 
+                print("iloc and to_numpy time: " + str(round(end - start,2)) + "s") 
                 #reshaping
                 try:
                     start = timer()
