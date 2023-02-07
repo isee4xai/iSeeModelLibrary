@@ -42,11 +42,17 @@ app.config['SESSION_TYPE'] = 'filesystem'
 #      "TF2":"https://models-tf-dev.isee4xai.com/",
 #      "TF":"https://models-tf-dev.isee4xai.com/"}
 
-URLS={  "sklearn":"http://models-sk:5000",
-	"xgboost":"http://models-sk:5000",
+URLS={  "Sklearn":"http://models-sk:5000",
+      "sklearn":"http://models-sk:5000",
+	"XGBoost":"http://models-sk:5000",
 	"TF1":"http://models-tf:5000",
 	"TF2":"http://models-tf:5000",
-	"TF":"http://models-tf:5000"}
+	"TF":"http://models-tf:5000",
+    "TensorFlow1":"http://models-tf:5000",
+    "TensorFlow2":"http://models-tf:5000",
+    "LightGBM":"http://models-sk:5000",
+}
+
 
 #URLS={  "sklearn":"http://localhost:5000",
 #	"xgboost":"http://localhost:5000",
