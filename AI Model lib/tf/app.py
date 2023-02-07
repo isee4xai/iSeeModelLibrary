@@ -222,14 +222,23 @@ def run_img_model():
                 im=im.crop((math.ceil((im.width-shape_raw[0])/2.0),math.ceil((im.height-shape_raw[1])/2.0),math.ceil((im.width+shape_raw[0])/2.0),math.ceil((im.height+shape_raw[1])/2.0)))
                 instance=np.asarray(im)
                 #normalizing
-                nmin=model_info["attributes"]["features"]["image"]["min"]
-                nmax=model_info["attributes"]["features"]["image"]["max"]
-                min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
-                max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
-                try:
-                    instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
-                except:
-                    return "Could not normalize instance."
+                if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
+                    "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
+                    nmin=model_info["attributes"]["features"]["image"]["min"]
+                    nmax=model_info["attributes"]["features"]["image"]["max"]
+                    min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
+                    max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
+                    try:
+                        instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
+                    except:
+                        return "Could not normalize instance."
+                elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
+                    mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
+                    std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
+                    try:
+                        instance=((instance-mean)/std).astype(np.uint8)
+                    except:
+                        return "Could not normalize instance using mean and std dev."
             else:
                 #From normalised array (can be flattened or have the expected shape)
                 instance=np.asarray(json.loads(instance))
