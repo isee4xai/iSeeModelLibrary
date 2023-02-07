@@ -269,7 +269,7 @@ def run_img_model():
             except Exception as e:
                 print(e)
                 print(instance.shape)
-                return "Something went wrong"
+                return str(e)
         return "The only supported action for this request is POST"
     return "The model does not exist"
 
