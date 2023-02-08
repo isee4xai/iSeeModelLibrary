@@ -249,6 +249,7 @@ def run_img_model():
                     print(e)
                     return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
             instance=instance.reshape((1,)+instance.shape)
+            label=model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]
             try:
                 predictions = model.predict(instance)[0].tolist()
                 preds_dict={}
@@ -262,7 +263,10 @@ def run_img_model():
                     top_classes=len(predictions)
                 for i in range(top_classes):
                     top_index=np.argmax(predictions)
-                    preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=round(predictions[top_index],2)
+                    if(label["data_type"].lowercase()=="categorical"):
+                        preds_dict[label["values_raw"][top_index]]=round(predictions[top_index]*100,2)
+                    else:
+                        preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],4)
                     predictions.pop(top_index)
                     model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"].pop(top_index)
                 return jsonify(preds_dict)
