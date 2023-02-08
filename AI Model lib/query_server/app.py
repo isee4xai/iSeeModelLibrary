@@ -73,6 +73,8 @@ DATASET_TYPES={
                "Univariate":"Tabular",
                "multivariate":"Tabular",
                "univariate":"Tabular",
+               "Tabular":"Tabular",
+               "tabular":"Tabular",
                "TimeSeries":"Timeseries",
                "timeseries":"Timeseries",
                "Timeseries":"Timeseries",
