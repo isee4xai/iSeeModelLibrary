@@ -284,7 +284,8 @@ def instance(iden, index):
                     print("Saving time: " + str(round(end - start,2)) + " s") 
 
                     ret={}
-                    ret["url"]=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance_" + str(current_time) + ".png"
+                    s=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance_" + str(current_time) + ".png"
+                    ret["url"]=s[:4] + 's' + s[4:]
                     return ret
                 except Exception as e:
                     print(e)
