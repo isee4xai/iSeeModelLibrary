@@ -285,10 +285,10 @@ def instance(iden, index):
 
                     ret={}
                     s=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance_" + str(current_time) + ".png"
-		    if not s.startswith("https"):
-                    	ret["url"]=s[:4] + 's' + s[4:]
-		    else:
-			ret["url"]=s
+                    if not s.startswith("https"):
+                        ret["url"]=s[:4] + 's' + s[4:]
+                    else:
+                        ret["url"]=s
                     return ret
                 except Exception as e:
                     print(e)
