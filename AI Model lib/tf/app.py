@@ -262,7 +262,7 @@ def run_img_model():
                     top_classes=len(predictions)
                 for i in range(top_classes):
                     top_index=np.argmax(predictions)
-                    preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=predictions[top_index]
+                    preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=round(predictions[top_index],2)
                     predictions.pop(top_index)
                     model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"].pop(top_index)
                 return jsonify(preds_dict)
