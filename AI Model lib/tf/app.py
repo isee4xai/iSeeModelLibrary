@@ -254,12 +254,12 @@ def run_img_model():
                 preds_dict={}
                 if(top_classes.lower()!='all'):
                     try:
-                        top_classes=min(int(top_classes),len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]))
+                        top_classes=min(int(top_classes),len(predictions))
                     except Exception as e:
                         print(e)
                         return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
                 else:
-                    top_classes=len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"])
+                    top_classes=len(predictions)
                 for i in range(top_classes):
                     top_index=np.argmax(predictions)
                     preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=predictions[top_index]
@@ -269,7 +269,7 @@ def run_img_model():
             except Exception as e:
                 print(e)
                 print(instance.shape)
-                return str(e)
+                return "Something went wrong"
         return "The only supported action for this request is POST"
     return "The model does not exist"
 
