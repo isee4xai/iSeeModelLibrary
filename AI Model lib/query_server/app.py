@@ -172,7 +172,7 @@ def view_image(iden, filename):
         return "The filename is missing."
     if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, filename)):
         return "The file does not exist"
-    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), filename,as_attachment=True)
+    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), filename)
 
 
 @app.route('/instance/<string:iden>/<int:index>',methods=['GET'])
