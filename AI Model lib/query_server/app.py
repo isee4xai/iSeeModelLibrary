@@ -1,5 +1,8 @@
+from lib2to3.pgen2 import token
+from pickle import TRUE
 import sys
 import pathlib
+from turtle import Vec2D
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import random
@@ -17,6 +20,9 @@ from flask import Flask, flash, request
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from PIL import Image
+from utils import ontologyConstants
+from utils.base64 import vector_to_base64,PIL_to_base64
+from utils.img_processing import denormalize_img
 
 from timeit import default_timer as timer
 from datetime import datetime
@@ -36,52 +42,9 @@ app.config['CORS_HEADERS'] = 'Content-Ty'
 app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-#URLS={"sklearn":"https://models-sk-dev.isee4xai.com/",
-#      "xgboost":"https://models-sk-dev.isee4xai.com/",
-#      "TF1":"https://models-tf-dev.isee4xai.com/",
-#      "TF2":"https://models-tf-dev.isee4xai.com/",
-#      "TF":"https://models-tf-dev.isee4xai.com/"}
 
-URLS={  "Sklearn":"http://models-sk:5000",
-      "sklearn":"http://models-sk:5000",
-	"XGBoost":"http://models-sk:5000",
-    "xgboost":"http://models-sk:5000",
-	"TF1":"http://models-tf:5000",
-	"TF2":"http://models-tf:5000",
-	"TF":"http://models-tf:5000",
-    "TensorFlow1":"http://models-tf:5000",
-    "TensorFlow2":"http://models-tf:5000",
-    "tensorflow1":"http://models-tf:5000",
-    "tensorflow2":"http://models-tf:5000",
-    "lightGBM":"http://models-sk:5000",
-    "lightgbm":"http://models-sk:5000"
-}
-
-
-#URLS={  "sklearn":"http://localhost:5000",
-#	"xgboost":"http://localhost:5000",
-#	"TF1":"http://localhost:5000",
-#	"TF2":"http://localhost:5000",
-#	"TF":"http://localhost:5000"}
-
-
-
-DATASET_TYPES={
-               "image":"Image",
-               "Image":"Image",
-               "Multivariate":"Tabular",
-               "Univariate":"Tabular",
-               "multivariate":"Tabular",
-               "univariate":"Tabular",
-               "Tabular":"Tabular",
-               "tabular":"Tabular",
-               "TimeSeries":"Timeseries",
-               "timeseries":"Timeseries",
-               "Timeseries":"Timeseries",
-               "Text":"Text",
-               "text":"Text"
-               }
-
+SKLEARN_SERVER="http://models-sk:5000"
+TENSORFLOW_SERVER="http://models-tf:5000"
 
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
@@ -139,25 +102,30 @@ def num_instances(iden):
              return "There is no configuration file for this model."
 
         #For Images
-        if(model_info["dataset_type"].lower()=="image"):
+        if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
             #from image folder
             folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
             if(os.path.exists(folder_path)):
-                return str(len(os.listdir(folder_path)))
+                nfiles=sum([len(files) for r, d, files in os.walk(folder_path)])
+                if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data", model_info["attributes"]["target_names"][0]+".csv"))):
+                   nfiles=nfiles-1
+                return {"count":nfiles}
+            #from .csv
             elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
-                    return str(sum(1 for line in f)-1)
+                    return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
-        #for rest
-        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
-            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
-            try:
-                return str(len(df.shape[0]))
-            except:
-                return "Could not extract number of instances from the data."
         else:
-            return "No training data was uploaded for this model."
+            #for rest
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+                df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
+                try:
+                    return str({"count":len(df.shape[0])})
+                except:
+                    return "Could not extract number of instances from the data."
+            else:
+                return "No training data was uploaded for this model."
     else:
         return "The model does not exist."
 
@@ -191,20 +159,44 @@ def instance(iden, index):
              return "There is no configuration file for this model."
 
         #For Images
-        if(model_info["dataset_type"].lower()=="image"):
+        if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
 
             #from image folder
             folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
             if(os.path.exists(folder_path)):  
-                if(index>=0 and index<len(os.listdir(folder_path))):
-                    try:
-                        #sending
-                        return send_from_directory(folder_path, os.listdir(folder_path)[index], as_attachment=True)
-                    except Exception as e:
-                        print(e)
-                        return "Could not send image file."
-                else:
-                    return "The index is invalid. The index must be between 0 and " + str(len(os.listdir("HANDWRITTN_data")-1))
+                extrafile=0
+                if(os.path.exists(os.path.join(folder_path,model_info["attributes"]["target_names"][0]+".csv"))):
+                    extrafile=1
+
+                img_path=None
+                i=0
+                found=False
+                for dirpath,_,filenames in os.walk(folder_path):
+                    for f in filenames:
+                        if i==index:
+                            img_path=os.path.abspath(os.path.join(dirpath, f))
+                            found=True
+                            break
+                        i=i+1
+                    if found:
+                        break
+                if(img_path is None):
+                    return "The index is invalid."
+
+                im=None
+                try:
+                    im=Image.open(img_path)
+                except Exception as e:
+                    return "Could not open image file with PIL: " + str(e)
+
+                try:
+                    b64Image=PIL_to_base64(im)
+                except Exception as e:
+                    return "Could not convert PIL image to base64: " + str(e)
+
+                #returning dict
+                ret={"type":"image", "instance":b64Image,"size_raw":list(model_info["attributes"]["features"]["image"]["shape_raw"][0:2])}
+                return ret
 
             #from csv
             elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
@@ -234,65 +226,24 @@ def instance(iden, index):
                     instance=np.asarray(array_str, dtype=float)
                 end = timer()
                 print("Getting instance time: " + str(round(end - start,2)) + " s") 
-                #reshaping
-                try:
-                    start = timer()
-                    instance=instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape_raw"]))
-                    end = timer()
-                    print("reshape time: " + str(round(end - start,2)) + " s") 
-                except Exception as e:
-                    print(e)
-                    return "Could not reshape instance."
-                #denormalizing
-                start = timer()
-                if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
-                   "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
-                   nmin=model_info["attributes"]["features"]["image"]["min"]
-                   nmax=model_info["attributes"]["features"]["image"]["max"]
-                   min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
-                   max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
-                   try:
-                       instance=(((instance-nmin)/(nmax-nmin))*(max_raw-min_raw)+min_raw).astype(np.uint8)
-                   except:
-                       return "Could not denormalize instance using min and max."
-                elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
-                    mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
-                    std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
-                    try:
-                       instance=((instance*std)+mean).astype(np.uint8)
-                    except:
-                       return "Could not denormalize instance using mean and std dev."
-                end=timer()
-                print("normalization time: " + str(round(end - start,2)) + " s") 
-                #converting to image
-                im=None
-                try:
-                    start = timer()
-                    im=Image.fromarray(np.squeeze(instance))
-                    end = timer()
-                    print("PIL Image from array time: " + str(round(end - start,2)) + " s") 
-                except Exception as e:
-                    print(e)
-                    return "Could not convert instance to PNG file."
-                #sending
-                try:
-                    now = datetime.now()
-                    current_time = now.strftime("%H_%M_%S")
-                    start = timer()
-                    im.save(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden+"_instance_" + str(current_time) + ".png"))   
-                    end = timer()
-                    print("Saving time: " + str(round(end - start,2)) + " s") 
 
-                    ret={}
-                    s=os.path.join(request.url_root,"view_image/",iden) + "/"+iden + "_instance_" + str(current_time) + ".png"
-                    if not s.startswith("https"):
-                        ret["url"]=s[:4] + 's' + s[4:]
-                    else:
-                        ret["url"]=s
-                    return ret
+                #denormalizing
+                try:
+                    instance=denormalize_img(instance,model_info)
                 except Exception as e:
-                    print(e)
-                    return "Could not send response."
+                    return "Could not denormalize instance: " + str(e)
+                
+                #converting to base64 Image
+                b64Image=None
+                try:
+                    b64Image=vector_to_base64(instance)
+                except Exception as e:
+                    return "Could not convert instance to base64 Image: " + str(e)
+               
+                #returning dict
+                ret={"type":"image", "instance":b64Image,"size_raw":list(model_info["attributes"]["features"]["image"]["shape_raw"][0:2])}
+                return ret
+          
             else:
                 return "No training data was uploaded for this model."
         
@@ -476,22 +427,32 @@ def dataset():
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
                 model_info=json.load(f)
             #For Images
-            if(model_info["dataset_type"].lower()=="image"):
+            if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
                 #zip file with images
                 if(file.content_type=="application/zip"):
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
-                    folder_path_temp=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_datatemp")
-                    os.mkdir(folder_path_temp)
+                    folder_path_temp=os.path.join(app.config['UPLOAD_FOLDER'], iden, "temp")
+                    os.makedirs(folder_path_temp,exist_ok=True)
                     with zipfile.ZipFile(file) as zip_ref:
-                        for zip_info in zip_ref.infolist():
-                            if zip_info.filename[-1] in ['/','\\']:
-                                continue
-                            zip_info.filename = os.path.basename(zip_info.filename)
-                            zip_ref.extract(zip_info, folder_path_temp)
+                            zip_ref.extractall(folder_path_temp)
+                    filename=file.filename.split(".zip")[0]
+                    if(filename not in os.listdir(folder_path_temp)):
+                        filename=""
+                    if(model_info["model_task"] in ontologyConstants.CLASSIFICATION_URIS): 
+                        if set(os.listdir(folder_path_temp+'/'+filename))!=set(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]):
+                            shutil.rmtree(folder_path_temp)
+                            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
+                            return "The names of the subfolders in the zipped file do not match the names of the output classes."
+                    elif(model_info["model_task"] in ontologyConstants.REGRESSION_URIS): 
+                        if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,folder_path_temp,filename, model_info["attributes"]["target_names"][0]+".csv"))):
+                            shutil.rmtree(folder_path_temp)
+                            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
+                            return "There is no target .csv file with the regression values."
                     folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
                     if os.path.exists(folder_path):
                         shutil.rmtree(folder_path)
-                    os.rename(folder_path_temp,folder_path)
+                    os.rename(os.path.join(folder_path_temp,filename),folder_path)
+                    shutil.rmtree(folder_path_temp)
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv')):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv')) 
                 #csv with flattened images  
@@ -655,47 +616,62 @@ def model_list():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    iden = request.form.get('id')
-    if iden is None:
-        flash('No id part')
-        return "The model id is missing"
+    params_str = request.form.get('params')
+    if params_str is None:
+        flash('No params part')
+        return "The params are missing"
+    params={}
+    try:
+        params = json.loads(params_str)
+    except Exception as e:
+        return "Could not convert params to JSON: " + str(e)
+    #Check params
+    if("id" not in params):
+        return "The model id was not specified in the params."
+    if("type" not in params):
+        return "The instance type was not specified in the params."
+    if("instance" not in params):
+        return "The instance was not specified in the params."
+
+    iden=params["id"]
+    inst_type=params["type"]
+    if(inst_type=="dict"):
+        instance=json.loads(params["instance"])
+    elif(inst_type=="image"):
+        instance=params["instance"]
+    top_classes='all'
+    try:
+        top_classes=int(params["top_classes"])
+    except:
+        pass
+        
     if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        return "The id does not exists."
+        return "The model id does not exists."
     with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
         model_info=json.load(f)
     
     url=""
-    if model_info["backend"] in URLS:
-        url=url+URLS[model_info["backend"]]+"/"
+    if model_info["backend"] in ontologyConstants.SKLEARN_URIS:
+        url=url+SKLEARN_SERVER+"/"
+    elif model_info["backend"] in ontologyConstants.TENSORFLOW_URIS:
+        url=url+TENSORFLOW_SERVER+"/"
     else:
-        return "The prediction resource currently does not support " +model_info["backend"]+ " models."
-    if model_info["dataset_type"] in DATASET_TYPES:
-        url=url+DATASET_TYPES[model_info["dataset_type"]]+"/"
+        return "The prediction resource currently does not support " +model_info["backend"].split("#")[-1]+ " models."
+
+    if model_info["dataset_type"] in ontologyConstants.IMAGE_URIS:
+        url=url+"Image/"
+    elif model_info["dataset_type"] in ontologyConstants.TABULAR_URIS:
+        url=url+"Tabular/"
+    elif model_info["dataset_type"] in ontologyConstants.TEXT_URIS:
+        url=url+"Text/"
+    elif model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS:
+        url=url+"Timeseries/"
     else:
-        return "The prediction resource currently does not support " +model_info["dataset_type"]+ " dataset types."
+        return "The prediction resource currently does not support " +model_info["dataset_type"].split("#")[-1]+ " dataset type."
     url=url+"run"
 
-    payload={"id": iden}
-    files={}
-    instance=request.form.get('instance')
-    image = request.files.get('image', None)
-    top_classes=request.form.get('top_classes')
-    
-    if instance==None:
-        if model_info["dataset_type"].lower()=="image" and image!=None:
-            files["image"]=image
-        else:
-            return "No instance or image was provided."
-    else:
-        payload["instance"]=instance
-
-    try:
-        top_classes=int(top_classes)
-    except:
-        top_classes='all'
-    payload["top_classes"]=top_classes
-   
-    response = requests.post(url,data=payload,files=files,verify=False)
+    payload={"params":json.dumps({"id": iden,"type":inst_type,"instance":instance,"top_classes":top_classes})}
+    response = requests.post(url,data=payload,verify=False)
    
     if not response.ok:
       return "REQUEST FAILED:\nURL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason)
@@ -728,7 +704,7 @@ def predict_url():
 
     instance=request.form.get('instance')
     top_classes=request.form.get('top_classes','all')
-    if (model_info["dataset_type"].lower()=="image"):
+    if (model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
         #From Image file
         if instance==None:
             if 'image' not in request.files:
@@ -736,9 +712,6 @@ def predict_url():
                 return "No image was provided"
             image = request.files['image']
             im=Image.open(image)
-            #cropping
-            shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
-            im=im.crop(((im.width-shape_raw[0])/2,(im.height-shape_raw[1])/2,(im.width+shape_raw[0])/2,(im.height+shape_raw[1])/2))
             instance=np.asarray(im)
             #normalizing
             if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
@@ -797,7 +770,7 @@ def predict_url():
             print(instance.shape)
             return "Something went wrong"
     else:
-        return "Datatype " + model_info["dataset_type"] + " is not yet supported for URL prediction"
+        return "Datatype " + model_info["dataset_type"].split('#')[-1] + " is not yet supported for URL prediction"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)

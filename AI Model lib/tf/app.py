@@ -10,6 +10,8 @@ import markdown.extensions.fenced_code
 from PIL import Image
 import os
 from flask import Flask, flash, request
+from utils.base64 import base64_to_vector
+from utils.img_processing import normalize_img
 
 
 UPLOAD_FOLDER = 'Models'
@@ -199,61 +201,61 @@ def output_file_html(data, code, headers):
 
 @app.route('/Image/run', methods=['POST'])
 def run_img_model():
-    iden = request.form.get('id')
-    if iden is None:
-        flash('No id part')
-        return "The model id is missing"
+
+    #Check params
+    params_str = request.form.get('params')
+    if params_str is None:
+        flash('No params part')
+        return "The params are missing"
+    params={}
+    try:
+        params = json.loads(params_str)
+    except Exception as e:
+        return "Could not convert params to JSON: " + str(e)
+
+    if("id" not in params):
+        return "The model id was not specified in the params."
+    if("type" not in params):
+        return "The instance type was not specified in the params."
+    if("instance" not in params):
+        return "The instance was not specified in the params."
+    if("top_classes" not in params):
+        return "The top_classes parameter was not specified."
+    iden=params["id"]
+    inst_type=params["type"]
+    if(inst_type=="dict"):
+        instance=json.loads(params["instance"])
+    elif(inst_type=="image"):
+        instance=params["instance"]
+    top_classes=params["top_classes"]
+    if(params["top_classes"]!='all'):
+        top_classes=int(params["top_classes"])
+
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if request.method == 'POST':
             model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
                 model_info=json.load(f)
-            instance=request.form.get('instance')
-            top_classes=request.form.get('top_classes')
-            #From Image file
-            if instance==None:
-                if 'image' not in request.files:
-                    flash('No image part')
-                    return "No image was provided"
-                image = request.files['image']
-                im=Image.open(image)
-                #cropping
-                shape_raw=model_info["attributes"]["features"]["image"]["shape_raw"]
-                im=im.crop((math.ceil((im.width-shape_raw[0])/2.0),math.ceil((im.height-shape_raw[1])/2.0),math.ceil((im.width+shape_raw[0])/2.0),math.ceil((im.height+shape_raw[1])/2.0)))
-                instance=np.asarray(im)
-                #normalizing
-                if("min" in model_info["attributes"]["features"]["image"] and "max" in model_info["attributes"]["features"]["image"] and
-                    "min_raw" in model_info["attributes"]["features"]["image"] and "max_raw" in model_info["attributes"]["features"]["image"]):
-                    nmin=model_info["attributes"]["features"]["image"]["min"]
-                    nmax=model_info["attributes"]["features"]["image"]["max"]
-                    min_raw=model_info["attributes"]["features"]["image"]["min_raw"]
-                    max_raw=model_info["attributes"]["features"]["image"]["max_raw"]
-                    try:
-                        instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
-                    except:
-                        return "Could not normalize instance."
-                elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
-                    mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
-                    std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
-                    try:
-                        instance=((instance-mean)/std).astype(np.uint8)
-                    except:
-                        return "Could not normalize instance using mean and std dev."
-            else:
-                #From normalised array (can be flattened or have the expected shape)
-                instance=np.asarray(json.loads(instance))
-            if instance.shape!=tuple(model_info["attributes"]["features"]["image"]["shape"]):
-                try:
-                    instance = instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape"]))
-                except Exception as e:
-                    print(e)
-                    return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
-            instance=instance.reshape((1,)+instance.shape)
+
+            #converting to vector
+            try:
+                instance=base64_to_vector(instance)
+            except Exception as e:  
+                return "Could not convert base64 Image to vector: " + str(e)
+
+            #normalizing
+            try:
+                instance=normalize_img(instance,model_info)
+            except Exception as e:
+                 return  "Could not normalize instance: " + str(e)
+
             label=model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]
             try:
+
                 predictions = model.predict(instance)[0].tolist()
+                print(predictions)
                 preds_dict={}
-                if(top_classes.lower()!='all'):
+                if(top_classes!='all'):
                     try:
                         top_classes=min(int(top_classes),len(predictions))
                     except Exception as e:
@@ -263,9 +265,9 @@ def run_img_model():
                     top_classes=len(predictions)
                 for i in range(top_classes):
                     top_index=np.argmax(predictions)
-                    preds_dict[model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"][top_index]]=round(predictions[top_index],4)
+                    preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],4)
                     predictions.pop(top_index)
-                    model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"].pop(top_index)
+                    label["values_raw"].pop(top_index)
                 return jsonify(preds_dict)
             except Exception as e:
                 print(e)
