@@ -1,8 +1,5 @@
-from lib2to3.pgen2 import token
-from pickle import TRUE
 import sys
 import pathlib
-from turtle import Vec2D
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import random
