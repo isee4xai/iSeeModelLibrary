@@ -41,7 +41,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 
 SKLEARN_SERVER="http://models-sk:5000"
-TENSORFLOW_SERVER="http://models-tf:5000"
+TENSORFLOW_SERVER="http://localhost:5000"
 
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
@@ -393,6 +393,13 @@ def upload_model():
         if "attributes" not in parameters:
             flash('The attributes for this model were not specified.')
             return 'The attributes for this model were not specified.'
+
+        if parameters["backend"] not in ontologyConstants.LIGHTGBM_URIS + ontologyConstants.PYTORCH_URIS + ontologyConstants.SKLEARN_URIS + ontologyConstants.TENSORFLOW_URIS + ontologyConstants.XGBOOST_URIS:
+            return "Backend not supported."
+        if parameters["dataset_type"] not in ontologyConstants.IMAGE_URIS + ontologyConstants.TABULAR_URIS + ontologyConstants.TEXT_URIS + ontologyConstants.TIMESERIES_URIS:
+            return "Dataset type not supported."
+        if parameters["model_task"] not in ontologyConstants.CLASSIFICATION_URIS + ontologyConstants.REGRESSION_URIS:
+            return "Model task not supported."
         
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "."+file.filename.rsplit('.', 1)[1].lower()))
@@ -613,15 +620,11 @@ def model_list():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    params_str = request.form.get('params')
-    if params_str is None:
+    params = request.json
+    if params is None:
         flash('No params part')
         return "The params are missing"
-    params={}
-    try:
-        params = json.loads(params_str)
-    except Exception as e:
-        return "Could not convert params to JSON: " + str(e)
+
     #Check params
     if("id" not in params):
         return "The model id was not specified in the params."
