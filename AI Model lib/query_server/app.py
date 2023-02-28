@@ -1,8 +1,5 @@
-from lib2to3.pgen2 import token
-from pickle import TRUE
 import sys
 import pathlib
-from turtle import Vec2D
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import random
@@ -23,6 +20,7 @@ from PIL import Image
 from utils import ontologyConstants
 from utils.base64 import vector_to_base64,PIL_to_base64
 from utils.img_processing import denormalize_img
+from utils.dataframe_processing import denormalize_dataframe
 
 from timeit import default_timer as timer
 from datetime import datetime
@@ -43,8 +41,8 @@ app.secret_key = '^%huYtFd90;90jjj'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 
-SKLEARN_SERVER="http://models-sk:5000"
-TENSORFLOW_SERVER="http://models-tf:5000"
+SKLEARN_SERVER="http://localhost:5000"
+TENSORFLOW_SERVER="http://localhost:5000"
 
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
@@ -111,19 +109,15 @@ def num_instances(iden):
                    nfiles=nfiles-1
                 return {"count":nfiles}
             #from .csv
-            elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
-                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
+            elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv"))): 
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv")) as f:
                     return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
-        else:
-            #for rest
-            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
-                df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
-                try:
-                    return str({"count":len(df.shape[0])})
-                except:
-                    return "Could not extract number of instances from the data."
+        elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv"))): 
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv")) as f:
+                    return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
     else:
@@ -247,26 +241,37 @@ def instance(iden, index):
             else:
                 return "No training data was uploaded for this model."
         
-        #For the rest
-        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
-            df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
-            try:
-                target_names=model_info["attributes"]["target_names"]
-            except:
-                return "Could not extract target columns from model information. Please update the model attributes file."
-            try:
-                df.drop(target_names, axis=1,inplace=True)
-            except:
-                return "Could not drop target feature/s"
-            try:
-                instance=df.iloc[[index]].values.tolist()
-                return str(instance)
+        #For Tabular
+        elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
 
-            except Exception as e:
-                print(e)
-                return "Could not get the instance from the data."
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+                df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
+                try:
+                    target_names=model_info["attributes"]["target_names"]
+                except Exception as e:
+                    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e)
+                try:
+                    df.drop(target_names, axis=1,inplace=True)
+                except Exception as e:
+                    return "Could not drop target feature/s: " + str(e)
+                try:
+                    instance=df.iloc[[index]]
+                except Exception as e:
+                    return "The index is invalid: " + str(e)
+                try:
+                    instance=df.iloc[[index]]
+                except Exception as e:
+                    return "The index is invalid: " + str(e)
+                try:
+                    denorm_instance=denormalize_dataframe(instance,model_info)
+                except Exception as e:
+                    return "The instance could not be denormalized: " + str(e)
+                instance=json.loads(denorm_instance.to_json(orient="table",index=False))["data"][0]
+                return {"type":"dict","instance":instance,"size":len(instance)}
+            else:
+                return "The training dataset was not uploaded."
         else:
-            return "There is no training file for this model."
+            return "The dataset type is not supported."
     else:
         return "The model does not exist"
 
@@ -300,6 +305,7 @@ def instanceJSON(iden, index):
                 instance=df.iloc[[index]]
             except:
                 return "Could not get the instance from the data."
+
             try:
                 return json.loads(instance.to_json(orient="table",index=False))["data"][0]
             except Exception as e:
@@ -396,6 +402,13 @@ def upload_model():
         if "attributes" not in parameters:
             flash('The attributes for this model were not specified.')
             return 'The attributes for this model were not specified.'
+
+        if parameters["backend"] not in ontologyConstants.LIGHTGBM_URIS + ontologyConstants.PYTORCH_URIS + ontologyConstants.SKLEARN_URIS + ontologyConstants.TENSORFLOW_URIS + ontologyConstants.XGBOOST_URIS:
+            return "Backend not supported."
+        if parameters["dataset_type"] not in ontologyConstants.IMAGE_URIS + ontologyConstants.TABULAR_URIS + ontologyConstants.TEXT_URIS + ontologyConstants.TIMESERIES_URIS:
+            return "Dataset type not supported."
+        if parameters["model_task"] not in ontologyConstants.CLASSIFICATION_URIS + ontologyConstants.REGRESSION_URIS:
+            return "Model task not supported."
         
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "."+file.filename.rsplit('.', 1)[1].lower()))
@@ -468,13 +481,19 @@ def dataset():
                 if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png')):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png'))  
                 return "Dataset uploaded successfully."
-            #rest
-            elif(1):
-                try:
-                    df=pd.read_csv(file,header=None)
-                except:
-                    return "Could not convert .csv file to Pandas Dataframe."
-                joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl'))           
+            #For Tabular
+            elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
+                if(file.content_type=="text/csv"):
+                    try:
+                        df=pd.read_csv(file,header=0,index_col=0)
+                        joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl')) 
+                        df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.csv'))
+                    except Exception as e:
+                        return "Could not convert .csv file to Pandas Dataframe: " +str(e)
+                else:
+                    return "The training data must be a .csv file."       
+            else:
+                return "The dataset type is not supported"
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'))):
@@ -482,7 +501,7 @@ def dataset():
             elif (os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden+".zip"))):
                 return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '.zip', as_attachment=True)
             else:
-                return "No training file has been uploaded."
+                return "No training file has been uploaded for this model."
          else:
             return "The only supported actions for this request are POST and GET"
      return "The model with the provided id doesn't exist"
@@ -616,15 +635,11 @@ def model_list():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    params_str = request.form.get('params')
-    if params_str is None:
+    params = request.json
+    if params is None:
         flash('No params part')
         return "The params are missing"
-    params={}
-    try:
-        params = json.loads(params_str)
-    except Exception as e:
-        return "Could not convert params to JSON: " + str(e)
+
     #Check params
     if("id" not in params):
         return "The model id was not specified in the params."
@@ -636,7 +651,7 @@ def predict():
     iden=params["id"]
     inst_type=params["type"]
     if(inst_type=="dict"):
-        instance=json.loads(params["instance"])
+        instance=params["instance"]
     elif(inst_type=="image"):
         instance=params["instance"]
     top_classes='all'

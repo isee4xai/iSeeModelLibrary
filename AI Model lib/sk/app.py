@@ -6,11 +6,13 @@ import numpy as np
 import joblib
 from sklearn.base import is_classifier
 from pathlib import Path
+import pandas as pd
 import markdown
 import markdown.extensions.fenced_code
 from PIL import Image
 import os
 from flask import Flask, flash, request
+from utils.dataframe_processing import normalize_dict 
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'pkl'}
@@ -236,35 +238,80 @@ def run_img_model():
 
 @app.route('/Tabular/run', methods=['POST'])
 def run_tab_model():
-    iden = request.form.get('id')
-    if iden is None:
-        flash('No id part')
-        return "The model id is missing"
+    
+    #Check params
+    params_str = request.form.get('params')
+    if params_str is None:
+        flash('No params part')
+        return "The params are missing"
+    params={}
+    try:
+        params = json.loads(params_str)
+    except Exception as e:
+        return "Could not convert params to JSON: " + str(e)
+
+    if("id" not in params):
+        return "The model id was not specified in the params."
+    if("type" not in params):
+        return "The instance type was not specified in the params."
+    if("instance" not in params):
+        return "The instance was not specified in the params."
+    if("top_classes" not in params):
+        return "The top_classes parameter was not specified."
+    iden=params["id"]
+    inst_type=params["type"]
+    if(inst_type=="dict"):
+        instance=params["instance"]
+    elif(inst_type=="image"):
+        instance=params["instance"]
+    top_classes=params["top_classes"]
+    if(params["top_classes"]!='all'):
+        top_classes=int(params["top_classes"])
+
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        data = request.form.get('instance')
         if request.method == 'POST':
             model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
-            if data is None:
-                flash('No instances part')
-                return "No instances were provided"
-            data = json.loads(data)
-            X = np.asarray(data)
-            if len(X.shape)==1:
-                 X=X.reshape(1, -1)
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
+                model_info=json.load(f)
+            if instance is None:
+                flash('No instance part')
+                return "No instance were provided"
+            print(instance)
+            print(type(instance))
+            norm_inst=list(normalize_dict(instance,model_info).values())
             try:
                  #if it's a classification model we try to launch predict_proba
                 if is_classifier(model):
                     try:
-                        predictions = model.predict_proba(X)
-                        return jsonify({'predictions' : predictions.tolist()})
+                        predictions = model.predict_proba([norm_inst])                   
                     except Exception as e:
-                        predictions = model.predict(X)
-                        return jsonify({'predictions' : predictions.tolist()})
-                predictions = model.predict(X)
-                return jsonify({'predictions' : predictions.tolist()})
+                        predictions = model.predict([norm_inst])
+                predictions = model.predict([norm_inst]).tolist()
+                ##return jsonify({'predictions' : predictions.tolist()})
             except Exception as e:
                 print(e)
-                return "Something went wrong"
+                return "Could not execute predict function"
+            try:
+                label=model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]
+                print(predictions)
+                preds_dict={}
+                if(top_classes!='all'):
+                    try:
+                        top_classes=min(int(top_classes),len(predictions))
+                    except Exception as e:
+                        print(e)
+                        return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                else:
+                    top_classes=len(predictions)
+                for i in range(top_classes):
+                    top_index=np.argmax(predictions)
+                    preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],4)
+                    predictions.pop(top_index)
+                    label["values_raw"].pop(top_index)
+                return jsonify(preds_dict)
+            except Exception as e:
+                print(e)
+                return "Something went wrong: " + str(e)
         return "The only supported action for this request is POST"
     return "The model does not exist"
 
@@ -275,26 +322,20 @@ def run_text_model():
         flash('No id part')
         return "The model id is missing"
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        data = request.form.get('instance')
+        instance = request.form.get('instance')
         if request.method == 'POST':
             model = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + EXTENSION))
-            if data is None:
-                flash('No instances part')
-                return "No instances were provided"
-            X=data
+            if instance is None:
+                flash('No instance part')
+                return "No instance was provided"
+            instance=pd.read_json(str(instance))
+            norm_inst=normalize_dataframe(instance)
             try:
-                data=json.loads(data)
-                X = np.asarray(data)
-                if len(X.shape)==0:
-                    X=X.reshape(1, -1)
-            except:
-                X=[X]
-            try:
-                predictions = model.predict_proba(X)
+                predictions = model.predict_proba(norm_inst)
                 return jsonify({'predictions' : predictions.tolist()})
             except:
                 try:
-                    predictions = model.predict(X)
+                    predictions = model.predict(norm_inst)
                     return jsonify({'predictions' : predictions.tolist()})
                 except Exception as e:
                     print(e)

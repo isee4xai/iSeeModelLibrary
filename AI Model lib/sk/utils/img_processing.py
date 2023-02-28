@@ -19,12 +19,12 @@ def denormalize_img(instance,model_info):
         except Exception as e:
             raise
 
-    if instance.shape!=tuple(model_info["attributes"]["features"]["image"]["shape"]):
+    if instance.shape!=tuple(model_info["attributes"]["features"]["image"]["shape_raw"]):
         try:
             instance=instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape_raw"]))
         except Exception as e:
             print(e)
-            return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
+            return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape_raw"]))
     return instance
 
 def normalize_img(instance,model_info):
