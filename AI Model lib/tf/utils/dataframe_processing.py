@@ -1,6 +1,7 @@
 import numpy as np
 
-def denormalize_dataframe(denorm_df,model_info):
+def denormalize_dataframe(df,model_info):
+    denorm_df=df.copy()
     column_names=list(denorm_df.columns)
     for feature in column_names:
         feature_dict=model_info["attributes"]["features"][feature]
@@ -36,7 +37,8 @@ def denormalize_dataframe(denorm_df,model_info):
                                         
     return denorm_df
 
-def normalize_dict(dictionary,model_info):
+def normalize_dict(instance,model_info):
+    dictionary=instance.copy()
     column_names=list(dictionary.keys())
     for feature in column_names:
         feature_dict=model_info["attributes"]["features"][feature]

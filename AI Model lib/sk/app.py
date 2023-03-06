@@ -276,8 +276,6 @@ def run_tab_model():
             if instance is None:
                 flash('No instance part')
                 return "No instance were provided"
-            print(instance)
-            print(type(instance))
             norm_inst=list(normalize_dict(instance,model_info).values())
             try:
                  #if it's a classification model we try to launch predict_proba
@@ -286,8 +284,9 @@ def run_tab_model():
                         predictions = model.predict_proba([norm_inst])                   
                     except Exception as e:
                         predictions = model.predict([norm_inst])
-                predictions = model.predict([norm_inst]).tolist()
-                ##return jsonify({'predictions' : predictions.tolist()})
+                else:
+                    predictions = model.predict([norm_inst])
+                predictions=predictions[0].tolist()
             except Exception as e:
                 print(e)
                 return "Could not execute predict function"
