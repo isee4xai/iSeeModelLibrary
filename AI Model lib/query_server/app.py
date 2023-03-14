@@ -114,7 +114,8 @@ def num_instances(iden):
                     return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
-        elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
+        #For Tabular or Text
+        elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS or model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
                     return {"count":sum(1 for line in f)-1}
@@ -259,15 +260,32 @@ def instance(iden, index):
                 except Exception as e:
                     return "The index is invalid: " + str(e)
                 try:
-                    instance=df.iloc[[index]]
-                except Exception as e:
-                    return "The index is invalid: " + str(e)
-                try:
                     denorm_instance=denormalize_dataframe(instance,model_info)
                 except Exception as e:
                     return "The instance could not be denormalized: " + str(e)
                 instance=json.loads(denorm_instance.to_json(orient="table",index=False))["data"][0]
                 return {"type":"dict","instance":instance,"size":len(instance)}
+            else:
+                return "The training dataset was not uploaded."
+
+        elif(model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
+
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
+                df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
+                try:
+                    target_names=model_info["attributes"]["target_names"]
+                except Exception as e:
+                    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e)
+                try:
+                    df.drop(target_names, axis=1,inplace=True)
+                except Exception as e:
+                    return "Could not drop target feature/s: " + str(e)
+                try:
+                    instance=df.iloc[[index]]
+                except Exception as e:
+                    return "The index is invalid: " + str(e)
+                text=instance.values[0][0]
+                return {"type":"text","instance":text,"size":len(text)}
             else:
                 return "The training dataset was not uploaded."
         else:
@@ -481,8 +499,8 @@ def dataset():
                 if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png')):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png'))  
                 return "Dataset uploaded successfully."
-            #For Tabular
-            elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
+            #For Tabular and Text
+            elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS or model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
                 if(file.content_type=="text/csv"):
                     try:
                         df=pd.read_csv(file,header=0,index_col=0)
