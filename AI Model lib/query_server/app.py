@@ -109,14 +109,14 @@ def num_instances(iden):
                    nfiles=nfiles-1
                 return {"count":nfiles}
             #from .csv
-            elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv"))): 
-                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv")) as f:
+            elif(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
                     return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
         elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
-            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv"))): 
-                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".csv")) as f:
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
                     return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
@@ -487,7 +487,7 @@ def dataset():
                     try:
                         df=pd.read_csv(file,header=0,index_col=0)
                         joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl')) 
-                        df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.csv'))
+                        df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'))
                     except Exception as e:
                         return "Could not convert .csv file to Pandas Dataframe: " +str(e)
                 else:
