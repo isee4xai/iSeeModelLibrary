@@ -1,3 +1,4 @@
 sk/Models/
 tf/Models/
 query_server/Models/
+__pycache__/
