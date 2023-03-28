@@ -12,7 +12,7 @@ import os
 from flask import Flask, flash, request
 from utils.base64 import base64_to_vector
 from utils.img_processing import normalize_img
-
+from utils.dataframe_processing import normalize_dict 
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'h5'}
@@ -279,28 +279,71 @@ def run_img_model():
 
 @app.route('/Tabular/run', methods=['POST'])
 def run_tab_model():
-    iden = request.form.get('id')
-    if iden is None:
+    
+    #Check params
+    params_str = request.form.get('params')
+    if params_str is None:
         flash('No params part')
-        return "The model id is missing"
+        return "The params are missing"
+    params={}
+    try:
+        params = json.loads(params_str)
+    except Exception as e:
+        return "Could not convert params to JSON: " + str(e)
+
+    if("id" not in params):
+        return "The model id was not specified in the params."
+    if("type" not in params):
+        return "The instance type was not specified in the params."
+    if("instance" not in params):
+        return "The instance was not specified in the params."
+    if("top_classes" not in params):
+        return "The top_classes parameter was not specified."
+    iden=params["id"]
+    inst_type=params["type"]
+    if(inst_type=="dict"):
+        instance=params["instance"]
+    elif(inst_type=="image"):
+        instance=params["instance"]
+    top_classes=params["top_classes"]
+    if(params["top_classes"]!='all'):
+        top_classes=int(params["top_classes"])
+
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        instance = request.form.get('instance')
         if request.method == 'POST':
             model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
+                model_info=json.load(f)
             if instance is None:
                 flash('No instance part')
-                return "No instances were provided"
-            instance = json.loads(instance)
-            instance = np.asarray(instance)
-            if len(instance.shape)==1:
-                 instance=instance.reshape(1, -1)
-            X = tf.convert_to_tensor(instance)
+                return "No instance were provided"
+            norm_inst=np.asarray([list(normalize_dict(instance,model_info).values())])
             try:
-                predictions = model.predict(X)
-                return jsonify({'predictions' : predictions.tolist()})
+                tensor=tf.convert_to_tensor(norm_inst)
+                predictions = model.predict(tensor)[0].tolist()
+            except Exception as e:
+                return "Could not execute predict function:" + str(e)
+            try:
+                label=model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]
+                print(predictions)
+                preds_dict={}
+                if(top_classes!='all'):
+                    try:
+                        top_classes=min(int(top_classes),len(predictions))
+                    except Exception as e:
+                        print(e)
+                        return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                else:
+                    top_classes=len(predictions)
+                for i in range(top_classes):
+                    top_index=np.argmax(predictions)
+                    preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],4)
+                    predictions.pop(top_index)
+                    label["values_raw"].pop(top_index)
+                return jsonify(preds_dict)
             except Exception as e:
                 print(e)
-                return "Something went wrong"
+                return "Something went wrong: " + str(e)
         return "The only supported action for this request is POST"
     return "The model does not exist"
 
