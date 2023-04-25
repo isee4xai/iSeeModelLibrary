@@ -470,12 +470,17 @@ def dataset():
                     if(filename not in os.listdir(folder_path_temp)):
                         filename=""
                     if(model_info["model_task"] in ontologyConstants.CLASSIFICATION_URIS): 
-                        if set(os.listdir(folder_path_temp+'/'+filename))!=set(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]):
+                        folders=set(os.listdir(folder_path_temp+'/'+filename))
+                        output_classes=set(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"])
+                        folders_to_remove=folders.difference(output_classes)
+                        for folder in folders_to_remove:
+                             shutil.rmtree(folder_path_temp+'/'+filename+'/'+folder)
+                        if set(os.listdir(folder_path_temp+'/'+filename))!=output_classes:
                             shutil.rmtree(folder_path_temp)
                             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
                             return "The names of the subfolders in the zipped file do not match the names of the output classes."
                     elif(model_info["model_task"] in ontologyConstants.REGRESSION_URIS): 
-                        if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,folder_path_temp,filename, model_info["attributes"]["target_names"][0]+".csv"))):
+                        if(not os.path.exists(os.path.join(folder_path_temp,filename, model_info["attributes"]["target_names"][0]+".csv"))):
                             shutil.rmtree(folder_path_temp)
                             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
                             return "There is no target .csv file with the regression values."
@@ -483,7 +488,10 @@ def dataset():
                     if os.path.exists(folder_path):
                         shutil.rmtree(folder_path)
                     os.rename(os.path.join(folder_path_temp,filename),folder_path)
-                    shutil.rmtree(folder_path_temp)
+                    try:
+                        shutil.rmtree(folder_path_temp)
+                    except:
+                        pass
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv')):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_data.csv')) 
                 #csv with flattened images  
