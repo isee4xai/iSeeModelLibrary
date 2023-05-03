@@ -1,3 +1,4 @@
+from pickle import TRUE
 import sys
 import pathlib
 from flask import Flask, send_from_directory,request, json, jsonify
@@ -658,6 +659,34 @@ def model_list():
         params = json.load(f)
         model_list.update({iden : params['alias']})
     return jsonify(model_list)
+
+
+@app.route('/validate_instance', methods=['POST'])
+def validate_instance():
+    params = request.json
+    if params is None:
+        flash('No params part')
+        return "The params are missing"
+
+    #Check params
+    if("id" not in params):
+        return "The model id was not specified in the params."
+    if("instance" not in params):
+        return "The instance was not specified in the params."
+    if("type" not in params):
+        return "The instance type was not specified in the params."
+
+    iden=params["id"]
+    instance=params["instance"]
+    inst_type=params["type"]
+
+    val=True
+
+    #TODO
+    
+    ret={"valid":val}
+    return ret
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
