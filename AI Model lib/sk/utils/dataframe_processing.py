@@ -62,7 +62,7 @@ def normalize_dict(instance,model_info):
         elif feature_dict["data_type"]=="categorical":
             if("values" in feature_dict and "values_raw" in feature_dict):
                 try:
-                    dictionary[feature]=feature_dict["values_raw"][int(dictionary[feature].values[0])]
+                    dictionary[feature]=feature_dict["values"][feature_dict["values_raw"].index(dictionary[feature])]               
                 except:
                     raise
             elif("value" in feature_dict and "ohe_feature" in feature_dict):
