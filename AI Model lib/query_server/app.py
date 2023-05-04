@@ -218,7 +218,6 @@ def instance(iden, index):
                     array_str=string.split(',')
                     for i in label_indexes:
                         array_str.pop(i) #remove label column
-                    array_str.pop(0) ##remove row number column
                     instance=np.asarray(array_str, dtype=float)
                 end = timer()
                 print("Getting instance time: " + str(round(end - start,2)) + " s") 
@@ -512,7 +511,7 @@ def dataset():
             elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS or model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
                 if(file.content_type=="text/csv"):
                     try:
-                        df=pd.read_csv(file,header=0,index_col=0)
+                        df=pd.read_csv(file,header=0)
                         joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl')) 
                         df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'))
                     except Exception as e:
