@@ -122,6 +122,13 @@ def num_instances(iden):
                     return {"count":sum(1 for line in f)-1}
             else:
                 return "No training data was uploaded for this model."
+        # For Time Series
+        elif (model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS):
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
+                    return {"count":(sum(1 for line in f)-1)-(model_info["attributes"]["window_size"]-1)}
+            else:
+                return "No training data was uploaded for this model."
     else:
         return "The model does not exist."
 
@@ -267,7 +274,7 @@ def instance(iden, index):
                 return {"type":"dict","instance":instance,"size":len(instance)}
             else:
                 return "The training dataset was not uploaded."
-
+        #For Text
         elif(model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
 
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
@@ -288,6 +295,38 @@ def instance(iden, index):
                 return {"type":"text","instance":text,"size":len(text)}
             else:
                 return "The training dataset was not uploaded."
+        #For Time Series
+        elif(model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS):
+
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))):
+                df=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=0)
+                #try:
+                #    target_names=model_info["attributes"]["target_names"]
+                #except Exception as e:
+                #    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e)
+                #try:
+                #    df.drop(target_names, axis=1,inplace=True)
+                #except Exception as e:
+                #    return "Could not drop target feature/s: " + str(e)
+                #try:
+                #    for feature, info_feature in model_info["attributes"]["features"].items():
+                #        if(info_feature["data_type"]=="time"):
+                #            df.drop([feature], axis=1,inplace=True)
+                #            break                    
+                #except Exception as e:
+                #    return "Could not drop time feature: " + str(e)
+                try:
+                    instance=df[index:index+model_info["attributes"]["window_size"]]
+                except Exception as e:
+                    return "The index is invalid: " + str(e)
+                try:
+                    denorm_instance=denormalize_dataframe(instance,model_info)
+                except Exception as e:
+                    return "The instance could not be denormalized: " + str(e)
+                instance=instance.to_dict("records")
+                return {"type":"array","instance":instance,"size":len(instance)}
+            else:
+                return "The training dataset was not uploaded."            
         else:
             return "The dataset type is not supported."
     else:
@@ -507,13 +546,14 @@ def dataset():
                 if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png')):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png'))  
                 return "Dataset uploaded successfully."
-            #For Tabular and Text
-            elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS or model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
+            #For Tabular, Text and Time Series
+            elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS or model_info["dataset_type"] in ontologyConstants.TEXT_URIS or model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS):
                 if(file.content_type=="text/csv"):
                     try:
                         df=pd.read_csv(file,header=0)
-                        joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl')) 
-                        df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'))
+                        if(model_info["dataset_type"] not in ontologyConstants.TIMESERIES_URIS):
+                            joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl')) 
+                        df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'),index=False)
                     except Exception as e:
                         return "Could not convert .csv file to Pandas Dataframe: " +str(e)
                 else:
@@ -704,10 +744,7 @@ def predict():
 
     iden=params["id"]
     inst_type=params["type"]
-    if(inst_type=="dict"):
-        instance=params["instance"]
-    elif(inst_type=="image"):
-        instance=params["instance"]
+    instance=params["instance"]
     top_classes='all'
     try:
         top_classes=int(params["top_classes"])

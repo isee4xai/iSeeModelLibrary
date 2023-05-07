@@ -3,16 +3,16 @@ import pathlib
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import tensorflow as tf
+import pandas as pd
 import numpy as np
-import math
 import markdown
 import markdown.extensions.fenced_code
-from PIL import Image
 import os
 from flask import Flask, flash, request
 from utils.base64 import base64_to_vector
 from utils.img_processing import normalize_img
-from utils.dataframe_processing import normalize_dict 
+from utils.dataframe_processing import normalize_dataframe, normalize_dict
+from utils import ontologyConstants
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'h5'}
@@ -249,26 +249,60 @@ def run_img_model():
             except Exception as e:
                  return  "Could not normalize instance: " + str(e)
 
-            label=model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]
             try:
-
                 predictions = model.predict(instance)[0].tolist()
                 print(predictions)
-                preds_dict={}
-                if(top_classes!='all'):
-                    try:
-                        top_classes=min(int(top_classes),len(predictions))
-                    except Exception as e:
-                        print(e)
-                        return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+            except Exception as e:
+                return "Could not execute predict function:" + str(e)
+            try:
+                ret={}
+                print(predictions)
+                multi=len(model_info["attributes"]["target_names"])!=1
+                i=0
+                #Classification
+                if(model_info["model_task"] in ontologyConstants.CLASSIFICATION_URIS):
+                    
+                    for target_name in model_info["attributes"]["target_names"]:
+                        label=model_info["attributes"]["features"][target_name]
+                        preds_dict={}
+                        if(top_classes!='all'):
+                            try:
+                                top_classes=min(int(top_classes),np.array(predictions).shape[-1])
+                            except Exception as e:
+                                print(e)
+                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                        else:
+                            top_classes=np.array(predictions).shape[-1]
+
+                        if multi:
+                            preds=predictions[i]
+                        else:
+                            preds=predictions
+
+                        for j in range(top_classes):
+                            top_index=np.argmax(preds)
+                            preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],3)
+                            preds.pop(top_index)
+                            label["values_raw"].pop(top_index)
+                        
+                        if multi:
+                            ret[target_name]=preds_dict
+                        else: 
+                            ret=preds_dict
+                        i=i+1
+                #Regression
+                elif (model_info["model_task"] in ontologyConstants.REGRESSION_URIS):
+
+                    for target_name in model_info["attributes"]["target_names"]:
+                        if multi:
+                            ret[target_name]=predictions[i]
+                        else: 
+                            ret[target_name]=predictions
+                        i=i+1
                 else:
-                    top_classes=len(predictions)
-                for i in range(top_classes):
-                    top_index=np.argmax(predictions)
-                    preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],4)
-                    predictions.pop(top_index)
-                    label["values_raw"].pop(top_index)
-                return jsonify(preds_dict)
+                    return "AI model task not supported."
+
+                return jsonify(ret)
             except Exception as e:
                 print(e)
                 print(instance.shape)
@@ -279,7 +313,6 @@ def run_img_model():
 
 @app.route('/Tabular/run', methods=['POST'])
 def run_tab_model():
-    
     #Check params
     params_str = request.form.get('params')
     if params_str is None:
@@ -324,23 +357,54 @@ def run_tab_model():
             except Exception as e:
                 return "Could not execute predict function:" + str(e)
             try:
-                label=model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]
+                ret={}
                 print(predictions)
-                preds_dict={}
-                if(top_classes!='all'):
-                    try:
-                        top_classes=min(int(top_classes),len(predictions))
-                    except Exception as e:
-                        print(e)
-                        return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                multi=len(model_info["attributes"]["target_names"])!=1
+                i=0
+                #Classification
+                if(model_info["model_task"] in ontologyConstants.CLASSIFICATION_URIS):
+                    
+                    for target_name in model_info["attributes"]["target_names"]:
+                        label=model_info["attributes"]["features"][target_name]
+                        preds_dict={}
+                        if(top_classes!='all'):
+                            try:
+                                top_classes=min(int(top_classes),np.array(predictions).shape[-1])
+                            except Exception as e:
+                                print(e)
+                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                        else:
+                            top_classes=np.array(predictions).shape[-1]
+
+                        if multi:
+                            preds=predictions[i]
+                        else:
+                            preds=predictions
+
+                        for j in range(top_classes):
+                            top_index=np.argmax(preds)
+                            preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],3)
+                            preds.pop(top_index)
+                            label["values_raw"].pop(top_index)
+                        
+                        if multi:
+                            ret[target_name]=preds_dict
+                        else: 
+                            ret=preds_dict
+                        i=i+1
+                #Regression
+                elif (model_info["model_task"] in ontologyConstants.REGRESSION_URIS):
+
+                    for target_name in model_info["attributes"]["target_names"]:
+                        if multi:
+                            ret[target_name]=predictions[i]
+                        else: 
+                            ret[target_name]=predictions
+                        i=i+1
                 else:
-                    top_classes=len(predictions)
-                for i in range(top_classes):
-                    top_index=np.argmax(predictions)
-                    preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],4)
-                    predictions.pop(top_index)
-                    label["values_raw"].pop(top_index)
-                return jsonify(preds_dict)
+                    return "AI model task not supported."
+
+                return jsonify(ret)
             except Exception as e:
                 print(e)
                 return "Something went wrong: " + str(e)
@@ -374,6 +438,125 @@ def run_text_model():
             except Exception as e:
                 print(e)
                 return "Something went wrong"
+        return "The only supported action for this request is POST"
+    return "The model does not exist"
+
+@app.route('/Timeseries/run', methods=['POST'])
+def run_time_model():
+    #Check params
+    params_str = request.form.get('params')
+    if params_str is None:
+        flash('No params part')
+        return "The params are missing"
+    params={}
+    try:
+        params = json.loads(params_str)
+    except Exception as e:
+        return "Could not convert params to JSON: " + str(e)
+
+    if("id" not in params):
+        return "The model id was not specified in the params."
+    if("type" not in params):
+        return "The instance type was not specified in the params."
+    if("instance" not in params):
+        return "The instance was not specified in the params."
+    if("top_classes" not in params):
+        return "The top_classes parameter was not specified."
+
+    iden=params["id"]
+    inst_type=params["type"]
+    instance=params["instance"]
+    top_classes=params["top_classes"]
+
+    if(params["top_classes"]!='all'):
+        top_classes=int(params["top_classes"])
+
+    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        if request.method == 'POST':
+            model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
+                model_info=json.load(f)
+            if instance is None:
+                flash('No instance part')
+                return "No instance were provided"
+
+            target_names=model_info["attributes"]["target_names"]
+            features=model_info["attributes"]["features"]
+            feature_names=list(features.keys())
+            time_feature=None
+            for feature, info_feature in features.items():
+                if(info_feature["data_type"]=="time"):
+                    time_feature=feature
+                    break
+
+            df_instance=pd.DataFrame(instance,columns=feature_names).drop([time_feature], axis=1, errors='ignore')
+
+            try:
+                norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
+                tensor=tf.convert_to_tensor(norm_instance)
+                predictions = np.squeeze(model.predict(tensor)).tolist()
+            except Exception as e:
+                 print("Could not execute predict function including target columns in instance:" + str(e))
+                 try:
+                     df_instance.drop(target_names,axis=1,inplace=True)
+                     norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
+                     tensor=tf.convert_to_tensor(norm_instance)
+                     predictions = np.squeeze(model.predict(tensor)).tolist()
+                 except Exception as e:
+                    return "Could not execute predict function:" + str(e) 
+
+            try:
+                ret={}
+                print(predictions)
+                multi=len(model_info["attributes"]["target_names"])!=1
+                i=0
+                #Classification
+                if(model_info["model_task"] in ontologyConstants.CLASSIFICATION_URIS):
+                    
+                    for target_name in model_info["attributes"]["target_names"]:
+                        label=model_info["attributes"]["features"][target_name]
+                        preds_dict={}
+                        if(top_classes!='all'):
+                            try:
+                                top_classes=min(int(top_classes),np.array(predictions).shape[-1])
+                            except Exception as e:
+                                print(e)
+                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                        else:
+                            top_classes=np.array(predictions).shape[-1]
+
+                        if multi:
+                            preds=predictions[i]
+                        else:
+                            preds=predictions
+
+                        for j in range(top_classes):
+                            top_index=np.argmax(preds)
+                            preds_dict[label["values_raw"][top_index]]=round(predictions[top_index],3)
+                            preds.pop(top_index)
+                            label["values_raw"].pop(top_index)
+                        
+                        if multi:
+                            ret[target_name]=preds_dict
+                        else: 
+                            ret=preds_dict
+                        i=i+1
+                #Regression
+                elif (model_info["model_task"] in ontologyConstants.REGRESSION_URIS):
+
+                    for target_name in model_info["attributes"]["target_names"]:
+                        if multi:
+                            ret[target_name]=predictions[i]
+                        else: 
+                            ret[target_name]=predictions
+                        i=i+1
+                else:
+                    return "AI model task not supported."
+
+                return jsonify(ret)
+            except Exception as e:
+                print(e)
+                return "Something went wrong: " + str(e)
         return "The only supported action for this request is POST"
     return "The model does not exist"
 
