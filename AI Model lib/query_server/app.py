@@ -8,8 +8,7 @@ import string
 import numpy as np
 import pandas as pd
 import joblib
-from pathlib import Path
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import os
 import shutil
 import zipfile
@@ -22,9 +21,7 @@ from utils import ontologyConstants
 from utils.base64 import vector_to_base64,PIL_to_base64
 from utils.img_processing import denormalize_img
 from utils.dataframe_processing import denormalize_dataframe
-
 from timeit import default_timer as timer
-from datetime import datetime
 
 UPLOAD_FOLDER = 'Models'
 ALLOWED_EXTENSIONS = {'pkl', 'h5','pt'}

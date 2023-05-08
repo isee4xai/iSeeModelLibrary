@@ -5,14 +5,13 @@ from flask_restful import Api
 import numpy as np
 import joblib
 from sklearn.base import is_classifier
-from pathlib import Path
 import pandas as pd
 import markdown
 import markdown.extensions.fenced_code
 from PIL import Image
 import os
 from flask import Flask, flash, request
-from utils.dataframe_processing import normalize_dict, normalize_dataframe
+from utils.dataframe_processing import normalize_dataframe
 from utils import ontologyConstants
 
 UPLOAD_FOLDER = 'Models'
@@ -278,16 +277,27 @@ def run_tab_model():
             if instance is None:
                 flash('No instance part')
                 return "No instance were provided"
-            norm_inst=list(normalize_dict(instance,model_info).values())
+
+            target_names=model_info["attributes"]["target_names"]
+            features=model_info["attributes"]["features"]
+            feature_names=list(features.keys())
+            for target in target_names:
+                feature_names.remove(target)
+
+            #normalize instance
+            df_inst=pd.DataFrame([instance.values()],columns=instance.keys())
+            df_inst=df_inst[feature_names]
+            norm_inst=normalize_dataframe(df_inst,model_info).to_numpy()
+
             try:
                  #if it's a classification model we try to launch predict_proba
                 if is_classifier(model):
                     try:
-                        predictions = model.predict_proba([norm_inst])                   
+                        predictions = model.predict_proba(norm_inst)                   
                     except Exception as e:
-                        predictions = model.predict([norm_inst])
+                        predictions = model.predict(norm_inst)
                 else:
-                    predictions = model.predict([norm_inst])
+                    predictions = model.predict(norm_inst)
                 predictions=np.squeeze(np.array(predictions)).tolist()
             except Exception as e:
                 print(e)

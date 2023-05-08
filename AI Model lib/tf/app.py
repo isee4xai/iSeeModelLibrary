@@ -11,7 +11,7 @@ import os
 from flask import Flask, flash, request
 from utils.base64 import base64_to_vector
 from utils.img_processing import normalize_img
-from utils.dataframe_processing import normalize_dataframe, normalize_dict
+from utils.dataframe_processing import normalize_dataframe
 from utils import ontologyConstants
 
 UPLOAD_FOLDER = 'Models'
@@ -350,9 +350,20 @@ def run_tab_model():
             if instance is None:
                 flash('No instance part')
                 return "No instance were provided"
-            norm_inst=np.asarray([list(normalize_dict(instance,model_info).values())])
+
+            target_names=model_info["attributes"]["target_names"]
+            features=model_info["attributes"]["features"]
+            feature_names=list(features.keys())
+            for target in target_names:
+                feature_names.remove(target)
+
+            #normalize instance
+            df_inst=pd.DataFrame([instance.values()],columns=instance.keys())
+            df_inst=df_inst[feature_names]
+            norm_instance=normalize_dataframe(df_inst,model_info).to_numpy()
+
             try:
-                tensor=tf.convert_to_tensor(norm_inst)
+                tensor=tf.convert_to_tensor(norm_instance)
                 predictions = model.predict(tensor)[0].tolist()
             except Exception as e:
                 return "Could not execute predict function:" + str(e)
