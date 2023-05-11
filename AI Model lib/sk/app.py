@@ -278,9 +278,13 @@ def run_tab_model():
                 flash('No instance part')
                 return "No instance were provided"
 
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                    dataframe=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=0)
+            else:
+                return "No training data was uploaded for this model."
+
             target_names=model_info["attributes"]["target_names"]
-            features=model_info["attributes"]["features"]
-            feature_names=list(features.keys())
+            feature_names=list(dataframe.columns)
             for target in target_names:
                 feature_names.remove(target)
 
@@ -424,9 +428,14 @@ def run_time_model():
                 flash('No instance part')
                 return "No instance were provided"
 
+            if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
+                    dataframe=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=0)
+            else:
+                return "No training data was uploaded for this model."
+
             target_names=model_info["attributes"]["target_names"]
             features=model_info["attributes"]["features"]
-            feature_names=list(features.keys())
+            feature_names=list(dataframe.columns)
             time_feature=None
             for feature, info_feature in features.items():
                 if(info_feature["data_type"]=="time"):
@@ -434,6 +443,7 @@ def run_time_model():
                     break
 
             df_instance=pd.DataFrame(instance,columns=feature_names).drop([time_feature], axis=1, errors='ignore')
+            df_instance=df_instance[feature_names]
 
             try:
                 norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
