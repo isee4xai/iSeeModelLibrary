@@ -689,11 +689,30 @@ def query_control():
 
 @app.route('/model_list', methods=['GET'])
 def model_list():
-    model_list = {}
+    model_list = {
+        "ANIMALS000": "InveptionV3_Animals",
+        "ARCHIEFFCY": "construction_effcy",
+        "ARCHIMITIG": "construction_mitig",
+        "CERVCANCER": "CancerPred",
+        "CGRPRESP04": "CGRP Response",
+        "FASHION000": "FashionClassifier",
+        "HANDWRITTN": "DigitClassifier",
+        "INCOMETF00": "incomeTF",
+        "JIVATEST": "63939025ab223fcecf4d2dad",
+        "LOANDEV3": "LOANDEV3",
+        "NEWSGROUPS": "newsgroups",
+        "PSYCHOLOGY": "psychology",
+        "RADIOGRAPH": "RADIOGRAPH",
+        "RESNETPT50": "AnimalsResnet",
+        "TITANICTFW": "Titanic",
+        "WEATHCBRFX": "weather_cbrfox",
+        "XGBTCENSUS": "xgbtcensus"}
+
     for iden in os.listdir(app.config['UPLOAD_FOLDER']):
         f = open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
         params = json.load(f)
-        model_list.update({iden : params['alias']})
+        if("isPublic" in params and params["isPublic"]):
+            model_list.update({iden : params['alias']})
     return jsonify(model_list)
 
 

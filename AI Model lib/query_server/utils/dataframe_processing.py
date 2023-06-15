@@ -4,6 +4,7 @@ def denormalize_dataframe(df,model_info):
     denorm_df=df.copy()
     column_names=list(denorm_df.columns)
     for feature in column_names:
+        print(feature)
         feature_dict=model_info["attributes"]["features"][feature]
         if(feature_dict["data_type"]=="numerical"):
             if("min" in feature_dict and "max" in feature_dict and "min_raw" in feature_dict and "max_raw" in feature_dict):
@@ -12,6 +13,7 @@ def denormalize_dataframe(df,model_info):
                 min_raw=feature_dict["min_raw"]
                 max_raw=feature_dict["max_raw"]
                 try:
+                    print("dead")
                     denorm_df[feature]=(((denorm_df[feature]-nmin)/(nmax-nmin))*(max_raw-min_raw)+min_raw)
                 except:
                     raise
