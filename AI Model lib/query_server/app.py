@@ -709,11 +709,30 @@ def model_list():
         "XGBTCENSUS": "xgbtcensus"}
 
     for iden in os.listdir(app.config['UPLOAD_FOLDER']):
-        f = open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
-        params = json.load(f)
-        if("isPublic" in params and params["isPublic"]):
-            model_list.update({iden : params['alias']})
+        if(iden[0]!='.'):
+            f = open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
+            params = json.load(f)
+            if("isPublic" in params and params["isPublic"]):
+                model_list.update({iden : params['alias']})
     return jsonify(model_list)
+
+@app.route('/alias/<string:iden>', methods=['GET'])
+def alias(iden):
+    if iden is None:
+        flash('No id part')
+        return "The model id is missing."
+    if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
+                model_info=json.load(file)
+        else:
+             return "There is no configuration file for this model."
+        if("alias" in model_info):
+            alias=model_info["alias"]
+        else:
+            alias=iden
+
+    return jsonify({iden:alias})
 
 
 @app.route('/validate_instance', methods=['POST'])
