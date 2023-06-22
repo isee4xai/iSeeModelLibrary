@@ -727,10 +727,10 @@ def alias(iden):
                 model_info=json.load(file)
         else:
              return "There is no configuration file for this model."
+        
+        alias=iden
         if("alias" in model_info):
-            alias=model_info["alias"]
-        else:
-            alias=iden
+            alias=model_info["alias"]   
 
     return jsonify({iden:alias})
 
