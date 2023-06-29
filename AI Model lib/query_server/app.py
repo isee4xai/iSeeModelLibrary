@@ -426,20 +426,14 @@ def upload_model():
             return "The type of file passed is not supported"
     #Update an existing model
     elif request.method == 'PUT':
+        # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return 'A file has not been provided'
-
-        iden = request.form.get('id')
-        if iden is None:
-            flash('No id provided')
-            return "An id field is needed in order to update the model"
-
+            return 'No file part'
         parameters = request.form.get('info')
         if parameters is None:
             flash('No info part')
-            return 'A info field is needed in order to update the model'
-        file = request.files['file']
+            return 'No info part'
         parameters = json.loads(parameters)
         if "alias" not in parameters:
             flash('No alias part')
@@ -456,21 +450,77 @@ def upload_model():
         if "attributes" not in parameters:
             flash('The attributes for this model were not specified.')
             return 'The attributes for this model were not specified.'
-
-        if parameters["backend"] not in ontologyConstants.LIGHTGBM_URIS + ontologyConstants.PYTORCH_URIS + ontologyConstants.SKLEARN_URIS + ontologyConstants.TENSORFLOW_URIS + ontologyConstants.XGBOOST_URIS:
-            return "Backend not supported."
-        if parameters["dataset_type"] not in ontologyConstants.IMAGE_URIS + ontologyConstants.TABULAR_URIS + ontologyConstants.TEXT_URIS + ontologyConstants.TIMESERIES_URIS:
-            return "Dataset type not supported."
-        if parameters["model_task"] not in ontologyConstants.CLASSIFICATION_URIS + ontologyConstants.REGRESSION_URIS:
-            return "Model task not supported."
-        
-        if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "."+file.filename.rsplit('.', 1)[1].lower()))
-            with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
-                json.dump(parameters, f,ensure_ascii = False)
-            return "Model updated successfully"
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')   
+            return "No selected file"
+        if file and allowed_file(file.filename):
+            userid = request.form.get('id')
+            if userid is None or userid == '':
+                filename = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 10))
+            else:
+                if allowed_id(userid):
+                    filename = userid
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        return 'A model with the id: ' + userid + ' already exists'
+                else:
+                    return 'The provided id is invalid'
+            pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename, filename + "."+file.filename.rsplit('.', 1)[1].lower()))
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'w') as f:
+                json.dump(parameters, f, ensure_ascii = False)
+            return jsonify(
+                modelid = filename
+            )
         else:
-            return "No model found with this id"
+            return "The type of file passed is not supported"
+        #if 'file' not in request.files:
+        #    flash('No file part')
+        #    return 'A file has not been provided'
+
+        #iden = request.form.get('id')
+        #if iden is None:
+        #    flash('No id provided')
+        #    return "An id field is needed in order to update the model"
+
+        #parameters = request.form.get('info')
+        #if parameters is None:
+        #    flash('No info part')
+        #    return 'A info field is needed in order to update the model'
+        #file = request.files['file']
+        #parameters = json.loads(parameters)
+        #if "alias" not in parameters:
+        #    flash('No alias part')
+        #    return("The alias of the model was not specified.")
+        #if "backend" not in parameters:
+        #    flash('The model backend was not specified.')
+        #    return("The backend was not specified.")
+        #if "model_task" not in parameters:
+        #    flash('The model task was not specified.')
+        #    return 'The model task was not specified.'
+        #if "dataset_type" not in parameters:
+        #    flash('The dataset type was not specified.')
+        #    return 'The dataset type was not specified.'
+        #if "attributes" not in parameters:
+        #    flash('The attributes for this model were not specified.')
+        #    return 'The attributes for this model were not specified.'
+
+        #if parameters["backend"] not in ontologyConstants.LIGHTGBM_URIS + ontologyConstants.PYTORCH_URIS + ontologyConstants.SKLEARN_URIS + ontologyConstants.TENSORFLOW_URIS + ontologyConstants.XGBOOST_URIS:
+        #    return "Backend not supported."
+        #if parameters["dataset_type"] not in ontologyConstants.IMAGE_URIS + ontologyConstants.TABULAR_URIS + ontologyConstants.TEXT_URIS + ontologyConstants.TIMESERIES_URIS:
+        #    return "Dataset type not supported."
+        #if parameters["model_task"] not in ontologyConstants.CLASSIFICATION_URIS + ontologyConstants.REGRESSION_URIS:
+        #    return "Model task not supported."
+        
+        #if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        #    file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "."+file.filename.rsplit('.', 1)[1].lower()))
+        #    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
+        #        json.dump(parameters, f,ensure_ascii = False)
+        #    return "Model updated successfully"
+        #else:
+        #    return "No model found with this id"
 
     return "The only supported actions for this request are POST and PUT"
 
