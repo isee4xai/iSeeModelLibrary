@@ -522,6 +522,30 @@ def upload_model():
 
     return "The only supported actions for this request are POST and PUT"
 
+
+@app.route('/config', methods=['POST'])
+def config():  
+    iden=request.form.get('id')
+    attributes=request.form('attributes')
+
+    if(iden is None):
+        return "The id was not provided."
+    if(attributes is None):
+        return "The attributes were not provided."
+
+    attributes=json.loads(attributes)
+
+    if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        return "The model does not exist."
+
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'r+') as f:
+        model_info=json.load(f)
+        model_info["attributes"]=attributes
+        json.dump(model_info, f, ensure_ascii = False)
+
+return "Model attributes successcully uploaded."
+    
+
 @app.route('/dataset', methods=['POST', 'GET'])
 def dataset():   
      if request.method == 'POST' :
