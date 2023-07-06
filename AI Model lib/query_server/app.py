@@ -526,7 +526,7 @@ def upload_model():
 @app.route('/config', methods=['POST'])
 def config():  
     iden=request.form.get('id')
-    attributes=request.form('attributes')
+    attributes=request.form.get('attributes')
 
     if(iden is None):
         return "The id was not provided."
