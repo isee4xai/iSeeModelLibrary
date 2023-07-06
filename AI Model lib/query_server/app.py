@@ -538,12 +538,15 @@ def config():
     if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         return "The model does not exist."
 
-    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'r+') as f:
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'r') as f:
         model_info=json.load(f)
-        model_info["attributes"]=attributes
+        
+    model_info["attributes"]=attributes
+    
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
         json.dump(model_info, f, ensure_ascii = False)
 
-    return "Model attributes successcully uploaded."
+    return "Model attributes successfully uploaded."
     
 
 @app.route('/dataset', methods=['POST', 'GET'])
