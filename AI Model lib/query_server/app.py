@@ -543,7 +543,7 @@ def config():
         model_info["attributes"]=attributes
         json.dump(model_info, f, ensure_ascii = False)
 
-return "Model attributes successcully uploaded."
+    return "Model attributes successcully uploaded."
     
 
 @app.route('/dataset', methods=['POST', 'GET'])
