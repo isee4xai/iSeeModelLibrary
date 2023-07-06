@@ -538,7 +538,7 @@ def config():
     if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         return "The model does not exist."
 
-    with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'r+') as f:
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'r+') as f:
         model_info=json.load(f)
         model_info["attributes"]=attributes
         json.dump(model_info, f, ensure_ascii = False)
