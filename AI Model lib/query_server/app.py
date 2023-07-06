@@ -411,8 +411,8 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
-                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
-                        return 'A model with the id: ' + userid + ' already exists'
+                    #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        #return 'A model with the id: ' + userid + ' already exists'
                 else:
                     return 'The provided id is invalid'
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
