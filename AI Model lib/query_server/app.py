@@ -418,8 +418,13 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
+<<<<<<< HEAD
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
+=======
+                    #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        #return 'A model with the id: ' + userid + ' already exists'
+>>>>>>> e84a498fbd3278c4ab7bacab2c88134340cb3f04
                 else:
                     return 'The provided id is invalid',BAD_REQUEST
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
@@ -470,8 +475,11 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
+<<<<<<< HEAD
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
+=======
+>>>>>>> e84a498fbd3278c4ab7bacab2c88134340cb3f04
                 else:
                     return 'The provided id is invalid',BAD_REQUEST
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
@@ -530,6 +538,33 @@ def upload_model():
         #    return "No model found with this id"
 
     return "The only supported actions for this request are POST and PUT",BAD_REQUEST
+
+
+@app.route('/config', methods=['POST'])
+def config():  
+    iden=request.form.get('id')
+    attributes=request.form.get('attributes')
+
+    if(iden is None):
+        return "The id was not provided."
+    if(attributes is None):
+        return "The attributes were not provided."
+
+    attributes=json.loads(attributes)
+
+    if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
+        return "The model does not exist."
+
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'r') as f:
+        model_info=json.load(f)
+        
+    model_info["attributes"]=attributes
+    
+    with open(os.path.join(app.config['UPLOAD_FOLDER'], iden ,iden + '.json'), 'w') as f:
+        json.dump(model_info, f, ensure_ascii = False)
+
+    return "Model attributes successfully uploaded."
+    
 
 @app.route('/dataset', methods=['POST', 'GET'])
 def dataset():   
