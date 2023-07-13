@@ -1,3 +1,4 @@
+from http.client import BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_IMPLEMENTED
 from pickle import TRUE
 import sys
 import pathlib
@@ -13,6 +14,7 @@ import os
 import shutil
 import zipfile
 import csv
+import traceback
 from flask import Flask, flash, request
 import requests
 from urllib3.exceptions import InsecureRequestWarning
@@ -85,17 +87,22 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.errorhandler(500)
+def internal_server_error_handler(error):
+    return traceback.format_exc(), 500
+
+
 @app.route('/num_instances/<string:iden>',methods=['GET'])
 def num_instances(iden):
     if iden is None:
         flash('No id part')
-        return "The model id is missing."
+        return "The model id is missing.",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
                 model_info=json.load(file)
         else:
-             return "There is no configuration file for this model."
+             return "There is no configuration file for this model.",BAD_REQUEST
 
         #For Images
         if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
@@ -111,35 +118,35 @@ def num_instances(iden):
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
                     return {"count":sum(1 for line in f)-1}
             else:
-                return "No training data was uploaded for this model."
+                return "No training data was uploaded for this model.",BAD_REQUEST
         #For Tabular or Text
         elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS or model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
                     return {"count":sum(1 for line in f)-1}
             else:
-                return "No training data was uploaded for this model."
+                return "No training data was uploaded for this model.",BAD_REQUEST
         # For Time Series
         elif (model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS):
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
                     return {"count":(sum(1 for line in f)-1)-(model_info["attributes"]["window_size"]-1)}
             else:
-                return "No training data was uploaded for this model."
+                return "No training data was uploaded for this model.",BAD_REQUEST
     else:
-        return "The model does not exist."
+        return "The model does not exist.",BAD_REQUEST
 
 
 @app.route('/view_image/<string:iden>/<string:filename>',methods=['GET'])
 def view_image(iden, filename):
     if iden is None:
         flash('No id part')
-        return "The model id is missing."
+        return "The model id is missing.",BAD_REQUEST
     if filename is None:
         flash('No filename part')
-        return "The filename is missing."
+        return "The filename is missing.",BAD_REQUEST
     if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, filename)):
-        return "The file does not exist"
+        return "The file does not exist.", BAD_REQUEST
     return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), filename)
 
 
@@ -147,16 +154,16 @@ def view_image(iden, filename):
 def instance(iden, index):
     if iden is None:
         flash('No id part')
-        return "The model id is missing."
+        return "The model id is missing.",BAD_REQUEST
     if index is None:
         flash('No index part')
-        return "The index is missing."
+        return "The index is missing.",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
                     model_info=json.load(file)
         else:
-             return "There is no configuration file for this model."
+             return "There is no configuration file for this model.",BAD_REQUEST
 
         #For Images
         if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
@@ -181,18 +188,18 @@ def instance(iden, index):
                     if found:
                         break
                 if(img_path is None):
-                    return "The index is invalid."
+                    return "The index is invalid.",BAD_REQUEST
 
                 im=None
                 try:
                     im=Image.open(img_path)
                 except Exception as e:
-                    return "Could not open image file with PIL: " + str(e)
+                    return "Could not open image file with PIL: " + str(e),BAD_REQUEST
 
                 try:
                     b64Image=PIL_to_base64(im)
                 except Exception as e:
-                    return "Could not convert PIL image to base64: " + str(e)
+                    return "Could not convert PIL image to base64: " + str(e),BAD_REQUEST
 
                 #returning dict
                 ret={"type":"image", "instance":b64Image,"size_raw":list(model_info["attributes"]["features"]["image"]["shape_raw"][0:2])}
@@ -213,12 +220,12 @@ def instance(iden, index):
                             next(f)
                         except Exception as e:
                            print(e)
-                           return "Index out of bounds."       
+                           return "Index out of bounds.",BAD_REQUEST       
                     try:
                         string=next(f)
                     except Exception as e:
                         print(e)
-                        return "Index out of bounds."
+                        return "Index out of bounds.",BAD_REQUEST
                     array_str=string.split(',')
                     for i in label_indexes:
                         array_str.pop(i) #remove label column
@@ -230,21 +237,21 @@ def instance(iden, index):
                 try:
                     instance=denormalize_img(instance,model_info)
                 except Exception as e:
-                    return "Could not denormalize instance: " + str(e)
+                    return "Could not denormalize instance: " + str(e),BAD_REQUEST
                 
                 #converting to base64 Image
                 b64Image=None
                 try:
                     b64Image=vector_to_base64(instance)
                 except Exception as e:
-                    return "Could not convert instance to base64 Image: " + str(e)
+                    return "Could not convert instance to base64 Image: " + str(e),BAD_REQUEST
                
                 #returning dict
                 ret={"type":"image", "instance":b64Image,"size_raw":list(model_info["attributes"]["features"]["image"]["shape_raw"][0:2])}
                 return ret
           
             else:
-                return "No training data was uploaded for this model."
+                return "No training data was uploaded for this model.",BAD_REQUEST
         
         #For Tabular
         elif(model_info["dataset_type"] in ontologyConstants.TABULAR_URIS):
@@ -254,23 +261,23 @@ def instance(iden, index):
                 try:
                     target_names=model_info["attributes"]["target_names"]
                 except Exception as e:
-                    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e)
+                    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e),BAD_REQUEST
                 try:
                     df.drop(target_names, axis=1,inplace=True)
                 except Exception as e:
-                    return "Could not drop target feature/s: " + str(e)
+                    return "Could not drop target feature/s: " + str(e),BAD_REQUEST
                 try:
                     instance=df.iloc[[index]]
                 except Exception as e:
-                    return "The index is invalid: " + str(e)
+                    return "The index is invalid: " + str(e),BAD_REQUEST
                 try:
                     denorm_instance=denormalize_dataframe(instance,model_info)
                 except Exception as e:
-                    return "The instance could not be denormalized: " + str(e)
+                    return "The instance could not be denormalized: " + str(e),BAD_REQUEST
                 instance=json.loads(denorm_instance.to_json(orient="table",index=False))["data"][0]
                 return {"type":"dict","instance":instance,"size":len(instance)}
             else:
-                return "The training dataset was not uploaded."
+                return "The training dataset was not uploaded.",BAD_REQUEST
         #For Text
         elif(model_info["dataset_type"] in ontologyConstants.TEXT_URIS):
 
@@ -279,19 +286,19 @@ def instance(iden, index):
                 try:
                     target_names=model_info["attributes"]["target_names"]
                 except Exception as e:
-                    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e)
+                    return "Could not extract target columns from model information. Please update the model attributes file: " + str(e),BAD_REQUEST
                 try:
                     df.drop(target_names, axis=1,inplace=True)
                 except Exception as e:
-                    return "Could not drop target feature/s: " + str(e)
+                    return "Could not drop target feature/s: " + str(e),BAD_REQUEST
                 try:
                     instance=df.iloc[[index]]
                 except Exception as e:
-                    return "The index is invalid: " + str(e)
+                    return "The index is invalid: " + str(e),BAD_REQUEST
                 text=instance.values[0][0]
                 return {"type":"text","instance":text,"size":len(text)}
             else:
-                return "The training dataset was not uploaded."
+                return "The training dataset was not uploaded.",BAD_REQUEST
         #For Time Series
         elif(model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS):
 
@@ -315,19 +322,19 @@ def instance(iden, index):
                 try:
                     instance=df[index:index+model_info["attributes"]["window_size"]]
                 except Exception as e:
-                    return "The index is invalid: " + str(e)
+                    return "The index is invalid: " + str(e),BAD_REQUEST
                 try:
                     denorm_instance=denormalize_dataframe(instance,model_info)
                 except Exception as e:
-                    return "The instance could not be denormalized: " + str(e)
+                    return "The instance could not be denormalized: " + str(e),BAD_REQUEST
                 instance=instance.to_dict("records")
                 return {"type":"array","instance":instance,"size":len(instance)}
             else:
-                return "The training dataset was not uploaded."            
+                return "The training dataset was not uploaded." ,BAD_REQUEST           
         else:
-            return "The dataset type is not supported."
+            return "The dataset type is not supported.",BAD_REQUEST
     else:
-        return "The model does not exist"
+        return "The model does not exist",BAD_REQUEST
 
 
 
@@ -335,10 +342,10 @@ def instance(iden, index):
 def instanceJSON(iden, index):
     if iden is None:
         flash('No id part')
-        return "The model id is missing."
+        return "The model id is missing.",BAD_REQUEST
     if index is None:
         flash('No index part')
-        return "The index is missing."
+        return "The index is missing.",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))):
             df = joblib.load(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.pkl"))
@@ -346,29 +353,29 @@ def instanceJSON(iden, index):
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
                     model_info=json.load(file)
             else:
-                return "The model information file does not exist."
+                return "The model information file does not exist.",BAD_REQUEST
             try:
                 target_names=model_info["attributes"]["target_names"]
             except:
-                return "Could not extract target columns from model information. Please update the model attributes file."
+                return "Could not extract target columns from model information. Please update the model attributes file.",BAD_REQUEST
             try:
                 df.drop(target_names, axis=1,inplace=True)
             except:
-                return "Could not drop target feature/s"
+                return "Could not drop target feature/s",BAD_REQUEST
             try:
                 instance=df.iloc[[index]]
             except:
-                return "Could not get the instance from the data."
+                return "Could not get the instance from the data.",BAD_REQUEST
 
             try:
-                return json.loads(instance.to_json(orient="table",index=False))["data"][0]
+                return json.loads(instance.to_json(orient="table",index=False))["data"][0],BAD_REQUEST
             except Exception as e:
                 print(e)
-                return "Could not convert the instance to JSON. Make sure the provided model information contains the target names in the expected format and matches the given dataset."
+                return "Could not convert the instance to JSON. Make sure the provided model information contains the target names in the expected format and matches the given dataset.",BAD_REQUEST
         else:
-            return "There is no training file for this model."
+            return "There is no training file for this model.",BAD_REQUEST
     else:
-        return "The model does not exist"
+        return "The model does not exist",BAD_REQUEST
 
 @app.route('/upload_model', methods=['POST', 'PUT'])
 def upload_model():
@@ -377,11 +384,11 @@ def upload_model():
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return 'No file part'
+            return 'No file part',BAD_REQUEST
         parameters = request.form.get('info')
         if parameters is None:
             flash('No info part')
-            return 'No info part'
+            return 'No info part',BAD_REQUEST
         parameters = json.loads(parameters)
         if "alias" not in parameters:
             flash('No alias part')
@@ -391,19 +398,19 @@ def upload_model():
             return("The backend was not specified.")
         if "model_task" not in parameters:
             flash('The model task was not specified.')
-            return 'The model task was not specified.'
+            return 'The model task was not specified.',BAD_REQUEST
         if "dataset_type" not in parameters:
             flash('The dataset type was not specified.')
-            return 'The dataset type was not specified.'
+            return 'The dataset type was not specified.',BAD_REQUEST
         if "attributes" not in parameters:
             flash('The attributes for this model were not specified.')
-            return 'The attributes for this model were not specified.'
+            return 'The attributes for this model were not specified.',BAD_REQUEST
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             flash('No selected file')   
-            return "No selected file"
+            return "No selected file",BAD_REQUEST
         if file and allowed_file(file.filename):
             userid = request.form.get('id')
             if userid is None or userid == '':
@@ -411,10 +418,15 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
+
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
+
                     #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         #return 'A model with the id: ' + userid + ' already exists'
+
                 else:
-                    return 'The provided id is invalid'
+                    return 'The provided id is invalid',BAD_REQUEST
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename, filename + "."+file.filename.rsplit('.', 1)[1].lower()))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'w') as f:
@@ -423,39 +435,39 @@ def upload_model():
                 modelid = filename
             )
         else:
-            return "The type of file passed is not supported"
+            return "The type of file passed is not supported",BAD_REQUEST
     #Update an existing model
     elif request.method == 'PUT':
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return 'No file part'
+            return 'No file part',BAD_REQUEST
         parameters = request.form.get('info')
         if parameters is None:
             flash('No info part')
-            return 'No info part'
+            return 'No info part',BAD_REQUEST
         parameters = json.loads(parameters)
         if "alias" not in parameters:
             flash('No alias part')
-            return("The alias of the model was not specified.")
+            return "The alias of the model was not specified.",BAD_REQUEST
         if "backend" not in parameters:
             flash('The model backend was not specified.')
             return("The backend was not specified.")
         if "model_task" not in parameters:
             flash('The model task was not specified.')
-            return 'The model task was not specified.'
+            return 'The model task was not specified.',BAD_REQUEST
         if "dataset_type" not in parameters:
             flash('The dataset type was not specified.')
-            return 'The dataset type was not specified.'
+            return 'The dataset type was not specified.',BAD_REQUEST
         if "attributes" not in parameters:
             flash('The attributes for this model were not specified.')
-            return 'The attributes for this model were not specified.'
+            return 'The attributes for this model were not specified.',BAD_REQUEST
         file = request.files['file']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             flash('No selected file')   
-            return "No selected file"
+            return "No selected file",BAD_REQUEST
         if file and allowed_file(file.filename):
             userid = request.form.get('id')
             if userid is None or userid == '':
@@ -463,8 +475,12 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
+
+                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
+
                 else:
-                    return 'The provided id is invalid'
+                    return 'The provided id is invalid',BAD_REQUEST
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename, filename + "."+file.filename.rsplit('.', 1)[1].lower()))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename ,filename + '.json'), 'w') as f:
@@ -473,7 +489,7 @@ def upload_model():
                 modelid = filename
             )
         else:
-            return "The type of file passed is not supported"
+            return "The type of file passed is not supported",BAD_REQUEST
         #if 'file' not in request.files:
         #    flash('No file part')
         #    return 'A file has not been provided'
@@ -520,7 +536,7 @@ def upload_model():
         #else:
         #    return "No model found with this id"
 
-    return "The only supported actions for this request are POST and PUT"
+    return "The only supported actions for this request are POST and PUT",BAD_REQUEST
 
 
 @app.route('/config', methods=['POST'])
@@ -556,15 +572,15 @@ def dataset():
      elif request.method == 'GET':
         iden = request.args.get('id')
      else:
-        return "The only supported actions for this request are POST and GET" 
+        return "The only supported actions for this request are POST and GET" ,BAD_REQUEST
      if iden is None:
         flash('No id part')
-        return "The model id is missing"
+        return "The model id is missing",BAD_REQUEST
      if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
          if request.method == 'POST' :
             if 'file' not in request.files:
                 flash('No file part')
-                return "A file is missing"
+                return "A file is missing",BAD_REQUEST
             file = request.files['file']
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
                 model_info=json.load(f)
@@ -589,12 +605,12 @@ def dataset():
                         if set(os.listdir(folder_path_temp+'/'+filename))!=output_classes:
                             shutil.rmtree(folder_path_temp)
                             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
-                            return "The names of the subfolders in the zipped file do not match the names of the output classes."
+                            return "The names of the subfolders in the zipped file do not match the names of the output classes.",BAD_REQUEST
                     elif(model_info["model_task"] in ontologyConstants.REGRESSION_URIS): 
                         if(not os.path.exists(os.path.join(folder_path_temp,filename, model_info["attributes"]["target_names"][0]+".csv"))):
                             shutil.rmtree(folder_path_temp)
                             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
-                            return "There is no target .csv file with the regression values."
+                            return "There is no target .csv file with the regression values.",BAD_REQUEST
                     folder_path=os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data")
                     if os.path.exists(folder_path):
                         shutil.rmtree(folder_path)
@@ -614,7 +630,7 @@ def dataset():
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip")):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
                 else:                               
-                    return "The training data must be a .zip or .csv file."
+                    return "The training data must be a .zip or .csv file.",BAD_REQUEST
                 if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png')):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden,iden + '_instance.png'))  
                 return "Dataset uploaded successfully."
@@ -627,11 +643,11 @@ def dataset():
                             joblib.dump(df,os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.pkl')) 
                         df.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'),index=False)
                     except Exception as e:
-                        return "Could not convert .csv file to Pandas Dataframe: " +str(e)
+                        return "Could not convert .csv file to Pandas Dataframe: " +str(e),BAD_REQUEST
                 else:
-                    return "The training data must be a .csv file."       
+                    return "The training data must be a .csv file."    ,BAD_REQUEST   
             else:
-                return "The dataset type is not supported"
+                return "The dataset type is not supported",BAD_REQUEST
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '_data.csv'))):
@@ -639,10 +655,10 @@ def dataset():
             elif (os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden+".zip"))):
                 return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '.zip', as_attachment=True)
             else:
-                return "No training file has been uploaded for this model."
+                return "No training file has been uploaded for this model.",BAD_REQUEST
          else:
-            return "The only supported actions for this request are POST and GET"
-     return "The model with the provided id doesn't exist"
+            return "The only supported actions for this request are POST and GET",BAD_REQUEST
+     return "The model with the provided id doesn't exist",BAD_REQUEST
 
 @app.route('/dataset_cockpit', methods=['POST', 'GET'])
 def dataset_cockpit():   
@@ -651,28 +667,28 @@ def dataset_cockpit():
      elif request.method == 'GET':
         iden = request.args.get('id')
      else:
-        return "The only supported actions for this request are POST and GET" 
+        return "The only supported actions for this request are POST and GET" ,BAD_REQUEST
      if iden is None:
         flash('No id part')
-        return "The model id is missing"
+        return "The model id is missing",BAD_REQUEST
      if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
          if request.method == 'POST' :
             if 'file' not in request.files:
                 flash('No file part')
-                return "A file is missing"
+                return "A file is missing",BAD_REQUEST
             file = request.files['file']
             try:
                 df=pd.read_csv(file)
             except:
-                return "Could not convert csv file."
+                return "Could not convert csv file.",BAD_REQUEST
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden + '_data.csv'))
             return "Dataset uploaded successfully"
          elif request.method == 'GET' :
             return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '_data.csv', as_attachment=True)
          else:
-            return "The only supported actions for this request are POST and GET"
+            return "The only supported actions for this request are POST and GET",BAD_REQUEST
 
-     return "The model with the provided id doesn't exist"
+     return "The model with the provided id doesn't exist",BAD_REQUEST
 
 
 @app.route('/delete', methods=['DELETE'])
@@ -680,28 +696,28 @@ def delete_model():
     iden = request.form.get('id')
     if iden is None:
         flash('No id part')
-        return "The model id is missing"
+        return "The model id is missing",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if request.method == 'DELETE':
             try:
                 shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'], iden))
             except:
-                return "Model folder could not be deleted."
+                return "Model folder could not be deleted.",BAD_REQUEST
             return "Model folder deleted successfully"
-        return "The only supported action for this request is DELETE."
-    return "The id does not exist."
+        return "The only supported action for this request is DELETE.",BAD_REQUEST
+    return "The id does not exist.",BAD_REQUEST
 
 @app.route('/info', methods=['GET'])
 def model_info():
     iden = request.args.get('id')
     if iden is None:
         flash('No params part')
-        return "The model id is missing"
+        return "The model id is missing",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if request.method == 'GET':
             return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), iden + '.json', as_attachment=True)
-        return "The only supported action for this request is GET"
-    return "The model does not exist"
+        return "The only supported action for this request is GET",BAD_REQUEST
+    return "The model does not exist",BAD_REQUEST
 
 @app.route('/query', methods=['POST', 'GET', 'DELETE'])
 def query_control():   
@@ -709,11 +725,11 @@ def query_control():
         iden = request.form.get('id')
         if iden is None:
             flash('No params part')
-            return "The model id is missing"
+            return "The model id is missing",BAD_REQUEST
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
             if 'query' not in request.form and 'image' not in request.files:
                 flash('No query or image')
-                return "The query and image field are missing"
+                return "The query and image field are missing",BAD_REQUEST
             filename = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 10))
             if 'image' in request.files:
                 image = request.files['image']
@@ -731,36 +747,36 @@ def query_control():
         query_id = request.args.get('query_id')
         if iden is None:
             flash('No params part')
-            return "The model id is missing"
+            return "The model id is missing",BAD_REQUEST
         if query_id is None:
             flash('No params part')
-            return "The query id is missing"
+            return "The query id is missing",BAD_REQUEST
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
             for root, dirs, files in os.walk(os.path.join(app.config['UPLOAD_FOLDER'], iden)):
                 for name in files:
                     if query_id in name:
                         return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], iden), name, as_attachment=True)
-            return "No query exists for with the provided id"
+            return "No query exists for with the provided id",BAD_REQUEST
 
      elif request.method == 'DELETE':
         iden = request.args.get('id')
         query_id = request.args.get('query_id')
         if iden is None:
             flash('No params part')
-            return "The model id is missing"
+            return "The model id is missing",BAD_REQUEST
         if query_id is None:
             flash('No params part')
-            return "The query id is missing"
+            return "The query id is missing",BAD_REQUEST
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
            for root, dirs, files in os.walk(os.path.join(app.config['UPLOAD_FOLDER'], iden)):
                 for name in files:
                     if query_id in name:
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], iden, name))
                         return "Query removed successfully"
-           return "No query exists with the provided id"
+           return "No query exists with the provided id",BAD_REQUEST
      else:
-        return "The only supported actions for this request are POST, GET and DELETE"
-     return "The model with the provided id doesn't exist"
+        return "The only supported actions for this request are POST, GET and DELETE",BAD_REQUEST
+     return "The model with the provided id doesn't exist",BAD_REQUEST
 
 @app.route('/model_list', methods=['GET'])
 def model_list():
@@ -795,13 +811,13 @@ def model_list():
 def alias(iden):
     if iden is None:
         flash('No id part')
-        return "The model id is missing."
+        return "The model id is missing.",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
             with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"), 'r') as file:
                 model_info=json.load(file)
         else:
-             return "There is no configuration file for this model."
+             return "There is no configuration file for this model.",BAD_REQUEST
         
         alias=iden
         if("alias" in model_info):
@@ -815,15 +831,15 @@ def validate_instance():
     params = request.json
     if params is None:
         flash('No params part')
-        return "The params are missing"
+        return "The params are missing",BAD_REQUEST
 
     #Check params
     if("id" not in params):
-        return "The model id was not specified in the params."
+        return "The model id was not specified in the params.",BAD_REQUEST
     if("instance" not in params):
-        return "The instance was not specified in the params."
+        return "The instance was not specified in the params.",BAD_REQUEST
     if("type" not in params):
-        return "The instance type was not specified in the params."
+        return "The instance type was not specified in the params.",BAD_REQUEST
 
     iden=params["id"]
     instance=params["instance"]
@@ -846,11 +862,11 @@ def predict():
 
     #Check params
     if("id" not in params):
-        return "The model id was not specified in the params."
+        return "The model id was not specified in the params.",BAD_REQUEST
     if("type" not in params):
-        return "The instance type was not specified in the params."
+        return "The instance type was not specified in the params.",BAD_REQUEST
     if("instance" not in params):
-        return "The instance was not specified in the params."
+        return "The instance was not specified in the params.",BAD_REQUEST
 
     iden=params["id"]
     inst_type=params["type"]
@@ -862,7 +878,7 @@ def predict():
         pass
         
     if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        return "The model id does not exists."
+        return "The model id does not exists.",BAD_REQUEST
     with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
         model_info=json.load(f)
     
@@ -872,7 +888,7 @@ def predict():
     elif model_info["backend"] in ontologyConstants.TENSORFLOW_URIS:
         url=url+TENSORFLOW_SERVER+"/"
     else:
-        return "The prediction resource currently does not support " +model_info["backend"].split("#")[-1]+ " models."
+        return "The prediction resource currently does not support " +model_info["backend"].split("#")[-1]+ " models.",NOT_IMPLEMENTED
 
     if model_info["dataset_type"] in ontologyConstants.IMAGE_URIS:
         url=url+"Image/"
@@ -883,14 +899,14 @@ def predict():
     elif model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS:
         url=url+"Timeseries/"
     else:
-        return "The prediction resource currently does not support " +model_info["dataset_type"].split("#")[-1]+ " dataset type."
+        return "The prediction resource currently does not support " +model_info["dataset_type"].split("#")[-1]+ " dataset type.",NOT_IMPLEMENTED
     url=url+"run"
 
     payload={"params":json.dumps({"id": iden,"type":inst_type,"instance":instance,"top_classes":top_classes})}
     response = requests.post(url,data=payload,verify=False)
    
     if not response.ok:
-      return "REQUEST FAILED:\nURL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason)
+      return "REQUEST FAILED:\nURL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason),BAD_REQUEST
     
     res=response.text
     try:
@@ -906,15 +922,15 @@ def predict_url():
     iden = request.form.get('id')
     if iden is None:
         flash('No id part')
-        return "The model id is missing"
+        return "The model id is missing",BAD_REQUEST
     url= request.form.get('url')
     if url is None:
         flash('No url part')
-        return "The url for the prediction function is missing"
+        return "The url for the prediction function is missing",BAD_REQUEST
     if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
-        return "The id does not exists."
+        return "The id does not exists.",BAD_REQUEST
     if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json"))):
-        return "There is no configuration file for the id given."
+        return "There is no configuration file for the id given.",BAD_REQUEST
     with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".json")) as f:
         model_info=json.load(f)
 
@@ -925,7 +941,7 @@ def predict_url():
         if instance==None:
             if 'image' not in request.files:
                 flash('No image part')
-                return "No image was provided"
+                return "No image was provided",BAD_REQUEST
             image = request.files['image']
             im=Image.open(image)
             instance=np.asarray(im)
@@ -939,14 +955,14 @@ def predict_url():
                 try:
                     instance=((instance-min_raw) / (max_raw - min_raw)) * (nmax - nmin) + nmin
                 except:
-                    return "Could not normalize instance."
+                    return "Could not normalize instance.",BAD_REQUEST
             elif("mean_raw" in model_info["attributes"]["features"]["image"] and "std_raw" in model_info["attributes"]["features"]["image"]):
                 mean=np.array(model_info["attributes"]["features"]["image"]["mean_raw"])
                 std=np.array(model_info["attributes"]["features"]["image"]["std_raw"])
                 try:
                     instance=((instance-mean)/std).astype(np.uint8)
                 except:
-                    return "Could not normalize instance using mean and std dev."
+                    return "Could not normalize instance using mean and std dev.",BAD_REQUEST
         else:
             #From normalised array (can be flattened or have the expected shape)
             instance=np.asarray(json.loads(instance))
@@ -955,7 +971,7 @@ def predict_url():
                 instance = instance.reshape(tuple(model_info["attributes"]["features"]["image"]["shape"]))
             except Exception as e:
                 print(e)
-                return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"]))
+                return "Cannot reshape image of shape " + str(instance.shape) + " into shape " + str(tuple(model_info["attributes"]["features"]["image"]["shape"])),BAD_REQUEST
         instance=instance.reshape((1,)+instance.shape)
         def predict(X):
             try:
@@ -963,7 +979,7 @@ def predict_url():
                 return ret
             except Exception as e:
                 print(e)
-                return "Call to prediction function failed."      
+                return "HTTP Request to prediction function failed.",BAD_REQUEST
         try:
             predictions = predict(instance)[0].tolist()
             preds_dict={}
@@ -972,7 +988,7 @@ def predict_url():
                     top_classes=min(int(top_classes),len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"]))
                 except Exception as e:
                     print(e)
-                    return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                    return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'.",BAD_REQUEST
             else:
                 top_classes=len(model_info["attributes"]["features"][model_info["attributes"]["target_names"][0]]["values_raw"])
             for i in range(top_classes):
@@ -984,9 +1000,9 @@ def predict_url():
         except Exception as e:
             print(e)
             print(instance.shape)
-            return "Something went wrong"
+            return "Something went wrong",INTERNAL_SERVER_ERROR
     else:
-        return "Datatype " + model_info["dataset_type"].split('#')[-1] + " is not yet supported for URL prediction"
+        return "Datatype " + model_info["dataset_type"].split('#')[-1] + " is not yet supported for URL prediction",NOT_IMPLEMENTED
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=4000)
