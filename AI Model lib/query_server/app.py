@@ -418,13 +418,13 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
-<<<<<<< HEAD
+
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
-=======
+
                     #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         #return 'A model with the id: ' + userid + ' already exists'
->>>>>>> e84a498fbd3278c4ab7bacab2c88134340cb3f04
+
                 else:
                     return 'The provided id is invalid',BAD_REQUEST
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
@@ -475,11 +475,10 @@ def upload_model():
             else:
                 if allowed_id(userid):
                     filename = userid
-<<<<<<< HEAD
+
                     if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
-=======
->>>>>>> e84a498fbd3278c4ab7bacab2c88134340cb3f04
+
                 else:
                     return 'The provided id is invalid',BAD_REQUEST
             pathlib.Path(app.config['UPLOAD_FOLDER'], filename).mkdir(exist_ok=True)
