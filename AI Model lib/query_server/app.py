@@ -42,7 +42,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 
 SKLEARN_SERVER="http://models-sk:5000"
-TENSORFLOW_SERVER="http://localhost:5000"
+TENSORFLOW_SERVER="http://models-tf:5000"
 
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
