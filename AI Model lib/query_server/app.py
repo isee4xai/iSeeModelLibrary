@@ -42,7 +42,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 
 
 SKLEARN_SERVER="http://models-sk:5000"
-TENSORFLOW_SERVER="http://models-tf:5000"
+TENSORFLOW_SERVER="http://localhost:5000"
 
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
@@ -801,10 +801,13 @@ def model_list():
 
     for iden in os.listdir(app.config['UPLOAD_FOLDER']):
         if(iden[0]!='.'):
-            f = open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
-            params = json.load(f)
-            if("isPublic" in params and params["isPublic"]):
-                model_list.update({iden : params['alias']})
+            try:
+                f = open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + '.json'))
+                params = json.load(f)
+                if("isPublic" in params and params["isPublic"]):
+                    model_list.update({iden : params['alias']})
+            except Exception as e:
+                print("There was a problema loading the paramters for "+iden+":" + print(str()))
     return jsonify(model_list)
 
 @app.route('/alias/<string:iden>', methods=['GET'])
