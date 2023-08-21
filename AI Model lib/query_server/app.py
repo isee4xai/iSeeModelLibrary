@@ -807,7 +807,7 @@ def model_list():
                 if("isPublic" in params and params["isPublic"]):
                     model_list.update({iden : params['alias']})
             except Exception as e:
-                print("There was a problem loading the paramters for "+iden+":" + print(str(e)))
+                print("There was a problem loading the paramters for "+iden+":" + str(e))
     return jsonify(model_list)
 
 @app.route('/alias/<string:iden>', methods=['GET'])
