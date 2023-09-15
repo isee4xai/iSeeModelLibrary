@@ -587,7 +587,7 @@ def dataset():
             #For Images
             if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
                 #zip file with images
-                if(file.content_type=="application/zip"):
+                if(file.content_type=="application/zip" or file.content_type=="application/zip-compressed" or file.content_type=="application/x-zip-compressed"):
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
                     folder_path_temp=os.path.join(app.config['UPLOAD_FOLDER'], iden, "temp")
                     os.makedirs(folder_path_temp,exist_ok=True)
