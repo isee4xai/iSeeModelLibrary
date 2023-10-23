@@ -8,10 +8,10 @@ CLASSIFICATION_URIS=['http://www.w3id.org/iSeeOnto/aimodel#Classification',
 REGRESSION_URIS=['http://www.w3id.org/iSeeOnto/aimodel#Regression']
 
 # DATASET_TYPE
-IMAGE_URIS=['http://www.w3id.org/iSeeOnto/explainer#image']
-TABULAR_URIS=['http://www.w3id.org/iSeeOnto/explainer#multivariate','http://www.w3id.org/iSeeOnto/explainer#univariate']
+IMAGE_URIS=['http://www.w3id.org/iSeeOnto/explainer#image','http://www.w3id.org/iSeeOnto/explainer#BW_Image']
+TABULAR_URIS=['http://www.w3id.org/iSeeOnto/explainer#Multivariate_tabular','http://www.w3id.org/iSeeOnto/explainer#Univariate_tabular']
 TEXT_URIS=['http://www.w3id.org/iSeeOnto/explainer#text']
-TIMESERIES_URIS=['http://www.w3id.org/iSeeOnto/explainer#time_series']
+TIMESERIES_URIS=['http://www.w3id.org/iSeeOnto/explainer#Multivariate_time_series','http://www.w3id.org/iSeeOnto/explainer#Univariate_time_series']
 
 # IMPLEMENTATION_FRAMEWORK (backend)
 ANYFRAMEWORK_URIS=['http://www.w3id.org/iSeeOnto/explainer#Any']
