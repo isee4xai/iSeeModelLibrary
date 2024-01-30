@@ -45,6 +45,7 @@ SKLEARN_SERVER="http://models-sk:5000"
 TENSORFLOW_SERVER="http://models-tf:5000"
 
 
+
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 #We check the number of arguments passed to through the console
 
@@ -909,6 +910,7 @@ def predict():
     response = requests.post(url,data=payload,verify=False)
    
     if not response.ok:
+      print(response.text)
       return "REQUEST FAILED:\nURL Request: " + url + "\nURL Response: " + str(response.url) +"\ndata:" + str(payload)+"\nheaders: " +str(response.request.headers) +"\nReason: " + str(response.status_code) + " " + str(response.reason),BAD_REQUEST
     
     res=response.text
