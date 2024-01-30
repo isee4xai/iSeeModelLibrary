@@ -420,8 +420,8 @@ def upload_model():
                 if allowed_id(userid):
                     filename = userid
 
-                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
-                        return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
+                    #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                       # return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
 
                     #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
                         #return 'A model with the id: ' + userid + ' already exists'
@@ -477,8 +477,8 @@ def upload_model():
                 if allowed_id(userid):
                     filename = userid
 
-                    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
-                        return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
+                    #if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], userid)):
+                        #return 'A model with the id: ' + userid + ' already exists',BAD_REQUEST
 
                 else:
                     return 'The provided id is invalid',BAD_REQUEST
@@ -588,7 +588,7 @@ def dataset():
             #For Images
             if(model_info["dataset_type"] in ontologyConstants.IMAGE_URIS):
                 #zip file with images
-                if(file.content_type=="application/zip"):
+                if(file.content_type=="application/zip" or file.content_type=="application/zip-compressed" or file.content_type=="application/x-zip-compressed"):
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".zip"))
                     folder_path_temp=os.path.join(app.config['UPLOAD_FOLDER'], iden, "temp")
                     os.makedirs(folder_path_temp,exist_ok=True)
@@ -808,7 +808,7 @@ def model_list():
                 if("isPublic" in params and params["isPublic"]):
                     model_list.update({iden : params['alias']})
             except Exception as e:
-                print("There was a problema loading the paramters for "+iden+":" + print(str()))
+                print("There was a problem loading the paramters for "+iden+":" + str(e))
     return jsonify(model_list)
 
 @app.route('/alias/<string:iden>', methods=['GET'])
