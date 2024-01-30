@@ -1,5 +1,7 @@
+from http.client import BAD_REQUEST, INTERNAL_SERVER_ERROR
 import sys
 import pathlib
+from xmlrpc.client import INTERNAL_ERROR
 from flask import Flask, send_from_directory,request, json, jsonify
 from flask_restful import Api
 import tensorflow as tf
@@ -206,21 +208,21 @@ def run_img_model():
     params_str = request.form.get('params')
     if params_str is None:
         flash('No params part')
-        return "The params are missing"
+        return "The params are missing",BAD_REQUEST
     params={}
     try:
         params = json.loads(params_str)
     except Exception as e:
-        return "Could not convert params to JSON: " + str(e)
+        return "Could not convert params to JSON: " + str(e),INTERNAL_SERVER_ERROR
 
     if("id" not in params):
-        return "The model id was not specified in the params."
+        return "The model id was not specified in the params.",BAD_REQUEST
     if("type" not in params):
-        return "The instance type was not specified in the params."
+        return "The instance type was not specified in the params.",BAD_REQUEST
     if("instance" not in params):
-        return "The instance was not specified in the params."
+        return "The instance was not specified in the params.",BAD_REQUEST
     if("top_classes" not in params):
-        return "The top_classes parameter was not specified."
+        return "The top_classes parameter was not specified.",BAD_REQUEST
     iden=params["id"]
     inst_type=params["type"]
     if(inst_type=="dict"):
@@ -241,19 +243,19 @@ def run_img_model():
             try:
                 instance=base64_to_vector(instance)
             except Exception as e:  
-                return "Could not convert base64 Image to vector: " + str(e)
+                return "Could not convert base64 Image to vector: " + str(e),INTERNAL_SERVER_ERROR
 
             #normalizing
             try:
                 instance=normalize_img(instance,model_info)
             except Exception as e:
-                 return  "Could not normalize instance: " + str(e)
+                 return  "Could not normalize instance: " + str(e),INTERNAL_SERVER_ERROR
 
             try:
                 predictions = model.predict(instance)[0].tolist()
                 print(predictions)
             except Exception as e:
-                return "Could not execute predict function:" + str(e)
+                return "Could not execute predict function:" + str(e),INTERNAL_SERVER_ERROR
             try:
                 ret={}
                 print(predictions)
@@ -270,7 +272,7 @@ def run_img_model():
                                 top_classes=min(int(top_classes),np.array(predictions).shape[-1])
                             except Exception as e:
                                 print(e)
-                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'.",INTERNAL_SERVER_ERROR
                         else:
                             top_classes=np.array(predictions).shape[-1]
 
@@ -300,15 +302,15 @@ def run_img_model():
                             ret[target_name]=predictions
                         i=i+1
                 else:
-                    return "AI model task not supported."
+                    return "AI model task not supported.",BAD_REQUEST
 
                 return jsonify(ret)
             except Exception as e:
                 print(e)
                 print(instance.shape)
-                return "Something went wrong"
-        return "The only supported action for this request is POST"
-    return "The model does not exist"
+                return "Something went wrong",INTERNAL_SERVER_ERROR
+        return "The only supported action for this request is POST",BAD_REQUEST
+    return "The model does not exist",BAD_REQUEST
 
 
 @app.route('/Tabular/run', methods=['POST'])
@@ -317,21 +319,21 @@ def run_tab_model():
     params_str = request.form.get('params')
     if params_str is None:
         flash('No params part')
-        return "The params are missing"
+        return "The params are missing",BAD_REQUEST
     params={}
     try:
         params = json.loads(params_str)
     except Exception as e:
-        return "Could not convert params to JSON: " + str(e)
+        return "Could not convert params to JSON: " + str(e),BAD_REQUEST
 
     if("id" not in params):
-        return "The model id was not specified in the params."
+        return "The model id was not specified in the params.",BAD_REQUEST
     if("type" not in params):
-        return "The instance type was not specified in the params."
+        return "The instance type was not specified in the params.",BAD_REQUEST
     if("instance" not in params):
-        return "The instance was not specified in the params."
+        return "The instance was not specified in the params.",BAD_REQUEST
     if("top_classes" not in params):
-        return "The top_classes parameter was not specified."
+        return "The top_classes parameter was not specified.",BAD_REQUEST
     iden=params["id"]
     inst_type=params["type"]
     if(inst_type=="dict"):
@@ -349,12 +351,12 @@ def run_tab_model():
                 model_info=json.load(f)
             if instance is None:
                 flash('No instance part')
-                return "No instance were provided"
+                return "No instance were provided",BAD_REQUEST
 
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                     dataframe=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=0)
             else:
-                return "No training data was uploaded for this model."
+                return "No training data was uploaded for this model.",BAD_REQUEST
 
             target_names=model_info["attributes"]["target_names"]
             feature_names=list(dataframe.columns)
@@ -370,7 +372,7 @@ def run_tab_model():
                 tensor=tf.convert_to_tensor(norm_instance)
                 predictions = model.predict(tensor)[0].tolist()
             except Exception as e:
-                return "Could not execute predict function:" + str(e)
+                return "Could not execute predict function:" + str(e),INTERNAL_SERVER_ERROR
             try:
                 ret={}
                 print(predictions)
@@ -387,7 +389,7 @@ def run_tab_model():
                                 top_classes=min(int(top_classes),np.array(predictions).shape[-1])
                             except Exception as e:
                                 print(e)
-                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'.",INTERNAL_SERVER_ERROR
                         else:
                             top_classes=np.array(predictions).shape[-1]
 
@@ -417,28 +419,28 @@ def run_tab_model():
                             ret[target_name]=predictions
                         i=i+1
                 else:
-                    return "AI model task not supported."
+                    return "AI model task not supported.",BAD_REQUEST
 
                 return jsonify(ret)
             except Exception as e:
                 print(e)
-                return "Something went wrong: " + str(e)
-        return "The only supported action for this request is POST"
-    return "The model does not exist"
+                return "Something went wrong: " + str(e),INTERNAL_SERVER_ERROR
+        return "The only supported action for this request is POST",BAD_REQUEST
+    return "The model does not exist",BAD_REQUEST
 
 @app.route('/Text/run', methods=['POST'])
 def run_text_model():
     iden = request.form.get('id')
     if iden is None:
         flash('No params part')
-        return "The model id is missing"
+        return "The model id is missing",BAD_REQUEST
     if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden))):
         data = request.form.get('instance')
         if request.method == 'POST':
             model = tf.keras.models.load_model(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + ".h5"), compile=False)
             if data is None:
                 flash('No instances part')
-                return "No instances were provided"
+                return "No instances were provided",BAD_REQUEST
             X=data
             try:
                 data=json.loads(data)
@@ -452,9 +454,9 @@ def run_text_model():
                 return jsonify({'predictions' : predictions.tolist()})
             except Exception as e:
                 print(e)
-                return "Something went wrong"
-        return "The only supported action for this request is POST"
-    return "The model does not exist"
+                return "Something went wrong",BAD_REQUEST
+        return "The only supported action for this request is POST",BAD_REQUEST
+    return "The model does not exist",BAD_REQUEST
 
 @app.route('/Timeseries/run', methods=['POST'])
 def run_time_model():
@@ -462,21 +464,21 @@ def run_time_model():
     params_str = request.form.get('params')
     if params_str is None:
         flash('No params part')
-        return "The params are missing"
+        return "The params are missing",BAD_REQUEST
     params={}
     try:
         params = json.loads(params_str)
     except Exception as e:
-        return "Could not convert params to JSON: " + str(e)
+        return "Could not convert params to JSON: " + str(e),BAD_REQUEST
 
     if("id" not in params):
-        return "The model id was not specified in the params."
+        return "The model id was not specified in the params.",BAD_REQUEST
     if("type" not in params):
-        return "The instance type was not specified in the params."
+        return "The instance type was not specified in the params.",BAD_REQUEST
     if("instance" not in params):
-        return "The instance was not specified in the params."
+        return "The instance was not specified in the params.",BAD_REQUEST
     if("top_classes" not in params):
-        return "The top_classes parameter was not specified."
+        return "The top_classes parameter was not specified.",BAD_REQUEST
 
     iden=params["id"]
     inst_type=params["type"]
@@ -493,12 +495,12 @@ def run_time_model():
                 model_info=json.load(f)
             if instance is None:
                 flash('No instance part')
-                return "No instance were provided"
+                return "No instance were provided",BAD_REQUEST
 
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                     dataframe=pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"),header=0)
             else:
-                return "No training data was uploaded for this model."
+                return "No training data was uploaded for this model.",BAD_REQUEST
 
             target_names=model_info["attributes"]["target_names"]
             features=model_info["attributes"]["features"]
@@ -524,7 +526,7 @@ def run_time_model():
                      tensor=tf.convert_to_tensor(norm_instance)
                      predictions = np.squeeze(model.predict(tensor)).tolist()
                  except Exception as e:
-                    return "Could not execute predict function:" + str(e) 
+                    return "Could not execute predict function:" + str(e),INTERNAL_SERVER_ERROR
 
             try:
                 ret={}
@@ -542,7 +544,7 @@ def run_time_model():
                                 top_classes=min(int(top_classes),np.array(predictions).shape[-1])
                             except Exception as e:
                                 print(e)
-                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'."
+                                return "Could not convert top_classes argument to integer. If you want predictions for all the classes set top_classes to 'all'.",BAD_REQUEST
                         else:
                             top_classes=np.array(predictions).shape[-1]
 
@@ -572,14 +574,14 @@ def run_time_model():
                             ret[target_name]=predictions
                         i=i+1
                 else:
-                    return "AI model task not supported."
+                    return "AI model task not supported.",BAD_REQUEST
 
                 return jsonify(ret)
             except Exception as e:
                 print(e)
-                return "Something went wrong: " + str(e)
-        return "The only supported action for this request is POST"
-    return "The model does not exist"
+                return "Something went wrong: " + str(e),INTERNAL_SERVER_ERROR
+        return "The only supported action for this request is POST",BAD_REQUEST
+    return "The model does not exist",BAD_REQUEST
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
