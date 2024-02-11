@@ -8,4 +8,3 @@ tensorflow==2.8.0
 Werkzeug==2.0.3
 protobuf==3.20.*
 markdown==3.3.4
-git+https://github.com/isee4xai/NLPClassifierExplainer
