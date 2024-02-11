@@ -522,20 +522,31 @@ def run_time_model():
                     time_feature=feature
                     break
 
-            df_instance=pd.DataFrame(instance,columns=feature_names).drop([time_feature], axis=1, errors='ignore')
-            df_instance=df_instance[feature_names]
+            if (model_info["dataset_type"]==ontologyConstants.TIMESERIES_URIS[0]): #multivariate
 
-            try:
-                norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
-                predictions = np.squeeze(model.predict(norm_instance)).tolist()
-            except Exception as e:
-                 print("Could not execute predict function including target columns in instance:" + str(e))
-                 try:
-                     df_instance.drop(target_names,axis=1,inplace=True)
-                     norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
-                     predictions = np.squeeze(model.predict(norm_instance)).tolist()
-                 except Exception as e:
-                    return "Could not execute predict function:" + str(e),INTERNAL_SERVER_ERROR
+                df_instance=pd.DataFrame(instance,columns=feature_names).drop([time_feature], axis=1, errors='ignore')
+                df_instance=df_instance[feature_names]
+
+                try:
+                    norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
+                    predictions = np.squeeze(model.predict(norm_instance)).tolist()
+                except Exception as e:
+                     print("Could not execute predict function including target columns in instance:" + str(e))
+                     try:
+                         df_instance.drop(target_names,axis=1,inplace=True)
+                         norm_instance=np.expand_dims(normalize_dataframe(df_instance, model_info).to_numpy(),axis=0)
+                         predictions = np.squeeze(model.predict(norm_instance)).tolist()
+                     except Exception as e:
+                        return "Could not execute predict function:" + str(e),INTERNAL_SERVER_ERROR
+            else: #univariate
+                norm_instance=np.expand_dims(np.array(instance),axis=0)
+
+                                 # we try to launch predict_proba
+                if callable(getattr(model, "predict_proba", None)):
+                    try:
+                        predictions=np.squeeze(model.predict_proba(norm_instance)).tolist()     
+                    except Exception as e:
+                        predictions=np.squeeze(model.predict(norm_instance)).tolist()
 
             try:
                 ret={}

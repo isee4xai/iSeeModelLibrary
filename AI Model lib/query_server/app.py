@@ -131,7 +131,10 @@ def num_instances(iden):
         elif (model_info["dataset_type"] in ontologyConstants.TIMESERIES_URIS):
             if(os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv"))): 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], iden, iden + "_data.csv")) as f:
-                    return {"count":(sum(1 for line in f)-1)-(model_info["attributes"]["window_size"]-1)}
+                    window_size=1
+                    if "window_size" in model_info["attributes"]:
+                        window_size=model_info["attributes"]["window_size"]
+                    return {"count":int((sum(1 for line in f)-1)/window_size)}
             else:
                 return "No training data was uploaded for this model.",BAD_REQUEST
     else:
@@ -320,16 +323,25 @@ def instance(iden, index):
                 #            break                    
                 #except Exception as e:
                 #    return "Could not drop time feature: " + str(e)
+                window_size=1
+                if "window_size" in model_info["attributes"]:
+                    window_size=model_info["attributes"]["window_size"]
                 try:
-                    instance=df[index:index+model_info["attributes"]["window_size"]]
+                    instance=df[index:index+window_size]
                 except Exception as e:
                     return "The index is invalid: " + str(e),BAD_REQUEST
-                try:
-                    denorm_instance=denormalize_dataframe(instance,model_info)
-                except Exception as e:
-                    return "The instance could not be denormalized: " + str(e),BAD_REQUEST
-                instance=instance.to_dict("records")
+                if model_info["dataset_type"]==ontologyConstants.TIMESERIES_URIS[0]:
+                    try:
+                        denorm_instance=denormalize_dataframe(instance,model_info)
+                    except Exception as e:
+                        return "The instance could not be denormalized: " + str(e),BAD_REQUEST
+                    instance=instance.to_dict("records")
+                else:#univariate
+                    instance=instance.drop(columns=model_info["attributes"]["target_names"])
+                    instance=instance.iloc[[0]].values.tolist()[0]
+                    
                 return {"type":"array","instance":instance,"size":len(instance)}
+
             else:
                 return "The training dataset was not uploaded." ,BAD_REQUEST           
         else:
