@@ -57,8 +57,8 @@ jobs:
           file: './AI Model lib/sk/Dockerfile'
           context: './AI Model lib/sk'
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta_sk.outputs.tags }}
+          labels: ${{ steps.meta_sk.outputs.labels }}
 
 
       - name: Extract metadata (tags, labels) for Docker -TF models
@@ -73,6 +73,6 @@ jobs:
           file: './AI Model lib/tf/Dockerfile'
           context: './AI Model lib/tf'
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta_tf.outputs.tags }}
+          labels: ${{ steps.meta_tf.outputs.labels }}
   
